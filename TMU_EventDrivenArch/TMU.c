@@ -96,9 +96,7 @@ ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity
 {uint8_t ret=E_OK;
 	/*
 	this enables interrupt and start the timer with the required configurations
-
 	and provide the request to request buffer (ptr_to_func,delay) Dispatcher with the call back function needed(consumer)
-
 	and make sure this function must not be excuted unless Init happened and De_init not happened
 	*/
 	if(u8_Is_Intialized == 1)
@@ -155,7 +153,7 @@ ERROR_STATUS TMU_Stop_Timer(uint8_t u8_function_index)
 
 void Tmu_Fun(void){DIO_Toggle(GPIOC,BIT4);}
 void Tmu_For(void){DIO_Toggle(GPIOB,BIT4);}
-void Tmu_excute(void){PORTA_DATA ^=0xff;}
+void Tmu_excute(void){DIO_Toggle(GPIOB,BIT4);}
 
 
 void timer_interrupt(void){

@@ -57,7 +57,7 @@ typedef struct DIO_Cfg_s
 }DIO_Cfg_s;
 
 
-extern DIO_Cfg_s Dio_configuration;
+extern DIO_Cfg_s Dio_configurationB;
 
 #define E_OK 0
 #define E_NOK 1
