@@ -15,7 +15,7 @@
 //#include "uart.h"
 //
 
-extern volatile uint8_t u8Excution_to_be_done;
+extern volatile uint16_t u16Excution_to_be_done;
 extern void timer_interrupt(void);
 typedef void (*ptr_to_Fun)(void);
 extern ptr_to_Fun INT0_external_interrupt;
