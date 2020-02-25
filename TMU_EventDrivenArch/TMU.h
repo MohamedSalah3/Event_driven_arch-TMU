@@ -12,12 +12,49 @@
 #include "Timer.h"
 #include "DIO.h"
 typedef void (*ptr_to_Fun) (void);
-uint8_t TMU_Init (const TMU_ConfigType * ConfigPtr );
-ERROR_STATUS TMU_Stop_Timer(uint8_t u8_function_index);
+
+
+ERROR_STATUS TMU_Init (const TMU_ConfigType * ConfigPtr );
+/*************************************************************************/
+/*			Intializ the required timer identified by the user			 */
+/************************************************************************/
+/*************************************************************************/
+/*Intializ the required timer identified by the user using required prescaler  */
+/************************************************************************/
+
+/****************************************************************************/
+/*      Deal with Errors  to be returned									*/
+/***************************************************************************/
+
+
+ERROR_STATUS TMU_DeInit( void );
+
+/************************************************************************************************/
+/*1    	De_intialize the timer																	*/
+/*2		make sure this function is not called unless timer was intialized before by  TMU_INIT	*/
+/************************************************************************************************/
+
+void TMU_Stop_Timer(uint8_t u8_function_index);
+/***************************************************/
+/*     Set the stop flag							*/
+/***************************************************/
+	
 ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity,uint8_t u8_function_index,uint16_t u16_Time_delay);
+/*
+	this enables interrupt and start the timer with the required configurations
+	and provide the request to request buffer (ptr_to_func,delay) Dispatcher with the call back function needed(consumer)
+	and make sure this function must not be excuted unless Init happened and De_init not happened
+	*/
 
+/*********************************************************************/
+/* The manger*********************************************************/
+/* Access the Request buffer and take all values created by start fun*/
+/*Take a decision upon the interrupt flag*****************************/
+/*********************************************************************/
 ERROR_STATUS TMU_Main_Function(void);
-
+/***************************************************************/
+/*CONSUMERS(Toggle leds)*/
+/***************************************************************/
 void Tmu_Fun(void);
 void Tmu_For(void);
 void Tmu_excute(void);

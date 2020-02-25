@@ -3,29 +3,29 @@ TMU_EventDrivenArch.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000f2e  00000000  00000000  00000094  2**1
+  0 .text         00000f40  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000001c  00800060  00000f2e  00000fc2  2**0
+  1 .data         00000022  00800060  00000f40  00000fd4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          0000003d  0080007c  0080007c  00000fde  2**0
+  2 .bss          0000003d  00800082  00800082  00000ff6  2**0
                   ALLOC
-  3 .stab         000006cc  00000000  00000000  00000fe0  2**2
+  3 .stab         000006cc  00000000  00000000  00000ff8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000085  00000000  00000000  000016ac  2**0
+  4 .stabstr      00000085  00000000  00000000  000016c4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 00000100  00000000  00000000  00001738  2**3
+  5 .debug_aranges 00000100  00000000  00000000  00001750  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000151e  00000000  00000000  00001838  2**0
+  6 .debug_info   0000152e  00000000  00000000  00001850  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000602  00000000  00000000  00002d56  2**0
+  7 .debug_abbrev 00000619  00000000  00000000  00002d7e  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000753  00000000  00000000  00003358  2**0
+  8 .debug_line   00000757  00000000  00000000  00003397  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000008ec  00000000  00000000  00003aac  2**2
+  9 .debug_frame  000008ec  00000000  00000000  00003af0  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006e8  00000000  00000000  00004398  2**0
+ 10 .debug_str    00000704  00000000  00000000  000043dc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000174b  00000000  00000000  00004a80  2**0
+ 11 .debug_loc    00001776  00000000  00000000  00004ae0  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,18 +65,18 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ee e2       	ldi	r30, 0x2E	; 46
+  66:	e0 e4       	ldi	r30, 0x40	; 64
   68:	ff e0       	ldi	r31, 0x0F	; 15
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	ac 37       	cpi	r26, 0x7C	; 124
+  70:	a2 38       	cpi	r26, 0x82	; 130
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
   76:	10 e0       	ldi	r17, 0x00	; 0
-  78:	ac e7       	ldi	r26, 0x7C	; 124
+  78:	a2 e8       	ldi	r26, 0x82	; 130
   7a:	b0 e0       	ldi	r27, 0x00	; 0
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -84,11 +84,11 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a9 3b       	cpi	r26, 0xB9	; 185
+  80:	af 3b       	cpi	r26, 0xBF	; 191
   82:	b1 07       	cpc	r27, r17
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 5d 04 	call	0x8ba	; 0x8ba <main>
-  8a:	0c 94 95 07 	jmp	0xf2a	; 0xf2a <_exit>
+  8a:	0c 94 9e 07 	jmp	0xf3c	; 0xf3c <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -785,8 +785,8 @@ void __vector_1(void)
  2c0:	ef 93       	push	r30
  2c2:	ff 93       	push	r31
   INT0_external_interrupt();
- 2c4:	e0 91 97 00 	lds	r30, 0x0097
- 2c8:	f0 91 98 00 	lds	r31, 0x0098
+ 2c4:	e0 91 9d 00 	lds	r30, 0x009D
+ 2c8:	f0 91 9e 00 	lds	r31, 0x009E
  2cc:	09 95       	icall
 }
  2ce:	ff 91       	pop	r31
@@ -831,8 +831,8 @@ void __vector_2(void)
  30e:	ef 93       	push	r30
  310:	ff 93       	push	r31
   INT1_external_interrupt();
- 312:	e0 91 9f 00 	lds	r30, 0x009F
- 316:	f0 91 a0 00 	lds	r31, 0x00A0
+ 312:	e0 91 a5 00 	lds	r30, 0x00A5
+ 316:	f0 91 a6 00 	lds	r31, 0x00A6
  31a:	09 95       	icall
 }
  31c:	ff 91       	pop	r31
@@ -877,8 +877,8 @@ void __vector_3(void)
  35c:	ef 93       	push	r30
  35e:	ff 93       	push	r31
   INT2_external_interrupt();
- 360:	e0 91 8f 00 	lds	r30, 0x008F
- 364:	f0 91 90 00 	lds	r31, 0x0090
+ 360:	e0 91 95 00 	lds	r30, 0x0095
+ 364:	f0 91 96 00 	lds	r31, 0x0096
  368:	09 95       	icall
 }
  36a:	ff 91       	pop	r31
@@ -923,8 +923,8 @@ void __vector_4(void)
  3aa:	ef 93       	push	r30
  3ac:	ff 93       	push	r31
 TIMER2COMP();
- 3ae:	e0 91 a5 00 	lds	r30, 0x00A5
- 3b2:	f0 91 a6 00 	lds	r31, 0x00A6
+ 3ae:	e0 91 ab 00 	lds	r30, 0x00AB
+ 3b2:	f0 91 ac 00 	lds	r31, 0x00AC
  3b6:	09 95       	icall
 }
  3b8:	ff 91       	pop	r31
@@ -969,8 +969,8 @@ void __vector_5(void)
  3f8:	ef 93       	push	r30
  3fa:	ff 93       	push	r31
   TIMER2OVF();
- 3fc:	e0 91 85 00 	lds	r30, 0x0085
- 400:	f0 91 86 00 	lds	r31, 0x0086
+ 3fc:	e0 91 8b 00 	lds	r30, 0x008B
+ 400:	f0 91 8c 00 	lds	r31, 0x008C
  404:	09 95       	icall
 }
  406:	ff 91       	pop	r31
@@ -1014,8 +1014,8 @@ void __vector_6(void)
  446:	ef 93       	push	r30
  448:	ff 93       	push	r31
   TIMER1CAPT();
- 44a:	e0 91 a1 00 	lds	r30, 0x00A1
- 44e:	f0 91 a2 00 	lds	r31, 0x00A2
+ 44a:	e0 91 a7 00 	lds	r30, 0x00A7
+ 44e:	f0 91 a8 00 	lds	r31, 0x00A8
  452:	09 95       	icall
 }
  454:	ff 91       	pop	r31
@@ -1059,8 +1059,8 @@ void __vector_7(void)
  494:	ef 93       	push	r30
  496:	ff 93       	push	r31
 TIMER1COMPA();
- 498:	e0 91 8b 00 	lds	r30, 0x008B
- 49c:	f0 91 8c 00 	lds	r31, 0x008C
+ 498:	e0 91 91 00 	lds	r30, 0x0091
+ 49c:	f0 91 92 00 	lds	r31, 0x0092
  4a0:	09 95       	icall
 }
  4a2:	ff 91       	pop	r31
@@ -1104,8 +1104,8 @@ void __vector_8(void)
  4e2:	ef 93       	push	r30
  4e4:	ff 93       	push	r31
   TIMER1COMPB();
- 4e6:	e0 91 89 00 	lds	r30, 0x0089
- 4ea:	f0 91 8a 00 	lds	r31, 0x008A
+ 4e6:	e0 91 8f 00 	lds	r30, 0x008F
+ 4ea:	f0 91 90 00 	lds	r31, 0x0090
  4ee:	09 95       	icall
 }
  4f0:	ff 91       	pop	r31
@@ -1149,8 +1149,8 @@ void __vector_9(void)
  530:	ef 93       	push	r30
  532:	ff 93       	push	r31
   TIMER1OVF();
- 534:	e0 91 a3 00 	lds	r30, 0x00A3
- 538:	f0 91 a4 00 	lds	r31, 0x00A4
+ 534:	e0 91 a9 00 	lds	r30, 0x00A9
+ 538:	f0 91 aa 00 	lds	r31, 0x00AA
  53c:	09 95       	icall
 }
  53e:	ff 91       	pop	r31
@@ -1195,8 +1195,8 @@ void __vector_10(void)
  580:	ff 93       	push	r31
 
   TIMER0COMP();
- 582:	e0 91 9b 00 	lds	r30, 0x009B
- 586:	f0 91 9c 00 	lds	r31, 0x009C
+ 582:	e0 91 a1 00 	lds	r30, 0x00A1
+ 586:	f0 91 a2 00 	lds	r31, 0x00A2
  58a:	09 95       	icall
 }
  58c:	ff 91       	pop	r31
@@ -1286,8 +1286,8 @@ void __vector_12(void)
  61a:	ef 93       	push	r30
  61c:	ff 93       	push	r31
   SPI_STC();
- 61e:	e0 91 8d 00 	lds	r30, 0x008D
- 622:	f0 91 8e 00 	lds	r31, 0x008E
+ 61e:	e0 91 93 00 	lds	r30, 0x0093
+ 622:	f0 91 94 00 	lds	r31, 0x0094
  626:	09 95       	icall
 }
  628:	ff 91       	pop	r31
@@ -1331,8 +1331,8 @@ void __vector_13(void)
  668:	ef 93       	push	r30
  66a:	ff 93       	push	r31
   USART_RXC();
- 66c:	e0 91 83 00 	lds	r30, 0x0083
- 670:	f0 91 84 00 	lds	r31, 0x0084
+ 66c:	e0 91 89 00 	lds	r30, 0x0089
+ 670:	f0 91 8a 00 	lds	r31, 0x008A
  674:	09 95       	icall
 }
  676:	ff 91       	pop	r31
@@ -1376,8 +1376,8 @@ void __vector_14(void)
  6b6:	ef 93       	push	r30
  6b8:	ff 93       	push	r31
   USART_UDRE();
- 6ba:	e0 91 9d 00 	lds	r30, 0x009D
- 6be:	f0 91 9e 00 	lds	r31, 0x009E
+ 6ba:	e0 91 a3 00 	lds	r30, 0x00A3
+ 6be:	f0 91 a4 00 	lds	r31, 0x00A4
  6c2:	09 95       	icall
 }
  6c4:	ff 91       	pop	r31
@@ -1421,8 +1421,8 @@ void __vector_15(void)
  704:	ef 93       	push	r30
  706:	ff 93       	push	r31
   USART_TXC();
- 708:	e0 91 99 00 	lds	r30, 0x0099
- 70c:	f0 91 9a 00 	lds	r31, 0x009A
+ 708:	e0 91 9f 00 	lds	r30, 0x009F
+ 70c:	f0 91 a0 00 	lds	r31, 0x00A0
  710:	09 95       	icall
 }
  712:	ff 91       	pop	r31
@@ -1466,8 +1466,8 @@ void __vector_16(void)
  752:	ef 93       	push	r30
  754:	ff 93       	push	r31
   ADC_INT();
- 756:	e0 91 93 00 	lds	r30, 0x0093
- 75a:	f0 91 94 00 	lds	r31, 0x0094
+ 756:	e0 91 99 00 	lds	r30, 0x0099
+ 75a:	f0 91 9a 00 	lds	r31, 0x009A
  75e:	09 95       	icall
 }
  760:	ff 91       	pop	r31
@@ -1511,8 +1511,8 @@ void __vector_17(void)
  7a0:	ef 93       	push	r30
  7a2:	ff 93       	push	r31
   EE_RDY();
- 7a4:	e0 91 95 00 	lds	r30, 0x0095
- 7a8:	f0 91 96 00 	lds	r31, 0x0096
+ 7a4:	e0 91 9b 00 	lds	r30, 0x009B
+ 7a8:	f0 91 9c 00 	lds	r31, 0x009C
  7ac:	09 95       	icall
 }
  7ae:	ff 91       	pop	r31
@@ -1556,8 +1556,8 @@ void __vector_18(void)
  7ee:	ef 93       	push	r30
  7f0:	ff 93       	push	r31
   ANA_COMP();
- 7f2:	e0 91 91 00 	lds	r30, 0x0091
- 7f6:	f0 91 92 00 	lds	r31, 0x0092
+ 7f2:	e0 91 97 00 	lds	r30, 0x0097
+ 7f6:	f0 91 98 00 	lds	r31, 0x0098
  7fa:	09 95       	icall
 }
  7fc:	ff 91       	pop	r31
@@ -1601,8 +1601,8 @@ void __vector_19(void)
  83c:	ef 93       	push	r30
  83e:	ff 93       	push	r31
   TWI_I2C();
- 840:	e0 91 81 00 	lds	r30, 0x0081
- 844:	f0 91 82 00 	lds	r31, 0x0082
+ 840:	e0 91 87 00 	lds	r30, 0x0087
+ 844:	f0 91 88 00 	lds	r31, 0x0088
  848:	09 95       	icall
 }
  84a:	ff 91       	pop	r31
@@ -1646,8 +1646,8 @@ void __vector_20(void)
  88a:	ef 93       	push	r30
  88c:	ff 93       	push	r31
   SPM_RDY();
- 88e:	e0 91 87 00 	lds	r30, 0x0087
- 892:	f0 91 88 00 	lds	r31, 0x0088
+ 88e:	e0 91 8d 00 	lds	r30, 0x008D
+ 892:	f0 91 8e 00 	lds	r31, 0x008E
  896:	09 95       	icall
 }
  898:	ff 91       	pop	r31
@@ -1669,34 +1669,32 @@ void __vector_20(void)
  8b8:	18 95       	reti
 
 000008ba <main>:
-	PORTD_DIR=0xff;
-	PORTB_DATA=0xff;
-	PORTA_DATA=0xff;
-	PORTC_DATA=0xff;
-	PORTD_DATA=0xff;*/
+
+#include "Timer.h"
+#include "TMU.h"
+int main(void)
+{	
 	DIO_init(&Dio_configurationB);
  8ba:	86 e6       	ldi	r24, 0x66	; 102
  8bc:	90 e0       	ldi	r25, 0x00	; 0
  8be:	0e 94 49 00 	call	0x92	; 0x92 <DIO_init>
 	TMU_Init(&TMU_Configuration);
- 8c2:	8a e7       	ldi	r24, 0x7A	; 122
+ 8c2:	80 e8       	ldi	r24, 0x80	; 128
  8c4:	90 e0       	ldi	r25, 0x00	; 0
  8c6:	0e 94 df 06 	call	0xdbe	; 0xdbe <TMU_Init>
 	TMU_Start_Timer(Tmu_excute,1,0,1);
- 8ca:	8e e7       	ldi	r24, 0x7E	; 126
+ 8ca:	8a e8       	ldi	r24, 0x8A	; 138
  8cc:	97 e0       	ldi	r25, 0x07	; 7
  8ce:	61 e0       	ldi	r22, 0x01	; 1
  8d0:	40 e0       	ldi	r20, 0x00	; 0
  8d2:	21 e0       	ldi	r18, 0x01	; 1
  8d4:	30 e0       	ldi	r19, 0x00	; 0
- 8d6:	0e 94 1f 07 	call	0xe3e	; 0xe3e <TMU_Start_Timer>
-	//TMU_Start_Timer(Tmu_Fun,1,1,100);
-	//TMU_Start_Timer(Tmu_For,1,2,100);
+ 8d6:	0e 94 2b 07 	call	0xe56	; 0xe56 <TMU_Start_Timer>
 	
 	while(1)
     {
 		TMU_Main_Function();
- 8da:	0e 94 39 07 	call	0xe72	; 0xe72 <TMU_Main_Function>
+ 8da:	0e 94 45 07 	call	0xe8a	; 0xe8a <TMU_Main_Function>
  8de:	fd cf       	rjmp	.-6      	; 0x8da <main+0x20>
 
 000008e0 <Timer_Init>:
@@ -1711,7 +1709,7 @@ ERROR_STATUS Timer_Init(Timer_cfg_s* Timer_cfg)
  8e4:	ec 01       	movw	r28, r24
 prescaler_value=Timer_cfg->Timer_Prescaler;
  8e6:	8b 81       	ldd	r24, Y+3	; 0x03
- 8e8:	80 93 7c 00 	sts	0x007C, r24
+ 8e8:	80 93 82 00 	sts	0x0082, r24
 switch (Timer_cfg->Timer_CH_NO) {
  8ec:	88 81       	ld	r24, Y
  8ee:	81 30       	cpi	r24, 0x01	; 1
@@ -2346,7 +2344,7 @@ switch (Timer_CH_NO) {
  af2:	97 c0       	rjmp	.+302    	; 0xc22 <Timer_Start+0x140>
 case TIMER_CH0:{/***********************************************************************************************************************/
 switch(prescaler_value){
- af4:	80 91 7c 00 	lds	r24, 0x007C
+ af4:	80 91 82 00 	lds	r24, 0x0082
  af8:	84 30       	cpi	r24, 0x04	; 4
  afa:	21 f1       	breq	.+72     	; 0xb44 <Timer_Start+0x62>
  afc:	85 30       	cpi	r24, 0x05	; 5
@@ -2489,7 +2487,7 @@ break;
 case TIMER_CH1:{
 
   switch(prescaler_value){
- b86:	80 91 7c 00 	lds	r24, 0x007C
+ b86:	80 91 82 00 	lds	r24, 0x0082
  b8a:	84 30       	cpi	r24, 0x04	; 4
  b8c:	31 f1       	breq	.+76     	; 0xbda <Timer_Start+0xf8>
  b8e:	85 30       	cpi	r24, 0x05	; 5
@@ -2656,7 +2654,7 @@ case TIMER_CH2:
 	{
   
 		switch(prescaler_value){
- c22:	80 91 7c 00 	lds	r24, 0x007C
+ c22:	80 91 82 00 	lds	r24, 0x0082
  c26:	84 30       	cpi	r24, 0x04	; 4
  c28:	79 f1       	breq	.+94     	; 0xc88 <Timer_Start+0x1a6>
  c2a:	85 30       	cpi	r24, 0x05	; 5
@@ -3108,9 +3106,9 @@ uint8_t ret=E_OK;
 /*			Intializ the required timer identified by the user			 */
 /************************************************************************/
 u8_Is_Intialized++;
- dca:	80 91 80 00 	lds	r24, 0x0080
+ dca:	80 91 86 00 	lds	r24, 0x0086
  dce:	8f 5f       	subi	r24, 0xFF	; 255
- dd0:	80 93 80 00 	sts	0x0080, r24
+ dd0:	80 93 86 00 	sts	0x0086, r24
 switch(u8_channel_ID)
  dd4:	11 23       	and	r17, r17
  dd6:	19 f0       	breq	.+6      	; 0xdde <TMU_Init+0x20>
@@ -3122,7 +3120,7 @@ switch(u8_channel_ID)
 			G_interrupt_Enable();
  dde:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
 			Timer_Init(&Timer_Configuration0);
- de2:	8e e6       	ldi	r24, 0x6E	; 110
+ de2:	84 e7       	ldi	r24, 0x74	; 116
  de4:	90 e0       	ldi	r25, 0x00	; 0
  de6:	0e 94 70 04 	call	0x8e0	; 0x8e0 <Timer_Init>
 Buffer_Request Buffer_Array[Buffer_Size];
@@ -3143,7 +3141,7 @@ switch(u8_channel_ID)
 		G_interrupt_Enable();
  dee:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
 		ret=Timer_Init(&Timer_Configuration2);
- df2:	84 e7       	ldi	r24, 0x74	; 116
+ df2:	8a e7       	ldi	r24, 0x7A	; 122
  df4:	90 e0       	ldi	r25, 0x00	; 0
  df6:	0e 94 70 04 	call	0x8e0	; 0x8e0 <Timer_Init>
  dfa:	08 2f       	mov	r16, r24
@@ -3216,210 +3214,252 @@ return ret;
  e38:	08 95       	ret
 
 00000e3a <TMU_DeInit>:
-/************************************************************************************************/
+	uint8_t ret=E_OK;
+	/************************************************************************************************/
+	/*1    	De_intialize the timer																	*/
+	/*2		make sure this function is not called unless timer was intialized before by  TMU_INIT	*/
+	/************************************************************************************************/
+if (u8_Is_Intialized==1)
+ e3a:	80 91 86 00 	lds	r24, 0x0086
+ e3e:	81 30       	cpi	r24, 0x01	; 1
+ e40:	41 f4       	brne	.+16     	; 0xe52 <TMU_DeInit+0x18>
+{/*Make the timer without a clk*/
+	Timer_Init(&Timer_Deinit_Configuration0);
+ e42:	8e e6       	ldi	r24, 0x6E	; 110
+ e44:	90 e0       	ldi	r25, 0x00	; 0
+ e46:	0e 94 70 04 	call	0x8e0	; 0x8e0 <Timer_Init>
+
+	u8_Is_Intialized=0;
+ e4a:	10 92 86 00 	sts	0x0086, r1
+
+
+
+ERROR_STATUS TMU_DeInit( void )
+{
+	uint8_t ret=E_OK;
+ e4e:	80 e0       	ldi	r24, 0x00	; 0
+ e50:	08 95       	ret
+	Timer_Init(&Timer_Deinit_Configuration0);
+
+	u8_Is_Intialized=0;
 	
-	
+}else{
+	ret=E_NOK;
+ e52:	81 e0       	ldi	r24, 0x01	; 1
+	}
+
 	
 return ret;	
 }
- e3a:	80 e0       	ldi	r24, 0x00	; 0
- e3c:	08 95       	ret
+ e54:	08 95       	ret
 
-00000e3e <TMU_Start_Timer>:
+00000e56 <TMU_Start_Timer>:
 
 ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity,uint8_t u8_function_index,uint16_t u16_Time_delay)
 {uint8_t ret=E_OK;
- e3e:	dc 01       	movw	r26, r24
+ e56:	dc 01       	movw	r26, r24
 	/*
 	this enables interrupt and start the timer with the required configurations
 	and provide the request to request buffer (ptr_to_func,delay) Dispatcher with the call back function needed(consumer)
 	and make sure this function must not be excuted unless Init happened and De_init not happened
 	*/
 	if(u8_Is_Intialized == 1)
- e40:	80 91 80 00 	lds	r24, 0x0080
- e44:	81 30       	cpi	r24, 0x01	; 1
- e46:	99 f4       	brne	.+38     	; 0xe6e <TMU_Start_Timer+0x30>
+ e58:	80 91 86 00 	lds	r24, 0x0086
+ e5c:	81 30       	cpi	r24, 0x01	; 1
+ e5e:	99 f4       	brne	.+38     	; 0xe86 <TMU_Start_Timer+0x30>
 	{
 		
 		(Buffer_Array[u8_function_index]).Fuction_consumer=Function_Consumer;
- e48:	50 e0       	ldi	r21, 0x00	; 0
- e4a:	ca 01       	movw	r24, r20
- e4c:	88 0f       	add	r24, r24
- e4e:	99 1f       	adc	r25, r25
- e50:	48 0f       	add	r20, r24
- e52:	59 1f       	adc	r21, r25
- e54:	fa 01       	movw	r30, r20
- e56:	ee 0f       	add	r30, r30
- e58:	ff 1f       	adc	r31, r31
- e5a:	e9 55       	subi	r30, 0x59	; 89
- e5c:	ff 4f       	sbci	r31, 0xFF	; 255
- e5e:	b1 83       	std	Z+1, r27	; 0x01
- e60:	a0 83       	st	Z, r26
+ e60:	50 e0       	ldi	r21, 0x00	; 0
+ e62:	ca 01       	movw	r24, r20
+ e64:	88 0f       	add	r24, r24
+ e66:	99 1f       	adc	r25, r25
+ e68:	48 0f       	add	r20, r24
+ e6a:	59 1f       	adc	r21, r25
+ e6c:	fa 01       	movw	r30, r20
+ e6e:	ee 0f       	add	r30, r30
+ e70:	ff 1f       	adc	r31, r31
+ e72:	e3 55       	subi	r30, 0x53	; 83
+ e74:	ff 4f       	sbci	r31, 0xFF	; 255
+ e76:	b1 83       	std	Z+1, r27	; 0x01
+ e78:	a0 83       	st	Z, r26
 		(Buffer_Array[u8_function_index]).preodic=u8_Preodicity;
- e62:	65 83       	std	Z+5, r22	; 0x05
+ e7a:	65 83       	std	Z+5, r22	; 0x05
 		(Buffer_Array[u8_function_index]).u16_time_delay=u16_Time_delay;
- e64:	34 83       	std	Z+4, r19	; 0x04
- e66:	23 83       	std	Z+3, r18	; 0x03
+ e7c:	34 83       	std	Z+4, r19	; 0x04
+ e7e:	23 83       	std	Z+3, r18	; 0x03
 		(Buffer_Array[u8_function_index]).u8_flag_is_stopped=0;
- e68:	12 82       	std	Z+2, r1	; 0x02
+ e80:	12 82       	std	Z+2, r1	; 0x02
 	
 return ret;	
 }
 
 ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity,uint8_t u8_function_index,uint16_t u16_Time_delay)
 {uint8_t ret=E_OK;
- e6a:	80 e0       	ldi	r24, 0x00	; 0
- e6c:	08 95       	ret
+ e82:	80 e0       	ldi	r24, 0x00	; 0
+ e84:	08 95       	ret
 		(Buffer_Array[u8_function_index]).u8_flag_is_stopped=0;
 		
 		
 	}
 	else{
 		ret=E_NOK;
- e6e:	81 e0       	ldi	r24, 0x01	; 1
+ e86:	81 e0       	ldi	r24, 0x01	; 1
 	}
 
 	return ret;
 }
- e70:	08 95       	ret
+ e88:	08 95       	ret
 
-00000e72 <TMU_Main_Function>:
+00000e8a <TMU_Main_Function>:
 
 ERROR_STATUS TMU_Main_Function(void)
 {	uint8_t ret=E_OK;
- e72:	cf 93       	push	r28
+ e8a:	cf 93       	push	r28
 	uint8_t status_flag=0;
 	uint8_t preodic_status_flag=0;
 	uint16_t u16_Time_needed=0;
 	ptr_to_Fun Excuted=((Buffer_Array[u8_FUN_index]).Fuction_consumer);
- e74:	80 91 7f 00 	lds	r24, 0x007F
- e78:	90 e0       	ldi	r25, 0x00	; 0
- e7a:	fc 01       	movw	r30, r24
- e7c:	ee 0f       	add	r30, r30
- e7e:	ff 1f       	adc	r31, r31
- e80:	8e 0f       	add	r24, r30
- e82:	9f 1f       	adc	r25, r31
- e84:	fc 01       	movw	r30, r24
- e86:	ee 0f       	add	r30, r30
- e88:	ff 1f       	adc	r31, r31
- e8a:	e9 55       	subi	r30, 0x59	; 89
- e8c:	ff 4f       	sbci	r31, 0xFF	; 255
- e8e:	40 81       	ld	r20, Z
- e90:	51 81       	ldd	r21, Z+1	; 0x01
+ e8c:	80 91 85 00 	lds	r24, 0x0085
+ e90:	90 e0       	ldi	r25, 0x00	; 0
+ e92:	fc 01       	movw	r30, r24
+ e94:	ee 0f       	add	r30, r30
+ e96:	ff 1f       	adc	r31, r31
+ e98:	8e 0f       	add	r24, r30
+ e9a:	9f 1f       	adc	r25, r31
+ e9c:	fc 01       	movw	r30, r24
+ e9e:	ee 0f       	add	r30, r30
+ ea0:	ff 1f       	adc	r31, r31
+ ea2:	e3 55       	subi	r30, 0x53	; 83
+ ea4:	ff 4f       	sbci	r31, 0xFF	; 255
+ ea6:	40 81       	ld	r20, Z
+ ea8:	51 81       	ldd	r21, Z+1	; 0x01
 	
 	u16_Time_needed =(Buffer_Array[u8_FUN_index]).u16_time_delay;
- e92:	83 81       	ldd	r24, Z+3	; 0x03
- e94:	94 81       	ldd	r25, Z+4	; 0x04
+ eaa:	83 81       	ldd	r24, Z+3	; 0x03
+ eac:	94 81       	ldd	r25, Z+4	; 0x04
 	status_flag =(Buffer_Array[u8_FUN_index]).u8_flag_is_stopped;
 	preodic_status_flag=(Buffer_Array[u8_FUN_index]).preodic;
- e96:	c5 81       	ldd	r28, Z+5	; 0x05
+ eae:	c5 81       	ldd	r28, Z+5	; 0x05
+
+
+/****************************************************************/
+/* check if the event is stopped ... do nothing*/
 if(status_flag==1){ret=E_OK;}
- e98:	22 81       	ldd	r18, Z+2	; 0x02
- e9a:	21 30       	cpi	r18, 0x01	; 1
- e9c:	a1 f0       	breq	.+40     	; 0xec6 <TMU_Main_Function+0x54>
+ eb0:	22 81       	ldd	r18, Z+2	; 0x02
+ eb2:	21 30       	cpi	r18, 0x01	; 1
+ eb4:	a1 f0       	breq	.+40     	; 0xede <TMU_Main_Function+0x54>
 else{
+	/***************************************************************/
+	/*if the timer started .. and condition met excute the consumer*/
+	/***************************************************************/
 /*	u16Excution_to_be_done=100;  ISR*/
 	if(u16_Time_needed == u16Excution_to_be_done )
- e9e:	20 91 7d 00 	lds	r18, 0x007D
- ea2:	30 91 7e 00 	lds	r19, 0x007E
- ea6:	82 17       	cp	r24, r18
- ea8:	93 07       	cpc	r25, r19
- eaa:	31 f4       	brne	.+12     	; 0xeb8 <TMU_Main_Function+0x46>
+ eb6:	20 91 83 00 	lds	r18, 0x0083
+ eba:	30 91 84 00 	lds	r19, 0x0084
+ ebe:	82 17       	cp	r24, r18
+ ec0:	93 07       	cpc	r25, r19
+ ec2:	31 f4       	brne	.+12     	; 0xed0 <TMU_Main_Function+0x46>
 	{
 		Excuted();
- eac:	fa 01       	movw	r30, r20
- eae:	09 95       	icall
-	
+ ec4:	fa 01       	movw	r30, r20
+ ec6:	09 95       	icall
+	/******************************************/
+	/*Make it zero so that it will work the next time at the required time (to stop it of ovf)*/
 		u16Excution_to_be_done=0;
- eb0:	10 92 7e 00 	sts	0x007E, r1
- eb4:	10 92 7d 00 	sts	0x007D, r1
+ ec8:	10 92 84 00 	sts	0x0084, r1
+ ecc:	10 92 83 00 	sts	0x0083, r1
 	}
+	/*********************************************************/
+	/* if not preodic increment the index after excuteing	*/
+	/*********************************************************/
 
 	if(preodic_status_flag==0){
- eb8:	cc 23       	and	r28, r28
- eba:	29 f4       	brne	.+10     	; 0xec6 <TMU_Main_Function+0x54>
+ ed0:	cc 23       	and	r28, r28
+ ed2:	29 f4       	brne	.+10     	; 0xede <TMU_Main_Function+0x54>
+		/*to make it see the next event in the next time
+		Also Status_flag =1 so that this function will be stopped
+		*/
+		status_flag=1;	
 		u8_FUN_index++;
- ebc:	80 91 7f 00 	lds	r24, 0x007F
- ec0:	8f 5f       	subi	r24, 0xFF	; 255
- ec2:	80 93 7f 00 	sts	0x007F, r24
+ ed4:	80 91 85 00 	lds	r24, 0x0085
+ ed8:	8f 5f       	subi	r24, 0xFF	; 255
+ eda:	80 93 85 00 	sts	0x0085, r24
 	}
 }
 return ret;
 
 
 }
- ec6:	80 e0       	ldi	r24, 0x00	; 0
- ec8:	cf 91       	pop	r28
- eca:	08 95       	ret
+ ede:	80 e0       	ldi	r24, 0x00	; 0
+ ee0:	cf 91       	pop	r28
+ ee2:	08 95       	ret
 
-00000ecc <TMU_Stop_Timer>:
-
-
-ERROR_STATUS TMU_Stop_Timer(uint8_t u8_function_index)
+00000ee4 <TMU_Stop_Timer>:
 {
-	(Buffer_Array[u8_function_index]).u8_flag_is_stopped=1;
- ecc:	90 e0       	ldi	r25, 0x00	; 0
- ece:	fc 01       	movw	r30, r24
- ed0:	ee 0f       	add	r30, r30
- ed2:	ff 1f       	adc	r31, r31
- ed4:	8e 0f       	add	r24, r30
- ed6:	9f 1f       	adc	r25, r31
- ed8:	fc 01       	movw	r30, r24
- eda:	ee 0f       	add	r30, r30
- edc:	ff 1f       	adc	r31, r31
- ede:	e9 55       	subi	r30, 0x59	; 89
- ee0:	ff 4f       	sbci	r31, 0xFF	; 255
- ee2:	81 e0       	ldi	r24, 0x01	; 1
- ee4:	82 83       	std	Z+2, r24	; 0x02
-}
- ee6:	08 95       	ret
 
-00000ee8 <Tmu_Fun>:
+	/***************************************************/
+	/*     Set the stop flag							*/
+	/***************************************************/
+	(Buffer_Array[u8_function_index]).u8_flag_is_stopped=1;
+ ee4:	90 e0       	ldi	r25, 0x00	; 0
+ ee6:	fc 01       	movw	r30, r24
+ ee8:	ee 0f       	add	r30, r30
+ eea:	ff 1f       	adc	r31, r31
+ eec:	8e 0f       	add	r24, r30
+ eee:	9f 1f       	adc	r25, r31
+ ef0:	fc 01       	movw	r30, r24
+ ef2:	ee 0f       	add	r30, r30
+ ef4:	ff 1f       	adc	r31, r31
+ ef6:	e3 55       	subi	r30, 0x53	; 83
+ ef8:	ff 4f       	sbci	r31, 0xFF	; 255
+ efa:	81 e0       	ldi	r24, 0x01	; 1
+ efc:	82 83       	std	Z+2, r24	; 0x02
+}
+ efe:	08 95       	ret
+
+00000f00 <Tmu_Fun>:
 
 void Tmu_Fun(void){DIO_Toggle(GPIOC,BIT4);}
- ee8:	82 e0       	ldi	r24, 0x02	; 2
- eea:	60 e1       	ldi	r22, 0x10	; 16
- eec:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
- ef0:	08 95       	ret
+ f00:	82 e0       	ldi	r24, 0x02	; 2
+ f02:	60 e1       	ldi	r22, 0x10	; 16
+ f04:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
+ f08:	08 95       	ret
 
-00000ef2 <Tmu_For>:
-void Tmu_For(void){DIO_Toggle(GPIOB,BIT4);}
- ef2:	81 e0       	ldi	r24, 0x01	; 1
- ef4:	60 e1       	ldi	r22, 0x10	; 16
- ef6:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
- efa:	08 95       	ret
+00000f0a <Tmu_For>:
+void Tmu_For(void){DIO_Toggle(GPIOA,BIT4);}
+ f0a:	80 e0       	ldi	r24, 0x00	; 0
+ f0c:	60 e1       	ldi	r22, 0x10	; 16
+ f0e:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
+ f12:	08 95       	ret
 
-00000efc <Tmu_excute>:
+00000f14 <Tmu_excute>:
 void Tmu_excute(void){DIO_Toggle(GPIOB,BIT4);}
- efc:	81 e0       	ldi	r24, 0x01	; 1
- efe:	60 e1       	ldi	r22, 0x10	; 16
- f00:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
- f04:	08 95       	ret
+ f14:	81 e0       	ldi	r24, 0x01	; 1
+ f16:	60 e1       	ldi	r22, 0x10	; 16
+ f18:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
+ f1c:	08 95       	ret
 
-00000f06 <timer_interrupt>:
+00000f1e <timer_interrupt>:
 
 
 void timer_interrupt(void){
 	u16Excution_to_be_done+=1;
- f06:	80 91 7d 00 	lds	r24, 0x007D
- f0a:	90 91 7e 00 	lds	r25, 0x007E
- f0e:	01 96       	adiw	r24, 0x01	; 1
- f10:	90 93 7e 00 	sts	0x007E, r25
- f14:	80 93 7d 00 	sts	0x007D, r24
-	UDR+=1;
- f18:	8c b1       	in	r24, 0x0c	; 12
- f1a:	8f 5f       	subi	r24, 0xFF	; 255
- f1c:	8c b9       	out	0x0c, r24	; 12
+ f1e:	80 91 83 00 	lds	r24, 0x0083
+ f22:	90 91 84 00 	lds	r25, 0x0084
+ f26:	01 96       	adiw	r24, 0x01	; 1
+ f28:	90 93 84 00 	sts	0x0084, r25
+ f2c:	80 93 83 00 	sts	0x0083, r24
+	
 	Timer_Start(TIMER_CH0,14);
- f1e:	80 e0       	ldi	r24, 0x00	; 0
- f20:	6e e0       	ldi	r22, 0x0E	; 14
- f22:	70 e0       	ldi	r23, 0x00	; 0
- f24:	0e 94 71 05 	call	0xae2	; 0xae2 <Timer_Start>
-//TCNT0=15;
- f28:	08 95       	ret
+ f30:	80 e0       	ldi	r24, 0x00	; 0
+ f32:	6e e0       	ldi	r22, 0x0E	; 14
+ f34:	70 e0       	ldi	r23, 0x00	; 0
+ f36:	0e 94 71 05 	call	0xae2	; 0xae2 <Timer_Start>
+ f3a:	08 95       	ret
 
-00000f2a <_exit>:
- f2a:	f8 94       	cli
+00000f3c <_exit>:
+ f3c:	f8 94       	cli
 
-00000f2c <__stop_program>:
- f2c:	ff cf       	rjmp	.-2      	; 0xf2c <__stop_program>
+00000f3e <__stop_program>:
+ f3e:	ff cf       	rjmp	.-2      	; 0xf3e <__stop_program>

@@ -153,7 +153,7 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xf2e
+.text           0x00000000      0xf40
  *(.vectors)
  .vectors       0x00000000       0x54 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32a.o
                 0x00000000                __vector_default
@@ -251,30 +251,30 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
                 0x00000d48                Timer_GetStatus
                 0x00000d8a                Timer_GetValue
  .text          0x00000dbe        0x0 Timer_Config.o
- .text          0x00000dbe      0x16c TMU.o
+ .text          0x00000dbe      0x17e TMU.o
                 0x00000dbe                TMU_Init
                 0x00000e3a                TMU_DeInit
-                0x00000e3e                TMU_Start_Timer
-                0x00000e72                TMU_Main_Function
-                0x00000ecc                TMU_Stop_Timer
-                0x00000ee8                Tmu_Fun
-                0x00000ef2                Tmu_For
-                0x00000efc                Tmu_excute
-                0x00000f06                timer_interrupt
- .text          0x00000f2a        0x0 TMU_Config.o
- .text          0x00000f2a        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .text          0x00000f2a        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .text          0x00000f2a        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
-                0x00000f2a                . = ALIGN (0x2)
+                0x00000e56                TMU_Start_Timer
+                0x00000e8a                TMU_Main_Function
+                0x00000ee4                TMU_Stop_Timer
+                0x00000f00                Tmu_Fun
+                0x00000f0a                Tmu_For
+                0x00000f14                Tmu_excute
+                0x00000f1e                timer_interrupt
+ .text          0x00000f3c        0x0 TMU_Config.o
+ .text          0x00000f3c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .text          0x00000f3c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .text          0x00000f3c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+                0x00000f3c                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000f2a        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00000f2a        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00000f2a        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
-                0x00000f2a                . = ALIGN (0x2)
+ .text.libgcc   0x00000f3c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00000f3c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000f3c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+                0x00000f3c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000f2a        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
-                0x00000f2a                _exit
-                0x00000f2a                exit
+ .fini9         0x00000f3c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+                0x00000f3c                _exit
+                0x00000f3c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -293,11 +293,11 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000f2a        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000f3c        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000f2e                _etext = .
+                0x00000f40                _etext = .
 
-.data           0x00800060       0x1c load address 0x00000f2e
+.data           0x00800060       0x22 load address 0x00000f40
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32a.o
@@ -311,75 +311,76 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
                 0x0080006c                TIMER0OVF_INT
  .data          0x0080006e        0x0 main.o
  .data          0x0080006e        0x0 timer.o
- .data          0x0080006e        0xc Timer_Config.o
-                0x0080006e                Timer_Configuration0
-                0x00800074                Timer_Configuration2
- .data          0x0080007a        0x0 TMU.o
- .data          0x0080007a        0x2 TMU_Config.o
-                0x0080007a                TMU_Configuration
- .data          0x0080007c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .data          0x0080007c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .data          0x0080007c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0080006e       0x12 Timer_Config.o
+                0x0080006e                Timer_Deinit_Configuration0
+                0x00800074                Timer_Configuration0
+                0x0080007a                Timer_Configuration2
+ .data          0x00800080        0x0 TMU.o
+ .data          0x00800080        0x2 TMU_Config.o
+                0x00800080                TMU_Configuration
+ .data          0x00800082        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .data          0x00800082        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .data          0x00800082        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x0080007c                . = ALIGN (0x2)
-                0x0080007c                _edata = .
-                0x0080007c                PROVIDE (__data_end, .)
+                0x00800082                . = ALIGN (0x2)
+                0x00800082                _edata = .
+                0x00800082                PROVIDE (__data_end, .)
 
-.bss            0x0080007c       0x3d
-                0x0080007c                PROVIDE (__bss_start, .)
+.bss            0x00800082       0x3d
+                0x00800082                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x0080007c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32a.o
- .bss           0x0080007c        0x0 DIO.o
- .bss           0x0080007c        0x0 DIO_config.o
- .bss           0x0080007c        0x0 Interrupts.o
- .bss           0x0080007c        0x0 main.o
- .bss           0x0080007c        0x1 timer.o
- .bss           0x0080007d        0x0 Timer_Config.o
- .bss           0x0080007d        0x4 TMU.o
-                0x0080007d                u16Excution_to_be_done
-                0x0080007f                u8_FUN_index
-                0x00800080                u8_Is_Intialized
- .bss           0x00800081        0x0 TMU_Config.o
- .bss           0x00800081        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .bss           0x00800081        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .bss           0x00800081        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00800082        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32a.o
+ .bss           0x00800082        0x0 DIO.o
+ .bss           0x00800082        0x0 DIO_config.o
+ .bss           0x00800082        0x0 Interrupts.o
+ .bss           0x00800082        0x0 main.o
+ .bss           0x00800082        0x1 timer.o
+ .bss           0x00800083        0x0 Timer_Config.o
+ .bss           0x00800083        0x4 TMU.o
+                0x00800083                u16Excution_to_be_done
+                0x00800085                u8_FUN_index
+                0x00800086                u8_Is_Intialized
+ .bss           0x00800087        0x0 TMU_Config.o
+ .bss           0x00800087        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .bss           0x00800087        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00800087        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800081       0x26 Interrupts.o
-                0x00800081                TWI_I2C
-                0x00800083                USART_RXC
-                0x00800085                TIMER2OVF
-                0x00800087                SPM_RDY
-                0x00800089                TIMER1COMPB
-                0x0080008b                TIMER1COMPA
-                0x0080008d                SPI_STC
-                0x0080008f                INT2_external_interrupt
-                0x00800091                ANA_COMP
-                0x00800093                ADC_INT
-                0x00800095                EE_RDY
-                0x00800097                INT0_external_interrupt
-                0x00800099                USART_TXC
-                0x0080009b                TIMER0COMP
-                0x0080009d                USART_UDRE
-                0x0080009f                INT1_external_interrupt
-                0x008000a1                TIMER1CAPT
-                0x008000a3                TIMER1OVF
-                0x008000a5                TIMER2COMP
- COMMON         0x008000a7       0x12 TMU.o
-                0x008000a7                Buffer_Array
-                0x008000b9                PROVIDE (__bss_end, .)
-                0x00000f2e                __data_load_start = LOADADDR (.data)
-                0x00000f4a                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800087       0x26 Interrupts.o
+                0x00800087                TWI_I2C
+                0x00800089                USART_RXC
+                0x0080008b                TIMER2OVF
+                0x0080008d                SPM_RDY
+                0x0080008f                TIMER1COMPB
+                0x00800091                TIMER1COMPA
+                0x00800093                SPI_STC
+                0x00800095                INT2_external_interrupt
+                0x00800097                ANA_COMP
+                0x00800099                ADC_INT
+                0x0080009b                EE_RDY
+                0x0080009d                INT0_external_interrupt
+                0x0080009f                USART_TXC
+                0x008000a1                TIMER0COMP
+                0x008000a3                USART_UDRE
+                0x008000a5                INT1_external_interrupt
+                0x008000a7                TIMER1CAPT
+                0x008000a9                TIMER1OVF
+                0x008000ab                TIMER2COMP
+ COMMON         0x008000ad       0x12 TMU.o
+                0x008000ad                Buffer_Array
+                0x008000bf                PROVIDE (__bss_end, .)
+                0x00000f40                __data_load_start = LOADADDR (.data)
+                0x00000f62                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000b9        0x0
-                0x008000b9                PROVIDE (__noinit_start, .)
+.noinit         0x008000bf        0x0
+                0x008000bf                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008000b9                PROVIDE (__noinit_end, .)
-                0x008000b9                _end = .
-                0x008000b9                PROVIDE (__heap_start, .)
+                0x008000bf                PROVIDE (__noinit_end, .)
+                0x008000bf                _end = .
+                0x008000bf                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -454,22 +455,22 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x151e
+.debug_info     0x00000000     0x152e
  *(.debug_info)
  .debug_info    0x00000000      0x206 DIO.o
  .debug_info    0x00000206       0xf3 DIO_config.o
  .debug_info    0x000002f9      0x510 Interrupts.o
  .debug_info    0x00000809      0x131 main.o
  .debug_info    0x0000093a      0x38c timer.o
- .debug_info    0x00000cc6       0xf3 Timer_Config.o
- .debug_info    0x00000db9      0x41a TMU.o
- .debug_info    0x000011d3       0xb4 TMU_Config.o
- .debug_info    0x00001287       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .debug_info    0x00001364       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .debug_info    0x00001441       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_info    0x00000cc6      0x105 Timer_Config.o
+ .debug_info    0x00000dcb      0x418 TMU.o
+ .debug_info    0x000011e3       0xb4 TMU_Config.o
+ .debug_info    0x00001297       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .debug_info    0x00001374       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .debug_info    0x00001451       0xdd c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x602
+.debug_abbrev   0x00000000      0x619
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0xd8 DIO.o
  .debug_abbrev  0x000000d8       0x75 DIO_config.o
@@ -477,25 +478,25 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
  .debug_abbrev  0x000001ee       0x93 main.o
  .debug_abbrev  0x00000281      0x129 timer.o
  .debug_abbrev  0x000003aa       0x76 Timer_Config.o
- .debug_abbrev  0x00000420      0x139 TMU.o
- .debug_abbrev  0x00000559       0x6d TMU_Config.o
- .debug_abbrev  0x000005c6       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .debug_abbrev  0x000005da       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .debug_abbrev  0x000005ee       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x00000420      0x150 TMU.o
+ .debug_abbrev  0x00000570       0x6d TMU_Config.o
+ .debug_abbrev  0x000005dd       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .debug_abbrev  0x000005f1       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .debug_abbrev  0x00000605       0x14 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
 
-.debug_line     0x00000000      0x753
+.debug_line     0x00000000      0x757
  *(.debug_line)
  .debug_line    0x00000000       0xe9 DIO.o
  .debug_line    0x000000e9       0x4e DIO_config.o
  .debug_line    0x00000137       0xc4 Interrupts.o
- .debug_line    0x000001fb       0x71 main.o
- .debug_line    0x0000026c      0x1d7 timer.o
- .debug_line    0x00000443       0x52 Timer_Config.o
- .debug_line    0x00000495       0xc9 TMU.o
- .debug_line    0x0000055e       0x4e TMU_Config.o
- .debug_line    0x000005ac       0x88 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
- .debug_line    0x00000634       0x91 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
- .debug_line    0x000006c5       0x8e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
+ .debug_line    0x000001fb       0x6f main.o
+ .debug_line    0x0000026a      0x1d7 timer.o
+ .debug_line    0x00000441       0x52 Timer_Config.o
+ .debug_line    0x00000493       0xcf TMU.o
+ .debug_line    0x00000562       0x4e TMU_Config.o
+ .debug_line    0x000005b0       0x88 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_exit.o)
+ .debug_line    0x00000638       0x91 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_copy_data.o)
+ .debug_line    0x000006c9       0x8e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1.95/avrtoolchain/bin/../lib/gcc/avr/4.6.2/avr5\libgcc.a(_clear_bss.o)
 
 .debug_frame    0x00000000      0x8ec
  *(.debug_frame)
@@ -505,7 +506,7 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
  .debug_frame   0x000007bc       0x70 timer.o
  .debug_frame   0x0000082c       0xc0 TMU.o
 
-.debug_str      0x00000000      0x6e8
+.debug_str      0x00000000      0x704
  *(.debug_str)
  .debug_str     0x00000000      0x116 DIO.o
                                 0x150 (size before relaxing)
@@ -517,19 +518,19 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.4.1
                                 0x155 (size before relaxing)
  .debug_str     0x00000421       0xeb timer.o
                                 0x1f4 (size before relaxing)
- .debug_str     0x0000050c       0x3e Timer_Config.o
-                                0x177 (size before relaxing)
- .debug_str     0x0000054a      0x18c TMU.o
-                                0x349 (size before relaxing)
- .debug_str     0x000006d6       0x12 TMU_Config.o
+ .debug_str     0x0000050c       0x5a Timer_Config.o
+                                0x193 (size before relaxing)
+ .debug_str     0x00000566      0x18c TMU.o
+                                0x359 (size before relaxing)
+ .debug_str     0x000006f2       0x12 TMU_Config.o
                                 0x12f (size before relaxing)
 
-.debug_loc      0x00000000     0x174b
+.debug_loc      0x00000000     0x1776
  *(.debug_loc)
  .debug_loc     0x00000000      0x28f DIO.o
  .debug_loc     0x0000028f      0xfdc Interrupts.o
  .debug_loc     0x0000126b      0x2eb timer.o
- .debug_loc     0x00001556      0x1f5 TMU.o
+ .debug_loc     0x00001556      0x220 TMU.o
 
 .debug_macinfo
  *(.debug_macinfo)

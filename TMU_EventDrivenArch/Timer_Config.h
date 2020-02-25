@@ -113,5 +113,5 @@ typedef unsigned char ERROR_STATUS;
 /********Extern Configuration Structure******************/
 extern Timer_cfg_s Timer_Configuration0;
 extern Timer_cfg_s Timer_Configuration2;
-
+extern Timer_cfg_s Timer_Deinit_Configuration0;
 #endif /* TIMERSCONFIG_H_ */
