@@ -3,29 +3,29 @@ TMU_EventDrivenArch.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000f30  00000000  00000000  00000094  2**1
+  0 .text         00000f08  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000001c  00800060  00000f30  00000fc4  2**0
+  1 .data         0000001c  00800060  00000f08  00000f9c  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000039  0080007c  0080007c  00000fe0  2**0
+  2 .bss          00000039  0080007c  0080007c  00000fb8  2**0
                   ALLOC
-  3 .stab         000006cc  00000000  00000000  00000fe0  2**2
+  3 .stab         000006cc  00000000  00000000  00000fb8  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00000085  00000000  00000000  000016ac  2**0
+  4 .stabstr      00000085  00000000  00000000  00001684  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 00000100  00000000  00000000  00001738  2**3
+  5 .debug_aranges 00000100  00000000  00000000  00001710  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000014bb  00000000  00000000  00001838  2**0
+  6 .debug_info   000014bb  00000000  00000000  00001810  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000603  00000000  00000000  00002cf3  2**0
+  7 .debug_abbrev 00000603  00000000  00000000  00002ccb  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000740  00000000  00000000  000032f6  2**0
+  8 .debug_line   00000738  00000000  00000000  000032ce  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000008ec  00000000  00000000  00003a38  2**2
+  9 .debug_frame  000008ec  00000000  00000000  00003a08  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000006e4  00000000  00000000  00004324  2**0
+ 10 .debug_str    000006e4  00000000  00000000  000042f4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001739  00000000  00000000  00004a08  2**0
+ 11 .debug_loc    00001739  00000000  00000000  000049d8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +65,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e0 e3       	ldi	r30, 0x30	; 48
+  66:	e8 e0       	ldi	r30, 0x08	; 8
   68:	ff e0       	ldi	r31, 0x0F	; 15
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -88,7 +88,7 @@ Disassembly of section .text:
   82:	b1 07       	cpc	r27, r17
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 5d 04 	call	0x8ba	; 0x8ba <main>
-  8a:	0c 94 96 07 	jmp	0xf2c	; 0xf2c <_exit>
+  8a:	0c 94 82 07 	jmp	0xf04	; 0xf04 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -1677,1093 +1677,1128 @@ int main(void)
 {	PORTB_DIR=0xff;
  8ba:	8f ef       	ldi	r24, 0xFF	; 255
  8bc:	87 bb       	out	0x17, r24	; 23
-	PORTA_DIR=0xff;
- 8be:	8a bb       	out	0x1a, r24	; 26
-	PORTC_DIR=0xff;
- 8c0:	84 bb       	out	0x14, r24	; 20
-	PORTD_DIR=0xff;
- 8c2:	81 bb       	out	0x11, r24	; 17
+	//PORTA_DIR=0xff;
+	//PORTC_DIR=0xff;
+	//PORTD_DIR=0xff;
 	PORTB_DATA=0xff;
- 8c4:	88 bb       	out	0x18, r24	; 24
-	PORTA_DATA=0xff;
- 8c6:	8b bb       	out	0x1b, r24	; 27
-	PORTC_DATA=0xff;
- 8c8:	85 bb       	out	0x15, r24	; 21
-	PORTD_DATA=0xff;
- 8ca:	82 bb       	out	0x12, r24	; 18
+ 8be:	88 bb       	out	0x18, r24	; 24
+	//PORTA_DATA=0xff;
+	//PORTC_DATA=0xff;
+	//PORTD_DATA=0xff;
 	
 	TMU_Init(&TMU_Configuration);
- 8cc:	8a e7       	ldi	r24, 0x7A	; 122
- 8ce:	90 e0       	ldi	r25, 0x00	; 0
- 8d0:	0e 94 f1 06 	call	0xde2	; 0xde2 <TMU_Init>
-	TMU_Start_Timer(Tmu_excute,1,0,100);
- 8d4:	84 e8       	ldi	r24, 0x84	; 132
- 8d6:	97 e0       	ldi	r25, 0x07	; 7
- 8d8:	61 e0       	ldi	r22, 0x01	; 1
- 8da:	40 e0       	ldi	r20, 0x00	; 0
- 8dc:	24 e6       	ldi	r18, 0x64	; 100
- 8de:	0e 94 31 07 	call	0xe62	; 0xe62 <TMU_Start_Timer>
-	TMU_Start_Timer(Tmu_Fun,1,0,100);
- 8e2:	8a e7       	ldi	r24, 0x7A	; 122
- 8e4:	97 e0       	ldi	r25, 0x07	; 7
- 8e6:	61 e0       	ldi	r22, 0x01	; 1
- 8e8:	40 e0       	ldi	r20, 0x00	; 0
- 8ea:	24 e6       	ldi	r18, 0x64	; 100
- 8ec:	0e 94 31 07 	call	0xe62	; 0xe62 <TMU_Start_Timer>
+ 8c0:	8a e7       	ldi	r24, 0x7A	; 122
+ 8c2:	90 e0       	ldi	r25, 0x00	; 0
+ 8c4:	0e 94 dd 06 	call	0xdba	; 0xdba <TMU_Init>
+	//TMU_Start_Timer(Tmu_excute,1,0,100);
+	//TMU_Start_Timer(Tmu_Fun,1,0,100);
 	TMU_Start_Timer(Tmu_For,1,0,100);
- 8f0:	8f e7       	ldi	r24, 0x7F	; 127
- 8f2:	97 e0       	ldi	r25, 0x07	; 7
- 8f4:	61 e0       	ldi	r22, 0x01	; 1
- 8f6:	40 e0       	ldi	r20, 0x00	; 0
- 8f8:	24 e6       	ldi	r18, 0x64	; 100
- 8fa:	0e 94 31 07 	call	0xe62	; 0xe62 <TMU_Start_Timer>
+ 8c8:	8b e6       	ldi	r24, 0x6B	; 107
+ 8ca:	97 e0       	ldi	r25, 0x07	; 7
+ 8cc:	61 e0       	ldi	r22, 0x01	; 1
+ 8ce:	40 e0       	ldi	r20, 0x00	; 0
+ 8d0:	24 e6       	ldi	r18, 0x64	; 100
+ 8d2:	0e 94 1d 07 	call	0xe3a	; 0xe3a <TMU_Start_Timer>
 	
 	while(1)
     {
 		TMU_Main_Function();
- 8fe:	0e 94 48 07 	call	0xe90	; 0xe90 <TMU_Main_Function>
- 902:	fd cf       	rjmp	.-6      	; 0x8fe <main+0x44>
+ 8d6:	0e 94 34 07 	call	0xe68	; 0xe68 <TMU_Main_Function>
+ 8da:	fd cf       	rjmp	.-6      	; 0x8d6 <main+0x1c>
 
-00000904 <Timer_Init>:
+000008dc <Timer_Init>:
  *
  */
  static uint8_t prescaler_value=0;
  
 ERROR_STATUS Timer_Init(Timer_cfg_s* Timer_cfg)
 {
- 904:	cf 93       	push	r28
- 906:	df 93       	push	r29
- 908:	ec 01       	movw	r28, r24
+ 8dc:	cf 93       	push	r28
+ 8de:	df 93       	push	r29
+ 8e0:	ec 01       	movw	r28, r24
 prescaler_value=Timer_cfg->Timer_Prescaler;
- 90a:	8b 81       	ldd	r24, Y+3	; 0x03
- 90c:	80 93 7c 00 	sts	0x007C, r24
+ 8e2:	8b 81       	ldd	r24, Y+3	; 0x03
+ 8e4:	80 93 7c 00 	sts	0x007C, r24
 switch (Timer_cfg->Timer_CH_NO) {
- 910:	88 81       	ld	r24, Y
- 912:	81 30       	cpi	r24, 0x01	; 1
- 914:	09 f4       	brne	.+2      	; 0x918 <Timer_Init+0x14>
- 916:	48 c0       	rjmp	.+144    	; 0x9a8 <Timer_Init+0xa4>
- 918:	81 30       	cpi	r24, 0x01	; 1
- 91a:	20 f0       	brcs	.+8      	; 0x924 <Timer_Init+0x20>
- 91c:	82 30       	cpi	r24, 0x02	; 2
- 91e:	09 f0       	breq	.+2      	; 0x922 <Timer_Init+0x1e>
- 920:	d7 c0       	rjmp	.+430    	; 0xad0 <Timer_Init+0x1cc>
- 922:	90 c0       	rjmp	.+288    	; 0xa44 <Timer_Init+0x140>
+ 8e8:	88 81       	ld	r24, Y
+ 8ea:	81 30       	cpi	r24, 0x01	; 1
+ 8ec:	09 f4       	brne	.+2      	; 0x8f0 <Timer_Init+0x14>
+ 8ee:	48 c0       	rjmp	.+144    	; 0x980 <Timer_Init+0xa4>
+ 8f0:	81 30       	cpi	r24, 0x01	; 1
+ 8f2:	20 f0       	brcs	.+8      	; 0x8fc <Timer_Init+0x20>
+ 8f4:	82 30       	cpi	r24, 0x02	; 2
+ 8f6:	09 f0       	breq	.+2      	; 0x8fa <Timer_Init+0x1e>
+ 8f8:	d7 c0       	rjmp	.+430    	; 0xaa8 <Timer_Init+0x1cc>
+ 8fa:	90 c0       	rjmp	.+288    	; 0xa1c <Timer_Init+0x140>
 /*************************************************************************/
 /*                             TIMER 0                                   */
 /*************************************************************************/
     case TIMER_CH0:
         {
   TCCR0 |=T0_NORMAL_MODE;
- 924:	83 b7       	in	r24, 0x33	; 51
- 926:	83 bf       	out	0x33, r24	; 51
+ 8fc:	83 b7       	in	r24, 0x33	; 51
+ 8fe:	83 bf       	out	0x33, r24	; 51
   
           switch (Timer_cfg->Timer_Mode) {
- 928:	89 81       	ldd	r24, Y+1	; 0x01
- 92a:	81 30       	cpi	r24, 0x01	; 1
- 92c:	b9 f0       	breq	.+46     	; 0x95c <Timer_Init+0x58>
- 92e:	81 30       	cpi	r24, 0x01	; 1
- 930:	20 f0       	brcs	.+8      	; 0x93a <Timer_Init+0x36>
- 932:	82 30       	cpi	r24, 0x02	; 2
- 934:	09 f0       	breq	.+2      	; 0x938 <Timer_Init+0x34>
- 936:	cd c0       	rjmp	.+410    	; 0xad2 <Timer_Init+0x1ce>
- 938:	24 c0       	rjmp	.+72     	; 0x982 <Timer_Init+0x7e>
+ 900:	89 81       	ldd	r24, Y+1	; 0x01
+ 902:	81 30       	cpi	r24, 0x01	; 1
+ 904:	b9 f0       	breq	.+46     	; 0x934 <Timer_Init+0x58>
+ 906:	81 30       	cpi	r24, 0x01	; 1
+ 908:	20 f0       	brcs	.+8      	; 0x912 <Timer_Init+0x36>
+ 90a:	82 30       	cpi	r24, 0x02	; 2
+ 90c:	09 f0       	breq	.+2      	; 0x910 <Timer_Init+0x34>
+ 90e:	cd c0       	rjmp	.+410    	; 0xaaa <Timer_Init+0x1ce>
+ 910:	24 c0       	rjmp	.+72     	; 0x95a <Timer_Init+0x7e>
           case TIMER_MODE:
               {
                 switch (Timer_cfg->Timer_Polling_Or_Interrupt)
- 93a:	8a 81       	ldd	r24, Y+2	; 0x02
- 93c:	88 23       	and	r24, r24
- 93e:	21 f0       	breq	.+8      	; 0x948 <Timer_Init+0x44>
- 940:	81 30       	cpi	r24, 0x01	; 1
- 942:	09 f0       	breq	.+2      	; 0x946 <Timer_Init+0x42>
- 944:	c8 c0       	rjmp	.+400    	; 0xad6 <Timer_Init+0x1d2>
- 946:	04 c0       	rjmp	.+8      	; 0x950 <Timer_Init+0x4c>
+ 912:	8a 81       	ldd	r24, Y+2	; 0x02
+ 914:	88 23       	and	r24, r24
+ 916:	21 f0       	breq	.+8      	; 0x920 <Timer_Init+0x44>
+ 918:	81 30       	cpi	r24, 0x01	; 1
+ 91a:	09 f0       	breq	.+2      	; 0x91e <Timer_Init+0x42>
+ 91c:	c8 c0       	rjmp	.+400    	; 0xaae <Timer_Init+0x1d2>
+ 91e:	04 c0       	rjmp	.+8      	; 0x928 <Timer_Init+0x4c>
 				{
                     case TIMER_POLLING_MODE:
                         {/*Disable interrupts for T0 without effecting any other timer*/
                          /*without Disabling Global interrupt*/
                         TIMSK &=T0_INTERRUPT_DISABLE;
- 948:	89 b7       	in	r24, 0x39	; 57
- 94a:	8c 7f       	andi	r24, 0xFC	; 252
- 94c:	89 bf       	out	0x39, r24	; 57
+ 920:	89 b7       	in	r24, 0x39	; 57
+ 922:	8c 7f       	andi	r24, 0xFC	; 252
+ 924:	89 bf       	out	0x39, r24	; 57
                             break;
- 94e:	2c c0       	rjmp	.+88     	; 0x9a8 <Timer_Init+0xa4>
+ 926:	2c c0       	rjmp	.+88     	; 0x980 <Timer_Init+0xa4>
                          }
                                   case TIMER_INTERRUPT_MODE:
                                   { /*Enable Global INTERRUPT
                                     Enable Timer0 interrupt
                                     */
                                     G_interrupt_Enable();
- 950:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ 928:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                                     TIMSK |= T0_INTERRUPT_NORMAL;
- 954:	89 b7       	in	r24, 0x39	; 57
- 956:	81 60       	ori	r24, 0x01	; 1
- 958:	89 bf       	out	0x39, r24	; 57
+ 92c:	89 b7       	in	r24, 0x39	; 57
+ 92e:	81 60       	ori	r24, 0x01	; 1
+ 930:	89 bf       	out	0x39, r24	; 57
                                     break;
- 95a:	26 c0       	rjmp	.+76     	; 0x9a8 <Timer_Init+0xa4>
+ 932:	26 c0       	rjmp	.+76     	; 0x980 <Timer_Init+0xa4>
 /*                             TIMER 0 As a COUNTER_RISING_MODE          */
 /*************************************************************************/
 
                           case COUNTER_RISING_MODE:
                             {
                                   TCCR0 |=T0_COUNTER_RISING_MODE_CONFIG;
- 95c:	83 b7       	in	r24, 0x33	; 51
- 95e:	8d 60       	ori	r24, 0x0D	; 13
- 960:	83 bf       	out	0x33, r24	; 51
+ 934:	83 b7       	in	r24, 0x33	; 51
+ 936:	8d 60       	ori	r24, 0x0D	; 13
+ 938:	83 bf       	out	0x33, r24	; 51
                                     switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
- 962:	8a 81       	ldd	r24, Y+2	; 0x02
- 964:	88 23       	and	r24, r24
- 966:	21 f0       	breq	.+8      	; 0x970 <Timer_Init+0x6c>
- 968:	81 30       	cpi	r24, 0x01	; 1
- 96a:	09 f0       	breq	.+2      	; 0x96e <Timer_Init+0x6a>
- 96c:	b6 c0       	rjmp	.+364    	; 0xada <Timer_Init+0x1d6>
- 96e:	04 c0       	rjmp	.+8      	; 0x978 <Timer_Init+0x74>
+ 93a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 93c:	88 23       	and	r24, r24
+ 93e:	21 f0       	breq	.+8      	; 0x948 <Timer_Init+0x6c>
+ 940:	81 30       	cpi	r24, 0x01	; 1
+ 942:	09 f0       	breq	.+2      	; 0x946 <Timer_Init+0x6a>
+ 944:	b6 c0       	rjmp	.+364    	; 0xab2 <Timer_Init+0x1d6>
+ 946:	04 c0       	rjmp	.+8      	; 0x950 <Timer_Init+0x74>
                                         case TIMER_POLLING_MODE:
                                           {
             /*Disable interrupts for T0 without effecting any other timer*/
               /*without Disabling Global interrupt*/
                                             TIMSK &=T0_INTERRUPT_DISABLE;
- 970:	89 b7       	in	r24, 0x39	; 57
- 972:	8c 7f       	andi	r24, 0xFC	; 252
- 974:	89 bf       	out	0x39, r24	; 57
+ 948:	89 b7       	in	r24, 0x39	; 57
+ 94a:	8c 7f       	andi	r24, 0xFC	; 252
+ 94c:	89 bf       	out	0x39, r24	; 57
                                             break;
- 976:	05 c0       	rjmp	.+10     	; 0x982 <Timer_Init+0x7e>
+ 94e:	05 c0       	rjmp	.+10     	; 0x95a <Timer_Init+0x7e>
 
                                           case TIMER_INTERRUPT_MODE:
                                            /*Enable Global INTERRUPT
                                               Enable Timer0 interrupt
                                               */
                                               G_interrupt_Enable();
- 978:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ 950:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                                               TIMSK |= T0_INTERRUPT_NORMAL;
- 97c:	89 b7       	in	r24, 0x39	; 57
- 97e:	81 60       	ori	r24, 0x01	; 1
- 980:	89 bf       	out	0x39, r24	; 57
+ 954:	89 b7       	in	r24, 0x39	; 57
+ 956:	81 60       	ori	r24, 0x01	; 1
+ 958:	89 bf       	out	0x39, r24	; 57
 /*                             TIMER 0 As a COUNTER_FALLING_MODE         */
 /*************************************************************************/
 
                                     case COUNTER_FALLING_MODE:
                                     {
                                         TCCR0 |=T0_COUNTER_FALLING_MODE_CONFIG;
- 982:	83 b7       	in	r24, 0x33	; 51
- 984:	8c 60       	ori	r24, 0x0C	; 12
- 986:	83 bf       	out	0x33, r24	; 51
+ 95a:	83 b7       	in	r24, 0x33	; 51
+ 95c:	8c 60       	ori	r24, 0x0C	; 12
+ 95e:	83 bf       	out	0x33, r24	; 51
                                           switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
- 988:	8a 81       	ldd	r24, Y+2	; 0x02
- 98a:	88 23       	and	r24, r24
- 98c:	21 f0       	breq	.+8      	; 0x996 <Timer_Init+0x92>
- 98e:	81 30       	cpi	r24, 0x01	; 1
- 990:	09 f0       	breq	.+2      	; 0x994 <Timer_Init+0x90>
- 992:	a5 c0       	rjmp	.+330    	; 0xade <Timer_Init+0x1da>
- 994:	04 c0       	rjmp	.+8      	; 0x99e <Timer_Init+0x9a>
+ 960:	8a 81       	ldd	r24, Y+2	; 0x02
+ 962:	88 23       	and	r24, r24
+ 964:	21 f0       	breq	.+8      	; 0x96e <Timer_Init+0x92>
+ 966:	81 30       	cpi	r24, 0x01	; 1
+ 968:	09 f0       	breq	.+2      	; 0x96c <Timer_Init+0x90>
+ 96a:	a5 c0       	rjmp	.+330    	; 0xab6 <Timer_Init+0x1da>
+ 96c:	04 c0       	rjmp	.+8      	; 0x976 <Timer_Init+0x9a>
                                               case TIMER_POLLING_MODE:
                                                 {
 
             /*Disable interrupts for T0 without effecting any other timer*/
                 /*without Disabling Global interrupt*/
                                                   TIMSK &=T0_INTERRUPT_DISABLE;
- 996:	89 b7       	in	r24, 0x39	; 57
- 998:	8c 7f       	andi	r24, 0xFC	; 252
- 99a:	89 bf       	out	0x39, r24	; 57
+ 96e:	89 b7       	in	r24, 0x39	; 57
+ 970:	8c 7f       	andi	r24, 0xFC	; 252
+ 972:	89 bf       	out	0x39, r24	; 57
 
                                                   break;
- 99c:	05 c0       	rjmp	.+10     	; 0x9a8 <Timer_Init+0xa4>
+ 974:	05 c0       	rjmp	.+10     	; 0x980 <Timer_Init+0xa4>
                                                 case TIMER_INTERRUPT_MODE:
                                                   {
                                                     /*Enable Global INTERRUPT
                                                     Enable Timer0 interrupt
                                                     */
                                                     G_interrupt_Enable();
- 99e:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ 976:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                                                     TIMSK |= T0_INTERRUPT_NORMAL;
- 9a2:	89 b7       	in	r24, 0x39	; 57
- 9a4:	81 60       	ori	r24, 0x01	; 1
- 9a6:	89 bf       	out	0x39, r24	; 57
+ 97a:	89 b7       	in	r24, 0x39	; 57
+ 97c:	81 60       	ori	r24, 0x01	; 1
+ 97e:	89 bf       	out	0x39, r24	; 57
 /*************************************************************************/
 
     case TIMER_CH1:
         {
 
     switch (Timer_cfg->Timer_Mode)
- 9a8:	89 81       	ldd	r24, Y+1	; 0x01
- 9aa:	81 30       	cpi	r24, 0x01	; 1
- 9ac:	d9 f0       	breq	.+54     	; 0x9e4 <Timer_Init+0xe0>
- 9ae:	81 30       	cpi	r24, 0x01	; 1
- 9b0:	20 f0       	brcs	.+8      	; 0x9ba <Timer_Init+0xb6>
- 9b2:	82 30       	cpi	r24, 0x02	; 2
- 9b4:	09 f0       	breq	.+2      	; 0x9b8 <Timer_Init+0xb4>
- 9b6:	95 c0       	rjmp	.+298    	; 0xae2 <Timer_Init+0x1de>
- 9b8:	2d c0       	rjmp	.+90     	; 0xa14 <Timer_Init+0x110>
+ 980:	89 81       	ldd	r24, Y+1	; 0x01
+ 982:	81 30       	cpi	r24, 0x01	; 1
+ 984:	d9 f0       	breq	.+54     	; 0x9bc <Timer_Init+0xe0>
+ 986:	81 30       	cpi	r24, 0x01	; 1
+ 988:	20 f0       	brcs	.+8      	; 0x992 <Timer_Init+0xb6>
+ 98a:	82 30       	cpi	r24, 0x02	; 2
+ 98c:	09 f0       	breq	.+2      	; 0x990 <Timer_Init+0xb4>
+ 98e:	95 c0       	rjmp	.+298    	; 0xaba <Timer_Init+0x1de>
+ 990:	2d c0       	rjmp	.+90     	; 0x9ec <Timer_Init+0x110>
     {
       case TIMER_MODE:
       {
         TCCR1 = T1_NORMAL_MODE_CONFIG;
- 9ba:	1f bc       	out	0x2f, r1	; 47
- 9bc:	1e bc       	out	0x2e, r1	; 46
+ 992:	1f bc       	out	0x2f, r1	; 47
+ 994:	1e bc       	out	0x2e, r1	; 46
               switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
- 9be:	8a 81       	ldd	r24, Y+2	; 0x02
- 9c0:	88 23       	and	r24, r24
- 9c2:	21 f0       	breq	.+8      	; 0x9cc <Timer_Init+0xc8>
- 9c4:	81 30       	cpi	r24, 0x01	; 1
- 9c6:	09 f0       	breq	.+2      	; 0x9ca <Timer_Init+0xc6>
- 9c8:	8e c0       	rjmp	.+284    	; 0xae6 <Timer_Init+0x1e2>
- 9ca:	05 c0       	rjmp	.+10     	; 0x9d6 <Timer_Init+0xd2>
+ 996:	8a 81       	ldd	r24, Y+2	; 0x02
+ 998:	88 23       	and	r24, r24
+ 99a:	21 f0       	breq	.+8      	; 0x9a4 <Timer_Init+0xc8>
+ 99c:	81 30       	cpi	r24, 0x01	; 1
+ 99e:	09 f0       	breq	.+2      	; 0x9a2 <Timer_Init+0xc6>
+ 9a0:	8e c0       	rjmp	.+284    	; 0xabe <Timer_Init+0x1e2>
+ 9a2:	05 c0       	rjmp	.+10     	; 0x9ae <Timer_Init+0xd2>
               case TIMER_POLLING_MODE:
                 {
                   /*Disable interrupts for T1 without effecting any other timer*/
                    /*without Disabling Global interrupt*/
                   TIMSK &=T1_INTERRUPT_DISABLE;
- 9cc:	89 b7       	in	r24, 0x39	; 57
- 9ce:	83 7c       	andi	r24, 0xC3	; 195
- 9d0:	89 bf       	out	0x39, r24	; 57
+ 9a4:	89 b7       	in	r24, 0x39	; 57
+ 9a6:	83 7c       	andi	r24, 0xC3	; 195
+ 9a8:	89 bf       	out	0x39, r24	; 57
       }
       default :
       return E_NOK;
     }
 
   return E_OK;
- 9d2:	80 e0       	ldi	r24, 0x00	; 0
+ 9aa:	80 e0       	ldi	r24, 0x00	; 0
                 {
                   /*Disable interrupts for T1 without effecting any other timer*/
                    /*without Disabling Global interrupt*/
                   TIMSK &=T1_INTERRUPT_DISABLE;
 
                 break;
- 9d4:	95 c0       	rjmp	.+298    	; 0xb00 <Timer_Init+0x1fc>
+ 9ac:	95 c0       	rjmp	.+298    	; 0xad8 <Timer_Init+0x1fc>
               }
               case TIMER_INTERRUPT_MODE:
               {
                 G_interrupt_Enable();
- 9d6:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ 9ae:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                 TIMSK |=T1_INTERRUPT_NORMAL;
- 9da:	89 b7       	in	r24, 0x39	; 57
- 9dc:	84 60       	ori	r24, 0x04	; 4
- 9de:	89 bf       	out	0x39, r24	; 57
+ 9b2:	89 b7       	in	r24, 0x39	; 57
+ 9b4:	84 60       	ori	r24, 0x04	; 4
+ 9b6:	89 bf       	out	0x39, r24	; 57
       }
       default :
       return E_NOK;
     }
 
   return E_OK;
- 9e0:	80 e0       	ldi	r24, 0x00	; 0
+ 9b8:	80 e0       	ldi	r24, 0x00	; 0
                 G_interrupt_Enable();
                 TIMSK |=T1_INTERRUPT_NORMAL;
                 /*Enable Global INTERRUPT
                 Enable Timer0 interrupt
                 */
                 break;
- 9e2:	8e c0       	rjmp	.+284    	; 0xb00 <Timer_Init+0x1fc>
+ 9ba:	8e c0       	rjmp	.+284    	; 0xad8 <Timer_Init+0x1fc>
             }
         break;
       }
       case COUNTER_RISING_MODE:
       {
             TCCR1|=T1_COUNTER_RISING_MODE_CONFIG;
- 9e4:	8e b5       	in	r24, 0x2e	; 46
- 9e6:	9f b5       	in	r25, 0x2f	; 47
- 9e8:	87 60       	ori	r24, 0x07	; 7
- 9ea:	9f bd       	out	0x2f, r25	; 47
- 9ec:	8e bd       	out	0x2e, r24	; 46
+ 9bc:	8e b5       	in	r24, 0x2e	; 46
+ 9be:	9f b5       	in	r25, 0x2f	; 47
+ 9c0:	87 60       	ori	r24, 0x07	; 7
+ 9c2:	9f bd       	out	0x2f, r25	; 47
+ 9c4:	8e bd       	out	0x2e, r24	; 46
 
             switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
- 9ee:	8a 81       	ldd	r24, Y+2	; 0x02
- 9f0:	88 23       	and	r24, r24
- 9f2:	21 f0       	breq	.+8      	; 0x9fc <Timer_Init+0xf8>
- 9f4:	81 30       	cpi	r24, 0x01	; 1
- 9f6:	09 f0       	breq	.+2      	; 0x9fa <Timer_Init+0xf6>
- 9f8:	78 c0       	rjmp	.+240    	; 0xaea <Timer_Init+0x1e6>
- 9fa:	05 c0       	rjmp	.+10     	; 0xa06 <Timer_Init+0x102>
+ 9c6:	8a 81       	ldd	r24, Y+2	; 0x02
+ 9c8:	88 23       	and	r24, r24
+ 9ca:	21 f0       	breq	.+8      	; 0x9d4 <Timer_Init+0xf8>
+ 9cc:	81 30       	cpi	r24, 0x01	; 1
+ 9ce:	09 f0       	breq	.+2      	; 0x9d2 <Timer_Init+0xf6>
+ 9d0:	78 c0       	rjmp	.+240    	; 0xac2 <Timer_Init+0x1e6>
+ 9d2:	05 c0       	rjmp	.+10     	; 0x9de <Timer_Init+0x102>
               case TIMER_POLLING_MODE:
               {
                 /*Disable interrupts for T1 without effecting any other timer*/
                  /*without Disabling Global interrupt*/
                 TIMSK &=T1_INTERRUPT_DISABLE;
- 9fc:	89 b7       	in	r24, 0x39	; 57
- 9fe:	83 7c       	andi	r24, 0xC3	; 195
- a00:	89 bf       	out	0x39, r24	; 57
+ 9d4:	89 b7       	in	r24, 0x39	; 57
+ 9d6:	83 7c       	andi	r24, 0xC3	; 195
+ 9d8:	89 bf       	out	0x39, r24	; 57
       }
       default :
       return E_NOK;
     }
 
   return E_OK;
- a02:	80 e0       	ldi	r24, 0x00	; 0
+ 9da:	80 e0       	ldi	r24, 0x00	; 0
               {
                 /*Disable interrupts for T1 without effecting any other timer*/
                  /*without Disabling Global interrupt*/
                 TIMSK &=T1_INTERRUPT_DISABLE;
 
                 break;
- a04:	7d c0       	rjmp	.+250    	; 0xb00 <Timer_Init+0x1fc>
+ 9dc:	7d c0       	rjmp	.+250    	; 0xad8 <Timer_Init+0x1fc>
               }
               case TIMER_INTERRUPT_MODE:
               {
                 G_interrupt_Enable();
- a06:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ 9de:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                 TIMSK |=T1_INTERRUPT_NORMAL;
- a0a:	89 b7       	in	r24, 0x39	; 57
- a0c:	84 60       	ori	r24, 0x04	; 4
- a0e:	89 bf       	out	0x39, r24	; 57
+ 9e2:	89 b7       	in	r24, 0x39	; 57
+ 9e4:	84 60       	ori	r24, 0x04	; 4
+ 9e6:	89 bf       	out	0x39, r24	; 57
       }
       default :
       return E_NOK;
     }
 
   return E_OK;
- a10:	80 e0       	ldi	r24, 0x00	; 0
+ 9e8:	80 e0       	ldi	r24, 0x00	; 0
                 G_interrupt_Enable();
                 TIMSK |=T1_INTERRUPT_NORMAL;
                 /*Enable Global INTERRUPT
                 Enable Timer0 interrupt
                 */
                 break;
- a12:	76 c0       	rjmp	.+236    	; 0xb00 <Timer_Init+0x1fc>
+ 9ea:	76 c0       	rjmp	.+236    	; 0xad8 <Timer_Init+0x1fc>
             }
         break;
       }
       case COUNTER_FALLING_MODE:
       {
             TCCR1|=T1_COUNTER_FALLING_MODE_CONFIG;
- a14:	8e b5       	in	r24, 0x2e	; 46
- a16:	9f b5       	in	r25, 0x2f	; 47
- a18:	86 60       	ori	r24, 0x06	; 6
- a1a:	9f bd       	out	0x2f, r25	; 47
- a1c:	8e bd       	out	0x2e, r24	; 46
+ 9ec:	8e b5       	in	r24, 0x2e	; 46
+ 9ee:	9f b5       	in	r25, 0x2f	; 47
+ 9f0:	86 60       	ori	r24, 0x06	; 6
+ 9f2:	9f bd       	out	0x2f, r25	; 47
+ 9f4:	8e bd       	out	0x2e, r24	; 46
             switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
- a1e:	8a 81       	ldd	r24, Y+2	; 0x02
- a20:	88 23       	and	r24, r24
- a22:	21 f0       	breq	.+8      	; 0xa2c <Timer_Init+0x128>
- a24:	81 30       	cpi	r24, 0x01	; 1
- a26:	09 f0       	breq	.+2      	; 0xa2a <Timer_Init+0x126>
- a28:	62 c0       	rjmp	.+196    	; 0xaee <Timer_Init+0x1ea>
- a2a:	05 c0       	rjmp	.+10     	; 0xa36 <Timer_Init+0x132>
+ 9f6:	8a 81       	ldd	r24, Y+2	; 0x02
+ 9f8:	88 23       	and	r24, r24
+ 9fa:	21 f0       	breq	.+8      	; 0xa04 <Timer_Init+0x128>
+ 9fc:	81 30       	cpi	r24, 0x01	; 1
+ 9fe:	09 f0       	breq	.+2      	; 0xa02 <Timer_Init+0x126>
+ a00:	62 c0       	rjmp	.+196    	; 0xac6 <Timer_Init+0x1ea>
+ a02:	05 c0       	rjmp	.+10     	; 0xa0e <Timer_Init+0x132>
               case TIMER_POLLING_MODE:
               {
                 /*Disable interrupts for T1 without effecting any other timer*/
                  /*without Disabling Global interrupt*/
                 TIMSK &=T1_INTERRUPT_DISABLE;
- a2c:	89 b7       	in	r24, 0x39	; 57
- a2e:	83 7c       	andi	r24, 0xC3	; 195
- a30:	89 bf       	out	0x39, r24	; 57
+ a04:	89 b7       	in	r24, 0x39	; 57
+ a06:	83 7c       	andi	r24, 0xC3	; 195
+ a08:	89 bf       	out	0x39, r24	; 57
       }
       default :
       return E_NOK;
     }
 
   return E_OK;
- a32:	80 e0       	ldi	r24, 0x00	; 0
+ a0a:	80 e0       	ldi	r24, 0x00	; 0
               case TIMER_POLLING_MODE:
               {
                 /*Disable interrupts for T1 without effecting any other timer*/
                  /*without Disabling Global interrupt*/
                 TIMSK &=T1_INTERRUPT_DISABLE;
                 break;
- a34:	65 c0       	rjmp	.+202    	; 0xb00 <Timer_Init+0x1fc>
+ a0c:	65 c0       	rjmp	.+202    	; 0xad8 <Timer_Init+0x1fc>
               }
               case TIMER_INTERRUPT_MODE:
               {
                 G_interrupt_Enable();
- a36:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ a0e:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                 TIMSK |=T1_INTERRUPT_NORMAL;
- a3a:	89 b7       	in	r24, 0x39	; 57
- a3c:	84 60       	ori	r24, 0x04	; 4
- a3e:	89 bf       	out	0x39, r24	; 57
+ a12:	89 b7       	in	r24, 0x39	; 57
+ a14:	84 60       	ori	r24, 0x04	; 4
+ a16:	89 bf       	out	0x39, r24	; 57
       }
       default :
       return E_NOK;
     }
 
   return E_OK;
- a40:	80 e0       	ldi	r24, 0x00	; 0
+ a18:	80 e0       	ldi	r24, 0x00	; 0
                 TIMSK |=T1_INTERRUPT_NORMAL;
                 /*Enable Global INTERRUPT
                 Enable Timer0 interrupt
                 */
 
                 break;
- a42:	5e c0       	rjmp	.+188    	; 0xb00 <Timer_Init+0x1fc>
+ a1a:	5e c0       	rjmp	.+188    	; 0xad8 <Timer_Init+0x1fc>
   /*                             TIMER 2                                   */
   /*************************************************************************/
 
   case TIMER_CH2:
   {
 TCCR2 |=T2_NORMAL_MODE_CONFIG;
- a44:	85 b5       	in	r24, 0x25	; 37
- a46:	85 bd       	out	0x25, r24	; 37
+ a1c:	85 b5       	in	r24, 0x25	; 37
+ a1e:	85 bd       	out	0x25, r24	; 37
     switch (Timer_cfg->Timer_Mode) {
- a48:	89 81       	ldd	r24, Y+1	; 0x01
- a4a:	88 23       	and	r24, r24
- a4c:	21 f0       	breq	.+8      	; 0xa56 <Timer_Init+0x152>
- a4e:	81 30       	cpi	r24, 0x01	; 1
- a50:	09 f0       	breq	.+2      	; 0xa54 <Timer_Init+0x150>
- a52:	4f c0       	rjmp	.+158    	; 0xaf2 <Timer_Init+0x1ee>
- a54:	11 c0       	rjmp	.+34     	; 0xa78 <Timer_Init+0x174>
+ a20:	89 81       	ldd	r24, Y+1	; 0x01
+ a22:	88 23       	and	r24, r24
+ a24:	21 f0       	breq	.+8      	; 0xa2e <Timer_Init+0x152>
+ a26:	81 30       	cpi	r24, 0x01	; 1
+ a28:	09 f0       	breq	.+2      	; 0xa2c <Timer_Init+0x150>
+ a2a:	4f c0       	rjmp	.+158    	; 0xaca <Timer_Init+0x1ee>
+ a2c:	11 c0       	rjmp	.+34     	; 0xa50 <Timer_Init+0x174>
       case TIMER_MODE:
       {
             switch (Timer_cfg->Timer_Polling_Or_Interrupt) {
- a56:	8a 81       	ldd	r24, Y+2	; 0x02
- a58:	88 23       	and	r24, r24
- a5a:	21 f0       	breq	.+8      	; 0xa64 <Timer_Init+0x160>
- a5c:	81 30       	cpi	r24, 0x01	; 1
- a5e:	09 f0       	breq	.+2      	; 0xa62 <Timer_Init+0x15e>
- a60:	4a c0       	rjmp	.+148    	; 0xaf6 <Timer_Init+0x1f2>
- a62:	04 c0       	rjmp	.+8      	; 0xa6c <Timer_Init+0x168>
+ a2e:	8a 81       	ldd	r24, Y+2	; 0x02
+ a30:	88 23       	and	r24, r24
+ a32:	21 f0       	breq	.+8      	; 0xa3c <Timer_Init+0x160>
+ a34:	81 30       	cpi	r24, 0x01	; 1
+ a36:	09 f0       	breq	.+2      	; 0xa3a <Timer_Init+0x15e>
+ a38:	4a c0       	rjmp	.+148    	; 0xace <Timer_Init+0x1f2>
+ a3a:	04 c0       	rjmp	.+8      	; 0xa44 <Timer_Init+0x168>
               case TIMER_POLLING_MODE:
               {
                   TIMSK &= T2_INTERRUPT_DISABLE;
- a64:	89 b7       	in	r24, 0x39	; 57
- a66:	8f 73       	andi	r24, 0x3F	; 63
- a68:	89 bf       	out	0x39, r24	; 57
+ a3c:	89 b7       	in	r24, 0x39	; 57
+ a3e:	8f 73       	andi	r24, 0x3F	; 63
+ a40:	89 bf       	out	0x39, r24	; 57
                 break;
- a6a:	32 c0       	rjmp	.+100    	; 0xad0 <Timer_Init+0x1cc>
+ a42:	32 c0       	rjmp	.+100    	; 0xaa8 <Timer_Init+0x1cc>
               }
               case TIMER_INTERRUPT_MODE:
               {
                 G_interrupt_Enable();
- a6c:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ a44:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                   TIMSK|=T2_INTERRUPT_NORMAL;
- a70:	89 b7       	in	r24, 0x39	; 57
- a72:	80 6c       	ori	r24, 0xC0	; 192
- a74:	89 bf       	out	0x39, r24	; 57
+ a48:	89 b7       	in	r24, 0x39	; 57
+ a4a:	80 6c       	ori	r24, 0xC0	; 192
+ a4c:	89 bf       	out	0x39, r24	; 57
 
                 break;
- a76:	2c c0       	rjmp	.+88     	; 0xad0 <Timer_Init+0x1cc>
+ a4e:	2c c0       	rjmp	.+88     	; 0xaa8 <Timer_Init+0x1cc>
             }
         break;
       }
       case COUNTER_RISING_MODE:
       {
           ASSR |=0x08;
- a78:	82 b5       	in	r24, 0x22	; 34
- a7a:	88 60       	ori	r24, 0x08	; 8
- a7c:	82 bd       	out	0x22, r24	; 34
+ a50:	82 b5       	in	r24, 0x22	; 34
+ a52:	88 60       	ori	r24, 0x08	; 8
+ a54:	82 bd       	out	0x22, r24	; 34
             switch (Timer_cfg->Timer_Polling_Or_Interrupt)
- a7e:	8a 81       	ldd	r24, Y+2	; 0x02
- a80:	81 30       	cpi	r24, 0x01	; 1
- a82:	51 f0       	breq	.+20     	; 0xa98 <Timer_Init+0x194>
- a84:	81 30       	cpi	r24, 0x01	; 1
- a86:	18 f0       	brcs	.+6      	; 0xa8e <Timer_Init+0x18a>
- a88:	82 30       	cpi	r24, 0x02	; 2
- a8a:	b9 f5       	brne	.+110    	; 0xafa <Timer_Init+0x1f6>
- a8c:	0c c0       	rjmp	.+24     	; 0xaa6 <Timer_Init+0x1a2>
+ a56:	8a 81       	ldd	r24, Y+2	; 0x02
+ a58:	81 30       	cpi	r24, 0x01	; 1
+ a5a:	51 f0       	breq	.+20     	; 0xa70 <Timer_Init+0x194>
+ a5c:	81 30       	cpi	r24, 0x01	; 1
+ a5e:	18 f0       	brcs	.+6      	; 0xa66 <Timer_Init+0x18a>
+ a60:	82 30       	cpi	r24, 0x02	; 2
+ a62:	b9 f5       	brne	.+110    	; 0xad2 <Timer_Init+0x1f6>
+ a64:	0c c0       	rjmp	.+24     	; 0xa7e <Timer_Init+0x1a2>
             {
               case TIMER_POLLING_MODE:
               {
                 TIMSK &= T2_INTERRUPT_DISABLE;
- a8e:	89 b7       	in	r24, 0x39	; 57
- a90:	8f 73       	andi	r24, 0x3F	; 63
- a92:	89 bf       	out	0x39, r24	; 57
+ a66:	89 b7       	in	r24, 0x39	; 57
+ a68:	8f 73       	andi	r24, 0x3F	; 63
+ a6a:	89 bf       	out	0x39, r24	; 57
             }
         break;
             }
             }
   default:
   return E_NOK;
- a94:	81 e0       	ldi	r24, 0x01	; 1
+ a6c:	81 e0       	ldi	r24, 0x01	; 1
             {
               case TIMER_POLLING_MODE:
               {
                 TIMSK &= T2_INTERRUPT_DISABLE;
 
                 break;
- a96:	34 c0       	rjmp	.+104    	; 0xb00 <Timer_Init+0x1fc>
+ a6e:	34 c0       	rjmp	.+104    	; 0xad8 <Timer_Init+0x1fc>
               }
               case TIMER_INTERRUPT_MODE:
               {
                 G_interrupt_Enable();
- a98:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ a70:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                   TIMSK|=T2_INTERRUPT_NORMAL;
- a9c:	89 b7       	in	r24, 0x39	; 57
- a9e:	80 6c       	ori	r24, 0xC0	; 192
- aa0:	89 bf       	out	0x39, r24	; 57
+ a74:	89 b7       	in	r24, 0x39	; 57
+ a76:	80 6c       	ori	r24, 0xC0	; 192
+ a78:	89 bf       	out	0x39, r24	; 57
             }
         break;
             }
             }
   default:
   return E_NOK;
- aa2:	81 e0       	ldi	r24, 0x01	; 1
+ a7a:	81 e0       	ldi	r24, 0x01	; 1
               }
               case TIMER_INTERRUPT_MODE:
               {
                 G_interrupt_Enable();
                   TIMSK|=T2_INTERRUPT_NORMAL;
                 break;
- aa4:	2d c0       	rjmp	.+90     	; 0xb00 <Timer_Init+0x1fc>
+ a7c:	2d c0       	rjmp	.+90     	; 0xad8 <Timer_Init+0x1fc>
               }
               case COUNTER_FALLING_MODE:
               {
                   ASSR |=0x08;
- aa6:	82 b5       	in	r24, 0x22	; 34
- aa8:	88 60       	ori	r24, 0x08	; 8
- aaa:	82 bd       	out	0x22, r24	; 34
+ a7e:	82 b5       	in	r24, 0x22	; 34
+ a80:	88 60       	ori	r24, 0x08	; 8
+ a82:	82 bd       	out	0x22, r24	; 34
                     switch (Timer_cfg->Timer_Polling_Or_Interrupt)
- aac:	8a 81       	ldd	r24, Y+2	; 0x02
- aae:	88 23       	and	r24, r24
- ab0:	19 f0       	breq	.+6      	; 0xab8 <Timer_Init+0x1b4>
- ab2:	81 30       	cpi	r24, 0x01	; 1
- ab4:	21 f5       	brne	.+72     	; 0xafe <Timer_Init+0x1fa>
- ab6:	05 c0       	rjmp	.+10     	; 0xac2 <Timer_Init+0x1be>
+ a84:	8a 81       	ldd	r24, Y+2	; 0x02
+ a86:	88 23       	and	r24, r24
+ a88:	19 f0       	breq	.+6      	; 0xa90 <Timer_Init+0x1b4>
+ a8a:	81 30       	cpi	r24, 0x01	; 1
+ a8c:	21 f5       	brne	.+72     	; 0xad6 <Timer_Init+0x1fa>
+ a8e:	05 c0       	rjmp	.+10     	; 0xa9a <Timer_Init+0x1be>
                     {
                       case TIMER_POLLING_MODE:
                       {
                         TIMSK &= T2_INTERRUPT_DISABLE;
- ab8:	89 b7       	in	r24, 0x39	; 57
- aba:	8f 73       	andi	r24, 0x3F	; 63
- abc:	89 bf       	out	0x39, r24	; 57
+ a90:	89 b7       	in	r24, 0x39	; 57
+ a92:	8f 73       	andi	r24, 0x3F	; 63
+ a94:	89 bf       	out	0x39, r24	; 57
             }
         break;
             }
             }
   default:
   return E_NOK;
- abe:	81 e0       	ldi	r24, 0x01	; 1
+ a96:	81 e0       	ldi	r24, 0x01	; 1
                     {
                       case TIMER_POLLING_MODE:
                       {
                         TIMSK &= T2_INTERRUPT_DISABLE;
 
                         break;
- ac0:	1f c0       	rjmp	.+62     	; 0xb00 <Timer_Init+0x1fc>
+ a98:	1f c0       	rjmp	.+62     	; 0xad8 <Timer_Init+0x1fc>
                       }
                       case TIMER_INTERRUPT_MODE:
                       {
                         G_interrupt_Enable();
- ac2:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ a9a:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
                           TIMSK|=T2_INTERRUPT_NORMAL;
- ac6:	89 b7       	in	r24, 0x39	; 57
- ac8:	80 6c       	ori	r24, 0xC0	; 192
- aca:	89 bf       	out	0x39, r24	; 57
+ a9e:	89 b7       	in	r24, 0x39	; 57
+ aa0:	80 6c       	ori	r24, 0xC0	; 192
+ aa2:	89 bf       	out	0x39, r24	; 57
             }
         break;
             }
             }
   default:
   return E_NOK;
- acc:	81 e0       	ldi	r24, 0x01	; 1
+ aa4:	81 e0       	ldi	r24, 0x01	; 1
                       }
                       case TIMER_INTERRUPT_MODE:
                       {
                         G_interrupt_Enable();
                           TIMSK|=T2_INTERRUPT_NORMAL;
                         break;
- ace:	18 c0       	rjmp	.+48     	; 0xb00 <Timer_Init+0x1fc>
- ad0:	17 c0       	rjmp	.+46     	; 0xb00 <Timer_Init+0x1fc>
+ aa6:	18 c0       	rjmp	.+48     	; 0xad8 <Timer_Init+0x1fc>
+ aa8:	17 c0       	rjmp	.+46     	; 0xad8 <Timer_Init+0x1fc>
                                                   return E_NOK;
                                                 }
                                       break;
                                       }
                                       default:
                                       return E_NOK;
- ad2:	81 e0       	ldi	r24, 0x01	; 1
- ad4:	15 c0       	rjmp	.+42     	; 0xb00 <Timer_Init+0x1fc>
+ aaa:	81 e0       	ldi	r24, 0x01	; 1
+ aac:	15 c0       	rjmp	.+42     	; 0xad8 <Timer_Init+0x1fc>
                                     G_interrupt_Enable();
                                     TIMSK |= T0_INTERRUPT_NORMAL;
                                     break;
                                   }
                                   default :
                                   return E_NOK;
- ad6:	81 e0       	ldi	r24, 0x01	; 1
- ad8:	13 c0       	rjmp	.+38     	; 0xb00 <Timer_Init+0x1fc>
+ aae:	81 e0       	ldi	r24, 0x01	; 1
+ ab0:	13 c0       	rjmp	.+38     	; 0xad8 <Timer_Init+0x1fc>
                                               G_interrupt_Enable();
                                               TIMSK |= T0_INTERRUPT_NORMAL;
                                               break;
 
                                           default :
                                           return E_NOK;
- ada:	81 e0       	ldi	r24, 0x01	; 1
- adc:	11 c0       	rjmp	.+34     	; 0xb00 <Timer_Init+0x1fc>
+ ab2:	81 e0       	ldi	r24, 0x01	; 1
+ ab4:	11 c0       	rjmp	.+34     	; 0xad8 <Timer_Init+0x1fc>
                                                     TIMSK |= T0_INTERRUPT_NORMAL;
 
                                                     break;
                                                   }
                                                   default:
                                                   return E_NOK;
- ade:	81 e0       	ldi	r24, 0x01	; 1
- ae0:	0f c0       	rjmp	.+30     	; 0xb00 <Timer_Init+0x1fc>
+ ab6:	81 e0       	ldi	r24, 0x01	; 1
+ ab8:	0f c0       	rjmp	.+30     	; 0xad8 <Timer_Init+0x1fc>
               return E_NOK;
             }
       break;
       }
       default :
       return E_NOK;
- ae2:	81 e0       	ldi	r24, 0x01	; 1
- ae4:	0d c0       	rjmp	.+26     	; 0xb00 <Timer_Init+0x1fc>
+ aba:	81 e0       	ldi	r24, 0x01	; 1
+ abc:	0d c0       	rjmp	.+26     	; 0xad8 <Timer_Init+0x1fc>
                 Enable Timer0 interrupt
                 */
                 break;
               }
               default :
               return E_NOK;
- ae6:	81 e0       	ldi	r24, 0x01	; 1
- ae8:	0b c0       	rjmp	.+22     	; 0xb00 <Timer_Init+0x1fc>
+ abe:	81 e0       	ldi	r24, 0x01	; 1
+ ac0:	0b c0       	rjmp	.+22     	; 0xad8 <Timer_Init+0x1fc>
                 Enable Timer0 interrupt
                 */
                 break;
               }
               default:
               return E_NOK;
- aea:	81 e0       	ldi	r24, 0x01	; 1
- aec:	09 c0       	rjmp	.+18     	; 0xb00 <Timer_Init+0x1fc>
+ ac2:	81 e0       	ldi	r24, 0x01	; 1
+ ac4:	09 c0       	rjmp	.+18     	; 0xad8 <Timer_Init+0x1fc>
                 */
 
                 break;
               }
               default :
               return E_NOK;
- aee:	81 e0       	ldi	r24, 0x01	; 1
- af0:	07 c0       	rjmp	.+14     	; 0xb00 <Timer_Init+0x1fc>
+ ac6:	81 e0       	ldi	r24, 0x01	; 1
+ ac8:	07 c0       	rjmp	.+14     	; 0xad8 <Timer_Init+0x1fc>
             }
         break;
             }
             }
   default:
   return E_NOK;
- af2:	81 e0       	ldi	r24, 0x01	; 1
- af4:	05 c0       	rjmp	.+10     	; 0xb00 <Timer_Init+0x1fc>
+ aca:	81 e0       	ldi	r24, 0x01	; 1
+ acc:	05 c0       	rjmp	.+10     	; 0xad8 <Timer_Init+0x1fc>
                   TIMSK|=T2_INTERRUPT_NORMAL;
 
                 break;
               }
               default :
               return E_NOK;
- af6:	81 e0       	ldi	r24, 0x01	; 1
- af8:	03 c0       	rjmp	.+6      	; 0xb00 <Timer_Init+0x1fc>
+ ace:	81 e0       	ldi	r24, 0x01	; 1
+ ad0:	03 c0       	rjmp	.+6      	; 0xad8 <Timer_Init+0x1fc>
             }
         break;
             }
             }
   default:
   return E_NOK;
- afa:	81 e0       	ldi	r24, 0x01	; 1
- afc:	01 c0       	rjmp	.+2      	; 0xb00 <Timer_Init+0x1fc>
+ ad2:	81 e0       	ldi	r24, 0x01	; 1
+ ad4:	01 c0       	rjmp	.+2      	; 0xad8 <Timer_Init+0x1fc>
                           TIMSK|=T2_INTERRUPT_NORMAL;
                         break;
                       }
 
               default :
               return E_NOK;
- afe:	81 e0       	ldi	r24, 0x01	; 1
+ ad6:	81 e0       	ldi	r24, 0x01	; 1
 
 }
  }
 
 }
 }
- b00:	df 91       	pop	r29
- b02:	cf 91       	pop	r28
- b04:	08 95       	ret
+ ad8:	df 91       	pop	r29
+ ada:	cf 91       	pop	r28
+ adc:	08 95       	ret
 
-00000b06 <Timer_Start>:
+00000ade <Timer_Start>:
  * Description: This function strats the needed timer.
  *
  */
 ERROR_STATUS Timer_Start(uint8_t Timer_CH_NO, uint16_t Timer_Count){
 uint8_t Ret;
 switch (Timer_CH_NO) {
- b06:	81 30       	cpi	r24, 0x01	; 1
- b08:	09 f4       	brne	.+2      	; 0xb0c <Timer_Start+0x6>
- b0a:	4f c0       	rjmp	.+158    	; 0xbaa <Timer_Start+0xa4>
- b0c:	81 30       	cpi	r24, 0x01	; 1
- b0e:	20 f0       	brcs	.+8      	; 0xb18 <Timer_Start+0x12>
- b10:	82 30       	cpi	r24, 0x02	; 2
- b12:	09 f0       	breq	.+2      	; 0xb16 <Timer_Start+0x10>
- b14:	f3 c0       	rjmp	.+486    	; 0xcfc <Timer_Start+0x1f6>
- b16:	97 c0       	rjmp	.+302    	; 0xc46 <Timer_Start+0x140>
+ ade:	81 30       	cpi	r24, 0x01	; 1
+ ae0:	09 f4       	brne	.+2      	; 0xae4 <Timer_Start+0x6>
+ ae2:	4f c0       	rjmp	.+158    	; 0xb82 <Timer_Start+0xa4>
+ ae4:	81 30       	cpi	r24, 0x01	; 1
+ ae6:	20 f0       	brcs	.+8      	; 0xaf0 <Timer_Start+0x12>
+ ae8:	82 30       	cpi	r24, 0x02	; 2
+ aea:	09 f0       	breq	.+2      	; 0xaee <Timer_Start+0x10>
+ aec:	f3 c0       	rjmp	.+486    	; 0xcd4 <Timer_Start+0x1f6>
+ aee:	97 c0       	rjmp	.+302    	; 0xc1e <Timer_Start+0x140>
 case TIMER_CH0:{/***********************************************************************************************************************/
 switch(prescaler_value){
- b18:	80 91 7c 00 	lds	r24, 0x007C
- b1c:	84 30       	cpi	r24, 0x04	; 4
- b1e:	21 f1       	breq	.+72     	; 0xb68 <Timer_Start+0x62>
- b20:	85 30       	cpi	r24, 0x05	; 5
- b22:	30 f4       	brcc	.+12     	; 0xb30 <Timer_Start+0x2a>
- b24:	81 30       	cpi	r24, 0x01	; 1
- b26:	51 f0       	breq	.+20     	; 0xb3c <Timer_Start+0x36>
- b28:	82 30       	cpi	r24, 0x02	; 2
- b2a:	09 f0       	breq	.+2      	; 0xb2e <Timer_Start+0x28>
- b2c:	e9 c0       	rjmp	.+466    	; 0xd00 <Timer_Start+0x1fa>
- b2e:	11 c0       	rjmp	.+34     	; 0xb52 <Timer_Start+0x4c>
- b30:	86 30       	cpi	r24, 0x06	; 6
- b32:	29 f1       	breq	.+74     	; 0xb7e <Timer_Start+0x78>
- b34:	87 30       	cpi	r24, 0x07	; 7
- b36:	09 f0       	breq	.+2      	; 0xb3a <Timer_Start+0x34>
- b38:	e3 c0       	rjmp	.+454    	; 0xd00 <Timer_Start+0x1fa>
- b3a:	2c c0       	rjmp	.+88     	; 0xb94 <Timer_Start+0x8e>
+ af0:	80 91 7c 00 	lds	r24, 0x007C
+ af4:	84 30       	cpi	r24, 0x04	; 4
+ af6:	21 f1       	breq	.+72     	; 0xb40 <Timer_Start+0x62>
+ af8:	85 30       	cpi	r24, 0x05	; 5
+ afa:	30 f4       	brcc	.+12     	; 0xb08 <Timer_Start+0x2a>
+ afc:	81 30       	cpi	r24, 0x01	; 1
+ afe:	51 f0       	breq	.+20     	; 0xb14 <Timer_Start+0x36>
+ b00:	82 30       	cpi	r24, 0x02	; 2
+ b02:	09 f0       	breq	.+2      	; 0xb06 <Timer_Start+0x28>
+ b04:	e9 c0       	rjmp	.+466    	; 0xcd8 <Timer_Start+0x1fa>
+ b06:	11 c0       	rjmp	.+34     	; 0xb2a <Timer_Start+0x4c>
+ b08:	86 30       	cpi	r24, 0x06	; 6
+ b0a:	29 f1       	breq	.+74     	; 0xb56 <Timer_Start+0x78>
+ b0c:	87 30       	cpi	r24, 0x07	; 7
+ b0e:	09 f0       	breq	.+2      	; 0xb12 <Timer_Start+0x34>
+ b10:	e3 c0       	rjmp	.+454    	; 0xcd8 <Timer_Start+0x1fa>
+ b12:	2c c0       	rjmp	.+88     	; 0xb6c <Timer_Start+0x8e>
 case TIMER_PRESCALER_NO :{
 if(Timer_Count < MAX0){
- b3c:	6f 3f       	cpi	r22, 0xFF	; 255
- b3e:	71 05       	cpc	r23, r1
- b40:	08 f0       	brcs	.+2      	; 0xb44 <Timer_Start+0x3e>
- b42:	e0 c0       	rjmp	.+448    	; 0xd04 <Timer_Start+0x1fe>
+ b14:	6f 3f       	cpi	r22, 0xFF	; 255
+ b16:	71 05       	cpc	r23, r1
+ b18:	08 f0       	brcs	.+2      	; 0xb1c <Timer_Start+0x3e>
+ b1a:	e0 c0       	rjmp	.+448    	; 0xcdc <Timer_Start+0x1fe>
 TCCR0 |=TIMER_PRESCALER_NO;
- b44:	83 b7       	in	r24, 0x33	; 51
- b46:	81 60       	ori	r24, 0x01	; 1
- b48:	83 bf       	out	0x33, r24	; 51
+ b1c:	83 b7       	in	r24, 0x33	; 51
+ b1e:	81 60       	ori	r24, 0x01	; 1
+ b20:	83 bf       	out	0x33, r24	; 51
 TCNT0 =	MAX0 - Timer_Count;
- b4a:	60 95       	com	r22
- b4c:	62 bf       	out	0x32, r22	; 50
+ b22:	60 95       	com	r22
+ b24:	62 bf       	out	0x32, r22	; 50
 default :
 Ret=E_NOK;
 break;
 }
 
 Ret=E_OK;
- b4e:	80 e0       	ldi	r24, 0x00	; 0
- b50:	08 95       	ret
+ b26:	80 e0       	ldi	r24, 0x00	; 0
+ b28:	08 95       	ret
 Ret=E_NOK;
 }
 break;
 }
 case TIMER_PRESCALER_8 :{
 if(Timer_Count < MAX0){
- b52:	6f 3f       	cpi	r22, 0xFF	; 255
- b54:	71 05       	cpc	r23, r1
- b56:	08 f0       	brcs	.+2      	; 0xb5a <Timer_Start+0x54>
- b58:	d7 c0       	rjmp	.+430    	; 0xd08 <Timer_Start+0x202>
+ b2a:	6f 3f       	cpi	r22, 0xFF	; 255
+ b2c:	71 05       	cpc	r23, r1
+ b2e:	08 f0       	brcs	.+2      	; 0xb32 <Timer_Start+0x54>
+ b30:	d7 c0       	rjmp	.+430    	; 0xce0 <Timer_Start+0x202>
 TCCR0 |=TIMER0_PRESCALER_8_CONFIG;
- b5a:	83 b7       	in	r24, 0x33	; 51
- b5c:	82 60       	ori	r24, 0x02	; 2
- b5e:	83 bf       	out	0x33, r24	; 51
+ b32:	83 b7       	in	r24, 0x33	; 51
+ b34:	82 60       	ori	r24, 0x02	; 2
+ b36:	83 bf       	out	0x33, r24	; 51
 TCNT0 =MAX0 - Timer_Count;
- b60:	60 95       	com	r22
- b62:	62 bf       	out	0x32, r22	; 50
+ b38:	60 95       	com	r22
+ b3a:	62 bf       	out	0x32, r22	; 50
 default :
 Ret=E_NOK;
 break;
 }
 
 Ret=E_OK;
- b64:	80 e0       	ldi	r24, 0x00	; 0
- b66:	08 95       	ret
+ b3c:	80 e0       	ldi	r24, 0x00	; 0
+ b3e:	08 95       	ret
 Ret=E_NOK;
 }
 break;
 }
 case TIMER_PRESCALER_64 :{
 if(Timer_Count < MAX0){
- b68:	6f 3f       	cpi	r22, 0xFF	; 255
- b6a:	71 05       	cpc	r23, r1
- b6c:	08 f0       	brcs	.+2      	; 0xb70 <Timer_Start+0x6a>
- b6e:	ce c0       	rjmp	.+412    	; 0xd0c <Timer_Start+0x206>
+ b40:	6f 3f       	cpi	r22, 0xFF	; 255
+ b42:	71 05       	cpc	r23, r1
+ b44:	08 f0       	brcs	.+2      	; 0xb48 <Timer_Start+0x6a>
+ b46:	ce c0       	rjmp	.+412    	; 0xce4 <Timer_Start+0x206>
 TCCR0 |=TIMER0_PRESCALER_64_CONFIG;
- b70:	83 b7       	in	r24, 0x33	; 51
- b72:	83 60       	ori	r24, 0x03	; 3
- b74:	83 bf       	out	0x33, r24	; 51
+ b48:	83 b7       	in	r24, 0x33	; 51
+ b4a:	83 60       	ori	r24, 0x03	; 3
+ b4c:	83 bf       	out	0x33, r24	; 51
 TCNT0 = MAX0 - Timer_Count;
- b76:	60 95       	com	r22
- b78:	62 bf       	out	0x32, r22	; 50
+ b4e:	60 95       	com	r22
+ b50:	62 bf       	out	0x32, r22	; 50
 default :
 Ret=E_NOK;
 break;
 }
 
 Ret=E_OK;
- b7a:	80 e0       	ldi	r24, 0x00	; 0
- b7c:	08 95       	ret
+ b52:	80 e0       	ldi	r24, 0x00	; 0
+ b54:	08 95       	ret
 Ret=E_NOK;
 }
 break;
 }
 case TIMER_PRESCALER_256 :{
 if(Timer_Count < MAX0){
- b7e:	6f 3f       	cpi	r22, 0xFF	; 255
- b80:	71 05       	cpc	r23, r1
- b82:	08 f0       	brcs	.+2      	; 0xb86 <Timer_Start+0x80>
- b84:	c5 c0       	rjmp	.+394    	; 0xd10 <Timer_Start+0x20a>
+ b56:	6f 3f       	cpi	r22, 0xFF	; 255
+ b58:	71 05       	cpc	r23, r1
+ b5a:	08 f0       	brcs	.+2      	; 0xb5e <Timer_Start+0x80>
+ b5c:	c5 c0       	rjmp	.+394    	; 0xce8 <Timer_Start+0x20a>
 TCCR0 |=TIMER0_PRESCALER_256_CONFIG;
- b86:	83 b7       	in	r24, 0x33	; 51
- b88:	84 60       	ori	r24, 0x04	; 4
- b8a:	83 bf       	out	0x33, r24	; 51
+ b5e:	83 b7       	in	r24, 0x33	; 51
+ b60:	84 60       	ori	r24, 0x04	; 4
+ b62:	83 bf       	out	0x33, r24	; 51
 TCNT0 =MAX0 - Timer_Count;
- b8c:	60 95       	com	r22
- b8e:	62 bf       	out	0x32, r22	; 50
+ b64:	60 95       	com	r22
+ b66:	62 bf       	out	0x32, r22	; 50
 default :
 Ret=E_NOK;
 break;
 }
 
 Ret=E_OK;
- b90:	80 e0       	ldi	r24, 0x00	; 0
- b92:	08 95       	ret
+ b68:	80 e0       	ldi	r24, 0x00	; 0
+ b6a:	08 95       	ret
 Ret=E_NOK;
 }
 break;
 }
 case TIMER_PRESCALER_1024 :{
 if(Timer_Count < MAX0){
- b94:	6f 3f       	cpi	r22, 0xFF	; 255
- b96:	71 05       	cpc	r23, r1
- b98:	08 f0       	brcs	.+2      	; 0xb9c <Timer_Start+0x96>
- b9a:	bc c0       	rjmp	.+376    	; 0xd14 <Timer_Start+0x20e>
+ b6c:	6f 3f       	cpi	r22, 0xFF	; 255
+ b6e:	71 05       	cpc	r23, r1
+ b70:	08 f0       	brcs	.+2      	; 0xb74 <Timer_Start+0x96>
+ b72:	bc c0       	rjmp	.+376    	; 0xcec <Timer_Start+0x20e>
 TCCR0 |=TIMER0_PRESCALER_1024_CONFIG;
- b9c:	83 b7       	in	r24, 0x33	; 51
- b9e:	85 60       	ori	r24, 0x05	; 5
- ba0:	83 bf       	out	0x33, r24	; 51
+ b74:	83 b7       	in	r24, 0x33	; 51
+ b76:	85 60       	ori	r24, 0x05	; 5
+ b78:	83 bf       	out	0x33, r24	; 51
 TCNT0 =MAX0 - Timer_Count;
- ba2:	60 95       	com	r22
- ba4:	62 bf       	out	0x32, r22	; 50
+ b7a:	60 95       	com	r22
+ b7c:	62 bf       	out	0x32, r22	; 50
 default :
 Ret=E_NOK;
 break;
 }
 
 Ret=E_OK;
- ba6:	80 e0       	ldi	r24, 0x00	; 0
- ba8:	08 95       	ret
+ b7e:	80 e0       	ldi	r24, 0x00	; 0
+ b80:	08 95       	ret
 break;
 }
 case TIMER_CH1:{
 
   switch(prescaler_value){
- baa:	80 91 7c 00 	lds	r24, 0x007C
- bae:	84 30       	cpi	r24, 0x04	; 4
- bb0:	31 f1       	breq	.+76     	; 0xbfe <Timer_Start+0xf8>
- bb2:	85 30       	cpi	r24, 0x05	; 5
- bb4:	30 f4       	brcc	.+12     	; 0xbc2 <Timer_Start+0xbc>
- bb6:	81 30       	cpi	r24, 0x01	; 1
- bb8:	51 f0       	breq	.+20     	; 0xbce <Timer_Start+0xc8>
- bba:	82 30       	cpi	r24, 0x02	; 2
- bbc:	09 f0       	breq	.+2      	; 0xbc0 <Timer_Start+0xba>
- bbe:	ac c0       	rjmp	.+344    	; 0xd18 <Timer_Start+0x212>
- bc0:	12 c0       	rjmp	.+36     	; 0xbe6 <Timer_Start+0xe0>
- bc2:	86 30       	cpi	r24, 0x06	; 6
- bc4:	41 f1       	breq	.+80     	; 0xc16 <Timer_Start+0x110>
- bc6:	87 30       	cpi	r24, 0x07	; 7
- bc8:	09 f0       	breq	.+2      	; 0xbcc <Timer_Start+0xc6>
- bca:	a6 c0       	rjmp	.+332    	; 0xd18 <Timer_Start+0x212>
- bcc:	30 c0       	rjmp	.+96     	; 0xc2e <Timer_Start+0x128>
+ b82:	80 91 7c 00 	lds	r24, 0x007C
+ b86:	84 30       	cpi	r24, 0x04	; 4
+ b88:	31 f1       	breq	.+76     	; 0xbd6 <Timer_Start+0xf8>
+ b8a:	85 30       	cpi	r24, 0x05	; 5
+ b8c:	30 f4       	brcc	.+12     	; 0xb9a <Timer_Start+0xbc>
+ b8e:	81 30       	cpi	r24, 0x01	; 1
+ b90:	51 f0       	breq	.+20     	; 0xba6 <Timer_Start+0xc8>
+ b92:	82 30       	cpi	r24, 0x02	; 2
+ b94:	09 f0       	breq	.+2      	; 0xb98 <Timer_Start+0xba>
+ b96:	ac c0       	rjmp	.+344    	; 0xcf0 <Timer_Start+0x212>
+ b98:	12 c0       	rjmp	.+36     	; 0xbbe <Timer_Start+0xe0>
+ b9a:	86 30       	cpi	r24, 0x06	; 6
+ b9c:	41 f1       	breq	.+80     	; 0xbee <Timer_Start+0x110>
+ b9e:	87 30       	cpi	r24, 0x07	; 7
+ ba0:	09 f0       	breq	.+2      	; 0xba4 <Timer_Start+0xc6>
+ ba2:	a6 c0       	rjmp	.+332    	; 0xcf0 <Timer_Start+0x212>
+ ba4:	30 c0       	rjmp	.+96     	; 0xc06 <Timer_Start+0x128>
   case TIMER_PRESCALER_NO :{
   if(Timer_Count < MAX1){
   TCCR1 |=TIMER_PRESCALER_NO;
- bce:	8e b5       	in	r24, 0x2e	; 46
- bd0:	9f b5       	in	r25, 0x2f	; 47
- bd2:	81 60       	ori	r24, 0x01	; 1
- bd4:	9f bd       	out	0x2f, r25	; 47
- bd6:	8e bd       	out	0x2e, r24	; 46
+ ba6:	8e b5       	in	r24, 0x2e	; 46
+ ba8:	9f b5       	in	r25, 0x2f	; 47
+ baa:	81 60       	ori	r24, 0x01	; 1
+ bac:	9f bd       	out	0x2f, r25	; 47
+ bae:	8e bd       	out	0x2e, r24	; 46
   TCNT1 =MAX1 - Timer_Count;
- bd8:	70 95       	com	r23
- bda:	61 95       	neg	r22
- bdc:	7f 4f       	sbci	r23, 0xFF	; 255
- bde:	7d bd       	out	0x2d, r23	; 45
- be0:	6c bd       	out	0x2c, r22	; 44
+ bb0:	70 95       	com	r23
+ bb2:	61 95       	neg	r22
+ bb4:	7f 4f       	sbci	r23, 0xFF	; 255
+ bb6:	7d bd       	out	0x2d, r23	; 45
+ bb8:	6c bd       	out	0x2c, r22	; 44
   Ret= E_NOK;
   break;
   }
 
 
   Ret= E_OK;
- be2:	80 e0       	ldi	r24, 0x00	; 0
+ bba:	80 e0       	ldi	r24, 0x00	; 0
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
   Ret=E_NOK;
   }
   break;
- be4:	08 95       	ret
+ bbc:	08 95       	ret
   }
   case TIMER_PRESCALER_8 :{
   if(Timer_Count < MAX1){
   TCCR1 |=TIMER1_PRESCALER_8_CONFIG;
- be6:	8e b5       	in	r24, 0x2e	; 46
- be8:	9f b5       	in	r25, 0x2f	; 47
- bea:	82 60       	ori	r24, 0x02	; 2
- bec:	9f bd       	out	0x2f, r25	; 47
- bee:	8e bd       	out	0x2e, r24	; 46
+ bbe:	8e b5       	in	r24, 0x2e	; 46
+ bc0:	9f b5       	in	r25, 0x2f	; 47
+ bc2:	82 60       	ori	r24, 0x02	; 2
+ bc4:	9f bd       	out	0x2f, r25	; 47
+ bc6:	8e bd       	out	0x2e, r24	; 46
   TCNT1 =MAX1 - Timer_Count;
- bf0:	70 95       	com	r23
- bf2:	61 95       	neg	r22
- bf4:	7f 4f       	sbci	r23, 0xFF	; 255
- bf6:	7d bd       	out	0x2d, r23	; 45
- bf8:	6c bd       	out	0x2c, r22	; 44
+ bc8:	70 95       	com	r23
+ bca:	61 95       	neg	r22
+ bcc:	7f 4f       	sbci	r23, 0xFF	; 255
+ bce:	7d bd       	out	0x2d, r23	; 45
+ bd0:	6c bd       	out	0x2c, r22	; 44
   Ret= E_NOK;
   break;
   }
 
 
   Ret= E_OK;
- bfa:	80 e0       	ldi	r24, 0x00	; 0
+ bd2:	80 e0       	ldi	r24, 0x00	; 0
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
   Ret= E_NOK;
   }
   break;
- bfc:	08 95       	ret
+ bd4:	08 95       	ret
   }
   case TIMER_PRESCALER_64 :{
   if(Timer_Count < MAX1){
   TCCR1 |=TIMER1_PRESCALER_64_CONFIG;
- bfe:	8e b5       	in	r24, 0x2e	; 46
- c00:	9f b5       	in	r25, 0x2f	; 47
- c02:	83 60       	ori	r24, 0x03	; 3
- c04:	9f bd       	out	0x2f, r25	; 47
- c06:	8e bd       	out	0x2e, r24	; 46
+ bd6:	8e b5       	in	r24, 0x2e	; 46
+ bd8:	9f b5       	in	r25, 0x2f	; 47
+ bda:	83 60       	ori	r24, 0x03	; 3
+ bdc:	9f bd       	out	0x2f, r25	; 47
+ bde:	8e bd       	out	0x2e, r24	; 46
   TCNT1 =MAX1 - Timer_Count;
- c08:	70 95       	com	r23
- c0a:	61 95       	neg	r22
- c0c:	7f 4f       	sbci	r23, 0xFF	; 255
- c0e:	7d bd       	out	0x2d, r23	; 45
- c10:	6c bd       	out	0x2c, r22	; 44
+ be0:	70 95       	com	r23
+ be2:	61 95       	neg	r22
+ be4:	7f 4f       	sbci	r23, 0xFF	; 255
+ be6:	7d bd       	out	0x2d, r23	; 45
+ be8:	6c bd       	out	0x2c, r22	; 44
   Ret= E_NOK;
   break;
   }
 
 
   Ret= E_OK;
- c12:	80 e0       	ldi	r24, 0x00	; 0
+ bea:	80 e0       	ldi	r24, 0x00	; 0
   TCNT1 =MAX1 - Timer_Count;
   }else
   {
   Ret= E_NOK;
   }
   break;
- c14:	08 95       	ret
+ bec:	08 95       	ret
   }
   case TIMER_PRESCALER_256 :{
   if(Timer_Count < MAX1){
   TCCR1 |=TIMER1_PRESCALER_256_CONFIG;
- c16:	8e b5       	in	r24, 0x2e	; 46
- c18:	9f b5       	in	r25, 0x2f	; 47
- c1a:	84 60       	ori	r24, 0x04	; 4
- c1c:	9f bd       	out	0x2f, r25	; 47
- c1e:	8e bd       	out	0x2e, r24	; 46
+ bee:	8e b5       	in	r24, 0x2e	; 46
+ bf0:	9f b5       	in	r25, 0x2f	; 47
+ bf2:	84 60       	ori	r24, 0x04	; 4
+ bf4:	9f bd       	out	0x2f, r25	; 47
+ bf6:	8e bd       	out	0x2e, r24	; 46
   TCNT1 =MAX1 - Timer_Count;
- c20:	70 95       	com	r23
- c22:	61 95       	neg	r22
- c24:	7f 4f       	sbci	r23, 0xFF	; 255
- c26:	7d bd       	out	0x2d, r23	; 45
- c28:	6c bd       	out	0x2c, r22	; 44
+ bf8:	70 95       	com	r23
+ bfa:	61 95       	neg	r22
+ bfc:	7f 4f       	sbci	r23, 0xFF	; 255
+ bfe:	7d bd       	out	0x2d, r23	; 45
+ c00:	6c bd       	out	0x2c, r22	; 44
   Ret= E_NOK;
   break;
   }
 
 
   Ret= E_OK;
- c2a:	80 e0       	ldi	r24, 0x00	; 0
+ c02:	80 e0       	ldi	r24, 0x00	; 0
   }else
   {
   Ret= E_NOK;
 
   }
   break;
- c2c:	08 95       	ret
+ c04:	08 95       	ret
   }
   case TIMER_PRESCALER_1024 :{
   if(Timer_Count < MAX1){
   TCCR1 |=TIMER1_PRESCALER_1024_CONFIG;
- c2e:	8e b5       	in	r24, 0x2e	; 46
- c30:	9f b5       	in	r25, 0x2f	; 47
- c32:	85 60       	ori	r24, 0x05	; 5
- c34:	9f bd       	out	0x2f, r25	; 47
- c36:	8e bd       	out	0x2e, r24	; 46
+ c06:	8e b5       	in	r24, 0x2e	; 46
+ c08:	9f b5       	in	r25, 0x2f	; 47
+ c0a:	85 60       	ori	r24, 0x05	; 5
+ c0c:	9f bd       	out	0x2f, r25	; 47
+ c0e:	8e bd       	out	0x2e, r24	; 46
   TCNT1 =MAX1 - Timer_Count;
- c38:	70 95       	com	r23
- c3a:	61 95       	neg	r22
- c3c:	7f 4f       	sbci	r23, 0xFF	; 255
- c3e:	7d bd       	out	0x2d, r23	; 45
- c40:	6c bd       	out	0x2c, r22	; 44
+ c10:	70 95       	com	r23
+ c12:	61 95       	neg	r22
+ c14:	7f 4f       	sbci	r23, 0xFF	; 255
+ c16:	7d bd       	out	0x2d, r23	; 45
+ c18:	6c bd       	out	0x2c, r22	; 44
   Ret= E_NOK;
   break;
   }
 
 
   Ret= E_OK;
- c42:	80 e0       	ldi	r24, 0x00	; 0
+ c1a:	80 e0       	ldi	r24, 0x00	; 0
   }else
   {
   Ret= E_NOK;
 
   }
   break;
- c44:	08 95       	ret
+ c1c:	08 95       	ret
 	break;
 }
 case TIMER_CH2:
 	{
   
 		switch(prescaler_value){
- c46:	80 91 7c 00 	lds	r24, 0x007C
- c4a:	84 30       	cpi	r24, 0x04	; 4
- c4c:	79 f1       	breq	.+94     	; 0xcac <Timer_Start+0x1a6>
- c4e:	85 30       	cpi	r24, 0x05	; 5
- c50:	40 f4       	brcc	.+16     	; 0xc62 <Timer_Start+0x15c>
- c52:	82 30       	cpi	r24, 0x02	; 2
- c54:	c9 f0       	breq	.+50     	; 0xc88 <Timer_Start+0x182>
- c56:	83 30       	cpi	r24, 0x03	; 3
- c58:	10 f5       	brcc	.+68     	; 0xc9e <Timer_Start+0x198>
- c5a:	81 30       	cpi	r24, 0x01	; 1
- c5c:	09 f0       	breq	.+2      	; 0xc60 <Timer_Start+0x15a>
- c5e:	5e c0       	rjmp	.+188    	; 0xd1c <Timer_Start+0x216>
- c60:	08 c0       	rjmp	.+16     	; 0xc72 <Timer_Start+0x16c>
- c62:	86 30       	cpi	r24, 0x06	; 6
- c64:	b9 f1       	breq	.+110    	; 0xcd4 <Timer_Start+0x1ce>
- c66:	86 30       	cpi	r24, 0x06	; 6
- c68:	58 f1       	brcs	.+86     	; 0xcc0 <Timer_Start+0x1ba>
- c6a:	87 30       	cpi	r24, 0x07	; 7
- c6c:	09 f0       	breq	.+2      	; 0xc70 <Timer_Start+0x16a>
- c6e:	56 c0       	rjmp	.+172    	; 0xd1c <Timer_Start+0x216>
- c70:	3b c0       	rjmp	.+118    	; 0xce8 <Timer_Start+0x1e2>
+ c1e:	80 91 7c 00 	lds	r24, 0x007C
+ c22:	84 30       	cpi	r24, 0x04	; 4
+ c24:	79 f1       	breq	.+94     	; 0xc84 <Timer_Start+0x1a6>
+ c26:	85 30       	cpi	r24, 0x05	; 5
+ c28:	40 f4       	brcc	.+16     	; 0xc3a <Timer_Start+0x15c>
+ c2a:	82 30       	cpi	r24, 0x02	; 2
+ c2c:	c9 f0       	breq	.+50     	; 0xc60 <Timer_Start+0x182>
+ c2e:	83 30       	cpi	r24, 0x03	; 3
+ c30:	10 f5       	brcc	.+68     	; 0xc76 <Timer_Start+0x198>
+ c32:	81 30       	cpi	r24, 0x01	; 1
+ c34:	09 f0       	breq	.+2      	; 0xc38 <Timer_Start+0x15a>
+ c36:	5e c0       	rjmp	.+188    	; 0xcf4 <Timer_Start+0x216>
+ c38:	08 c0       	rjmp	.+16     	; 0xc4a <Timer_Start+0x16c>
+ c3a:	86 30       	cpi	r24, 0x06	; 6
+ c3c:	b9 f1       	breq	.+110    	; 0xcac <Timer_Start+0x1ce>
+ c3e:	86 30       	cpi	r24, 0x06	; 6
+ c40:	58 f1       	brcs	.+86     	; 0xc98 <Timer_Start+0x1ba>
+ c42:	87 30       	cpi	r24, 0x07	; 7
+ c44:	09 f0       	breq	.+2      	; 0xc48 <Timer_Start+0x16a>
+ c46:	56 c0       	rjmp	.+172    	; 0xcf4 <Timer_Start+0x216>
+ c48:	3b c0       	rjmp	.+118    	; 0xcc0 <Timer_Start+0x1e2>
    
 		  case TIMER_PRESCALER_NO :
 			{
     
 				if(Timer_Count < MAX0){
- c72:	6f 3f       	cpi	r22, 0xFF	; 255
- c74:	71 05       	cpc	r23, r1
- c76:	08 f0       	brcs	.+2      	; 0xc7a <Timer_Start+0x174>
- c78:	53 c0       	rjmp	.+166    	; 0xd20 <Timer_Start+0x21a>
+ c4a:	6f 3f       	cpi	r22, 0xFF	; 255
+ c4c:	71 05       	cpc	r23, r1
+ c4e:	08 f0       	brcs	.+2      	; 0xc52 <Timer_Start+0x174>
+ c50:	53 c0       	rjmp	.+166    	; 0xcf8 <Timer_Start+0x21a>
      
 			      TCCR2 |= TIMER_PRESCALER_NO;
- c7a:	85 b5       	in	r24, 0x25	; 37
- c7c:	81 60       	ori	r24, 0x01	; 1
- c7e:	85 bd       	out	0x25, r24	; 37
+ c52:	85 b5       	in	r24, 0x25	; 37
+ c54:	81 60       	ori	r24, 0x01	; 1
+ c56:	85 bd       	out	0x25, r24	; 37
 		      
 				  TCNT2 = MAX2 - Timer_Count;
- c80:	60 95       	com	r22
- c82:	64 bd       	out	0x24, r22	; 36
+ c58:	60 95       	com	r22
+ c5a:	64 bd       	out	0x24, r22	; 36
   }
   default :
   Ret= E_NOK;
 
   }
 Ret=E_OK;
- c84:	80 e0       	ldi	r24, 0x00	; 0
- c86:	08 95       	ret
+ c5c:	80 e0       	ldi	r24, 0x00	; 0
+ c5e:	08 95       	ret
 			break;
 			}
 
 case TIMER_PRESCALER_8 :
   {
           if(Timer_Count < MAX0)
- c88:	6f 3f       	cpi	r22, 0xFF	; 255
- c8a:	71 05       	cpc	r23, r1
- c8c:	08 f0       	brcs	.+2      	; 0xc90 <Timer_Start+0x18a>
- c8e:	4a c0       	rjmp	.+148    	; 0xd24 <Timer_Start+0x21e>
+ c60:	6f 3f       	cpi	r22, 0xFF	; 255
+ c62:	71 05       	cpc	r23, r1
+ c64:	08 f0       	brcs	.+2      	; 0xc68 <Timer_Start+0x18a>
+ c66:	4a c0       	rjmp	.+148    	; 0xcfc <Timer_Start+0x21e>
             {
            TCCR2 |=TIMER_PRESCALER_8;
- c90:	85 b5       	in	r24, 0x25	; 37
- c92:	82 60       	ori	r24, 0x02	; 2
- c94:	85 bd       	out	0x25, r24	; 37
+ c68:	85 b5       	in	r24, 0x25	; 37
+ c6a:	82 60       	ori	r24, 0x02	; 2
+ c6c:	85 bd       	out	0x25, r24	; 37
            TCNT2 =MAX2 - Timer_Count;
- c96:	60 95       	com	r22
- c98:	64 bd       	out	0x24, r22	; 36
+ c6e:	60 95       	com	r22
+ c70:	64 bd       	out	0x24, r22	; 36
   }
   default :
   Ret= E_NOK;
 
   }
 Ret=E_OK;
- c9a:	80 e0       	ldi	r24, 0x00	; 0
- c9c:	08 95       	ret
+ c72:	80 e0       	ldi	r24, 0x00	; 0
+ c74:	08 95       	ret
   }
   case TIMER_PRESCALER_32:
   {
     if(Timer_Count < MAX1)
          {
          TCCR2 |=TIMER_PRESCALER_32;
- c9e:	85 b5       	in	r24, 0x25	; 37
- ca0:	83 60       	ori	r24, 0x03	; 3
- ca2:	85 bd       	out	0x25, r24	; 37
+ c76:	85 b5       	in	r24, 0x25	; 37
+ c78:	83 60       	ori	r24, 0x03	; 3
+ c7a:	85 bd       	out	0x25, r24	; 37
          TCNT2 =MAX2 - Timer_Count;
+ c7c:	60 95       	com	r22
+ c7e:	64 bd       	out	0x24, r22	; 36
+  }
+  default :
+  Ret= E_NOK;
+
+  }
+Ret=E_OK;
+ c80:	80 e0       	ldi	r24, 0x00	; 0
+        else
+        {
+    Ret=E_NOK;
+  }
+
+    break;
+ c82:	08 95       	ret
+  }
+  case TIMER_PRESCALER_64 :
+  {
+       if(Timer_Count < MAX2)
+ c84:	6f 3f       	cpi	r22, 0xFF	; 255
+ c86:	71 05       	cpc	r23, r1
+ c88:	d8 f5       	brcc	.+118    	; 0xd00 <Timer_Start+0x222>
+       {
+       TCCR2 |=TIMER_PRESCALER_64;
+ c8a:	85 b5       	in	r24, 0x25	; 37
+ c8c:	84 60       	ori	r24, 0x04	; 4
+ c8e:	85 bd       	out	0x25, r24	; 37
+       TCNT2 =MAX2 - Timer_Count;
+ c90:	60 95       	com	r22
+ c92:	64 bd       	out	0x24, r22	; 36
+  }
+  default :
+  Ret= E_NOK;
+
+  }
+Ret=E_OK;
+ c94:	80 e0       	ldi	r24, 0x00	; 0
+ c96:	08 95       	ret
+  Ret=E_NOK;
+  }
+  break;
+  }
+  case TIMER_PRESCALER_128 :{
+  if(Timer_Count < MAX2){
+ c98:	6f 3f       	cpi	r22, 0xFF	; 255
+ c9a:	71 05       	cpc	r23, r1
+ c9c:	98 f5       	brcc	.+102    	; 0xd04 <Timer_Start+0x226>
+  TCCR2 |= TIMER_PRESCALER_128;
+ c9e:	85 b5       	in	r24, 0x25	; 37
+ ca0:	85 60       	ori	r24, 0x05	; 5
+ ca2:	85 bd       	out	0x25, r24	; 37
+  TCNT2 =MAX2 - Timer_Count;
  ca4:	60 95       	com	r22
  ca6:	64 bd       	out	0x24, r22	; 36
   }
@@ -2773,26 +2808,21 @@ Ret=E_OK;
   }
 Ret=E_OK;
  ca8:	80 e0       	ldi	r24, 0x00	; 0
-        else
-        {
-    Ret=E_NOK;
-  }
-
-    break;
  caa:	08 95       	ret
+  Ret= E_NOK;
+    }
+  break;
   }
-  case TIMER_PRESCALER_64 :
-  {
-       if(Timer_Count < MAX2)
+  case TIMER_PRESCALER_256 :{
+  if(Timer_Count < MAX2){
  cac:	6f 3f       	cpi	r22, 0xFF	; 255
  cae:	71 05       	cpc	r23, r1
- cb0:	d8 f5       	brcc	.+118    	; 0xd28 <Timer_Start+0x222>
-       {
-       TCCR2 |=TIMER_PRESCALER_64;
+ cb0:	58 f5       	brcc	.+86     	; 0xd08 <Timer_Start+0x22a>
+  TCCR2 |= TIMER_PRESCALER_256;
  cb2:	85 b5       	in	r24, 0x25	; 37
- cb4:	84 60       	ori	r24, 0x04	; 4
+ cb4:	86 60       	ori	r24, 0x06	; 6
  cb6:	85 bd       	out	0x25, r24	; 37
-       TCNT2 =MAX2 - Timer_Count;
+  TCNT2 =MAX2 - Timer_Count;
  cb8:	60 95       	com	r22
  cba:	64 bd       	out	0x24, r22	; 36
   }
@@ -2803,18 +2833,18 @@ Ret=E_OK;
 Ret=E_OK;
  cbc:	80 e0       	ldi	r24, 0x00	; 0
  cbe:	08 95       	ret
-  Ret=E_NOK;
+
   }
   break;
   }
-  case TIMER_PRESCALER_128 :{
+  case TIMER_PRESCALER_1024 :{
   if(Timer_Count < MAX2){
  cc0:	6f 3f       	cpi	r22, 0xFF	; 255
  cc2:	71 05       	cpc	r23, r1
- cc4:	98 f5       	brcc	.+102    	; 0xd2c <Timer_Start+0x226>
-  TCCR2 |= TIMER_PRESCALER_128;
+ cc4:	18 f5       	brcc	.+70     	; 0xd0c <Timer_Start+0x22e>
+  TCCR2 |=TIMER_PRESCALER_1024;
  cc6:	85 b5       	in	r24, 0x25	; 37
- cc8:	85 60       	ori	r24, 0x05	; 5
+ cc8:	87 60       	ori	r24, 0x07	; 7
  cca:	85 bd       	out	0x25, r24	; 37
   TCNT2 =MAX2 - Timer_Count;
  ccc:	60 95       	com	r22
@@ -2827,66 +2857,50 @@ Ret=E_OK;
 Ret=E_OK;
  cd0:	80 e0       	ldi	r24, 0x00	; 0
  cd2:	08 95       	ret
-  Ret= E_NOK;
-    }
-  break;
-  }
-  case TIMER_PRESCALER_256 :{
-  if(Timer_Count < MAX2){
- cd4:	6f 3f       	cpi	r22, 0xFF	; 255
- cd6:	71 05       	cpc	r23, r1
- cd8:	58 f5       	brcc	.+86     	; 0xd30 <Timer_Start+0x22a>
-  TCCR2 |= TIMER_PRESCALER_256;
- cda:	85 b5       	in	r24, 0x25	; 37
- cdc:	86 60       	ori	r24, 0x06	; 6
- cde:	85 bd       	out	0x25, r24	; 37
-  TCNT2 =MAX2 - Timer_Count;
- ce0:	60 95       	com	r22
- ce2:	64 bd       	out	0x24, r22	; 36
-  }
-  default :
-  Ret= E_NOK;
-
-  }
-Ret=E_OK;
- ce4:	80 e0       	ldi	r24, 0x00	; 0
- ce6:	08 95       	ret
-
-  }
-  break;
-  }
-  case TIMER_PRESCALER_1024 :{
-  if(Timer_Count < MAX2){
- ce8:	6f 3f       	cpi	r22, 0xFF	; 255
- cea:	71 05       	cpc	r23, r1
- cec:	18 f5       	brcc	.+70     	; 0xd34 <Timer_Start+0x22e>
-  TCCR2 |=TIMER_PRESCALER_1024;
- cee:	85 b5       	in	r24, 0x25	; 37
- cf0:	87 60       	ori	r24, 0x07	; 7
- cf2:	85 bd       	out	0x25, r24	; 37
-  TCNT2 =MAX2 - Timer_Count;
- cf4:	60 95       	com	r22
- cf6:	64 bd       	out	0x24, r22	; 36
-  }
-  default :
-  Ret= E_NOK;
-
-  }
-Ret=E_OK;
- cf8:	80 e0       	ldi	r24, 0x00	; 0
- cfa:	08 95       	ret
 break;
 }
 default:
 Ret= E_NOK;
- cfc:	81 e0       	ldi	r24, 0x01	; 1
- cfe:	08 95       	ret
+ cd4:	81 e0       	ldi	r24, 0x01	; 1
+ cd6:	08 95       	ret
 default :
 Ret=E_NOK;
 break;
 }
 
 Ret=E_OK;
+ cd8:	80 e0       	ldi	r24, 0x00	; 0
+ cda:	08 95       	ret
+ cdc:	80 e0       	ldi	r24, 0x00	; 0
+ cde:	08 95       	ret
+ ce0:	80 e0       	ldi	r24, 0x00	; 0
+ ce2:	08 95       	ret
+ ce4:	80 e0       	ldi	r24, 0x00	; 0
+ ce6:	08 95       	ret
+ ce8:	80 e0       	ldi	r24, 0x00	; 0
+ cea:	08 95       	ret
+ cec:	80 e0       	ldi	r24, 0x00	; 0
+ cee:	08 95       	ret
+  Ret= E_NOK;
+  break;
+  }
+
+
+  Ret= E_OK;
+ cf0:	80 e0       	ldi	r24, 0x00	; 0
+ cf2:	08 95       	ret
+  }
+  default :
+  Ret= E_NOK;
+
+  }
+Ret=E_OK;
+ cf4:	80 e0       	ldi	r24, 0x00	; 0
+ cf6:	08 95       	ret
+ cf8:	80 e0       	ldi	r24, 0x00	; 0
+ cfa:	08 95       	ret
+ cfc:	80 e0       	ldi	r24, 0x00	; 0
+ cfe:	08 95       	ret
  d00:	80 e0       	ldi	r24, 0x00	; 0
  d02:	08 95       	ret
  d04:	80 e0       	ldi	r24, 0x00	; 0
@@ -2894,539 +2908,507 @@ Ret=E_OK;
  d08:	80 e0       	ldi	r24, 0x00	; 0
  d0a:	08 95       	ret
  d0c:	80 e0       	ldi	r24, 0x00	; 0
- d0e:	08 95       	ret
- d10:	80 e0       	ldi	r24, 0x00	; 0
- d12:	08 95       	ret
- d14:	80 e0       	ldi	r24, 0x00	; 0
- d16:	08 95       	ret
-  Ret= E_NOK;
-  break;
-  }
-
-
-  Ret= E_OK;
- d18:	80 e0       	ldi	r24, 0x00	; 0
- d1a:	08 95       	ret
-  }
-  default :
-  Ret= E_NOK;
-
-  }
-Ret=E_OK;
- d1c:	80 e0       	ldi	r24, 0x00	; 0
- d1e:	08 95       	ret
- d20:	80 e0       	ldi	r24, 0x00	; 0
- d22:	08 95       	ret
- d24:	80 e0       	ldi	r24, 0x00	; 0
- d26:	08 95       	ret
- d28:	80 e0       	ldi	r24, 0x00	; 0
- d2a:	08 95       	ret
- d2c:	80 e0       	ldi	r24, 0x00	; 0
- d2e:	08 95       	ret
- d30:	80 e0       	ldi	r24, 0x00	; 0
- d32:	08 95       	ret
- d34:	80 e0       	ldi	r24, 0x00	; 0
 Ret= E_NOK;
 break;
 }
 return Ret;
 
 }
- d36:	08 95       	ret
+ d0e:	08 95       	ret
 
-00000d38 <Timer_Stop>:
+00000d10 <Timer_Stop>:
  * Description: This function stops the needed timer.
  *
  */
 ERROR_STATUS Timer_Stop(uint8_t Timer_CH_NO)
 {uint8_t Ret;
 switch (Timer_CH_NO) {
- d38:	81 30       	cpi	r24, 0x01	; 1
- d3a:	51 f0       	breq	.+20     	; 0xd50 <Timer_Stop+0x18>
- d3c:	81 30       	cpi	r24, 0x01	; 1
- d3e:	18 f0       	brcs	.+6      	; 0xd46 <Timer_Stop+0xe>
- d40:	82 30       	cpi	r24, 0x02	; 2
- d42:	91 f4       	brne	.+36     	; 0xd68 <Timer_Stop+0x30>
- d44:	0c c0       	rjmp	.+24     	; 0xd5e <Timer_Stop+0x26>
+ d10:	81 30       	cpi	r24, 0x01	; 1
+ d12:	51 f0       	breq	.+20     	; 0xd28 <Timer_Stop+0x18>
+ d14:	81 30       	cpi	r24, 0x01	; 1
+ d16:	18 f0       	brcs	.+6      	; 0xd1e <Timer_Stop+0xe>
+ d18:	82 30       	cpi	r24, 0x02	; 2
+ d1a:	91 f4       	brne	.+36     	; 0xd40 <Timer_Stop+0x30>
+ d1c:	0c c0       	rjmp	.+24     	; 0xd36 <Timer_Stop+0x26>
   case TIMER_CH0:
   {
 		TCCR0 &=0xF8;
- d46:	83 b7       	in	r24, 0x33	; 51
- d48:	88 7f       	andi	r24, 0xF8	; 248
- d4a:	83 bf       	out	0x33, r24	; 51
+ d1e:	83 b7       	in	r24, 0x33	; 51
+ d20:	88 7f       	andi	r24, 0xF8	; 248
+ d22:	83 bf       	out	0x33, r24	; 51
 		Ret=E_OK;
- d4c:	80 e0       	ldi	r24, 0x00	; 0
+ d24:	80 e0       	ldi	r24, 0x00	; 0
 		break;
- d4e:	08 95       	ret
+ d26:	08 95       	ret
   }
   case TIMER_CH1:
   {
 	     TCCR1 &=0xFFF8;
- d50:	8e b5       	in	r24, 0x2e	; 46
- d52:	9f b5       	in	r25, 0x2f	; 47
- d54:	88 7f       	andi	r24, 0xF8	; 248
- d56:	9f bd       	out	0x2f, r25	; 47
- d58:	8e bd       	out	0x2e, r24	; 46
+ d28:	8e b5       	in	r24, 0x2e	; 46
+ d2a:	9f b5       	in	r25, 0x2f	; 47
+ d2c:	88 7f       	andi	r24, 0xF8	; 248
+ d2e:	9f bd       	out	0x2f, r25	; 47
+ d30:	8e bd       	out	0x2e, r24	; 46
 		 Ret=E_OK;
- d5a:	80 e0       	ldi	r24, 0x00	; 0
+ d32:	80 e0       	ldi	r24, 0x00	; 0
 		 break;
- d5c:	08 95       	ret
+ d34:	08 95       	ret
   }
   case TIMER_CH2:
     {
 		 TCCR2 &= 0xF8;
- d5e:	85 b5       	in	r24, 0x25	; 37
- d60:	88 7f       	andi	r24, 0xF8	; 248
- d62:	85 bd       	out	0x25, r24	; 37
+ d36:	85 b5       	in	r24, 0x25	; 37
+ d38:	88 7f       	andi	r24, 0xF8	; 248
+ d3a:	85 bd       	out	0x25, r24	; 37
 		 Ret=E_OK;
- d64:	80 e0       	ldi	r24, 0x00	; 0
+ d3c:	80 e0       	ldi	r24, 0x00	; 0
 		 break;
- d66:	08 95       	ret
+ d3e:	08 95       	ret
     }
   default :
   Ret=E_NOK;
- d68:	81 e0       	ldi	r24, 0x01	; 1
+ d40:	81 e0       	ldi	r24, 0x01	; 1
   break;
 }
 
 return Ret;
 
 }
- d6a:	08 95       	ret
+ d42:	08 95       	ret
 
-00000d6c <Timer_GetStatus>:
+00000d44 <Timer_GetStatus>:
  * Description: This function is used to return if the flag of the timer is raised or not.
  *
  */
 ERROR_STATUS Timer_GetStatus(uint8_t Timer_CH_NO,uint8_t* Data)
 {
   switch (Timer_CH_NO) {
- d6c:	81 30       	cpi	r24, 0x01	; 1
- d6e:	59 f0       	breq	.+22     	; 0xd86 <Timer_GetStatus+0x1a>
- d70:	81 30       	cpi	r24, 0x01	; 1
- d72:	18 f0       	brcs	.+6      	; 0xd7a <Timer_GetStatus+0xe>
- d74:	82 30       	cpi	r24, 0x02	; 2
- d76:	c9 f4       	brne	.+50     	; 0xdaa <Timer_GetStatus+0x3e>
- d78:	0e c0       	rjmp	.+28     	; 0xd96 <Timer_GetStatus+0x2a>
+ d44:	81 30       	cpi	r24, 0x01	; 1
+ d46:	59 f0       	breq	.+22     	; 0xd5e <Timer_GetStatus+0x1a>
+ d48:	81 30       	cpi	r24, 0x01	; 1
+ d4a:	18 f0       	brcs	.+6      	; 0xd52 <Timer_GetStatus+0xe>
+ d4c:	82 30       	cpi	r24, 0x02	; 2
+ d4e:	c9 f4       	brne	.+50     	; 0xd82 <Timer_GetStatus+0x3e>
+ d50:	0e c0       	rjmp	.+28     	; 0xd6e <Timer_GetStatus+0x2a>
     case TIMER_CH0:
     {
   *Data =((TIFR>>TOV0)&1);
- d7a:	88 b7       	in	r24, 0x38	; 56
- d7c:	81 70       	andi	r24, 0x01	; 1
- d7e:	fb 01       	movw	r30, r22
- d80:	80 83       	st	Z, r24
+ d52:	88 b7       	in	r24, 0x38	; 56
+ d54:	81 70       	andi	r24, 0x01	; 1
+ d56:	fb 01       	movw	r30, r22
+ d58:	80 83       	st	Z, r24
     return E_OK;
- d82:	80 e0       	ldi	r24, 0x00	; 0
- d84:	08 95       	ret
+ d5a:	80 e0       	ldi	r24, 0x00	; 0
+ d5c:	08 95       	ret
     }
     case TIMER_CH1:
     {
     *Data =((TIFR>>TOV1)&1);
- d86:	88 b7       	in	r24, 0x38	; 56
- d88:	86 95       	lsr	r24
- d8a:	86 95       	lsr	r24
- d8c:	81 70       	andi	r24, 0x01	; 1
- d8e:	fb 01       	movw	r30, r22
- d90:	80 83       	st	Z, r24
+ d5e:	88 b7       	in	r24, 0x38	; 56
+ d60:	86 95       	lsr	r24
+ d62:	86 95       	lsr	r24
+ d64:	81 70       	andi	r24, 0x01	; 1
+ d66:	fb 01       	movw	r30, r22
+ d68:	80 83       	st	Z, r24
     return E_OK;
- d92:	80 e0       	ldi	r24, 0x00	; 0
- d94:	08 95       	ret
+ d6a:	80 e0       	ldi	r24, 0x00	; 0
+ d6c:	08 95       	ret
     }
      case TIMER_CH2:
       {
   *Data =((TIFR>>TOV2)&1);
- d96:	88 b7       	in	r24, 0x38	; 56
- d98:	82 95       	swap	r24
- d9a:	86 95       	lsr	r24
- d9c:	86 95       	lsr	r24
- d9e:	83 70       	andi	r24, 0x03	; 3
- da0:	81 70       	andi	r24, 0x01	; 1
- da2:	fb 01       	movw	r30, r22
- da4:	80 83       	st	Z, r24
+ d6e:	88 b7       	in	r24, 0x38	; 56
+ d70:	82 95       	swap	r24
+ d72:	86 95       	lsr	r24
+ d74:	86 95       	lsr	r24
+ d76:	83 70       	andi	r24, 0x03	; 3
+ d78:	81 70       	andi	r24, 0x01	; 1
+ d7a:	fb 01       	movw	r30, r22
+ d7c:	80 83       	st	Z, r24
     return E_OK;
- da6:	80 e0       	ldi	r24, 0x00	; 0
- da8:	08 95       	ret
+ d7e:	80 e0       	ldi	r24, 0x00	; 0
+ d80:	08 95       	ret
       }
     default :
     return E_NOK;
- daa:	81 e0       	ldi	r24, 0x01	; 1
+ d82:	81 e0       	ldi	r24, 0x01	; 1
   }
 }
- dac:	08 95       	ret
+ d84:	08 95       	ret
 
-00000dae <Timer_GetValue>:
+00000d86 <Timer_GetValue>:
  * Return: The error status of the function.
  * Description: This function is used to return the value of the timer.
  *
  */
 ERROR_STATUS Timer_GetValue(uint8_t Timer_CH_NO, uint16_t* Data)
 {
- dae:	fb 01       	movw	r30, r22
+ d86:	fb 01       	movw	r30, r22
 	uint8_t Ret=0;
 	switch (Timer_CH_NO) {
- db0:	81 30       	cpi	r24, 0x01	; 1
- db2:	51 f0       	breq	.+20     	; 0xdc8 <Timer_GetValue+0x1a>
- db4:	81 30       	cpi	r24, 0x01	; 1
- db6:	18 f0       	brcs	.+6      	; 0xdbe <Timer_GetValue+0x10>
- db8:	82 30       	cpi	r24, 0x02	; 2
- dba:	89 f4       	brne	.+34     	; 0xdde <Timer_GetValue+0x30>
- dbc:	0b c0       	rjmp	.+22     	; 0xdd4 <Timer_GetValue+0x26>
+ d88:	81 30       	cpi	r24, 0x01	; 1
+ d8a:	51 f0       	breq	.+20     	; 0xda0 <Timer_GetValue+0x1a>
+ d8c:	81 30       	cpi	r24, 0x01	; 1
+ d8e:	18 f0       	brcs	.+6      	; 0xd96 <Timer_GetValue+0x10>
+ d90:	82 30       	cpi	r24, 0x02	; 2
+ d92:	89 f4       	brne	.+34     	; 0xdb6 <Timer_GetValue+0x30>
+ d94:	0b c0       	rjmp	.+22     	; 0xdac <Timer_GetValue+0x26>
 		case TIMER_CH0:
 		{
 			*Data =TCNT0;
- dbe:	82 b7       	in	r24, 0x32	; 50
- dc0:	80 83       	st	Z, r24
- dc2:	11 82       	std	Z+1, r1	; 0x01
+ d96:	82 b7       	in	r24, 0x32	; 50
+ d98:	80 83       	st	Z, r24
+ d9a:	11 82       	std	Z+1, r1	; 0x01
 			Ret= E_OK;
- dc4:	80 e0       	ldi	r24, 0x00	; 0
+ d9c:	80 e0       	ldi	r24, 0x00	; 0
 			break;
- dc6:	08 95       	ret
+ d9e:	08 95       	ret
 		}
 		case TIMER_CH1:
 		{
 			*Data =TCNT1;
- dc8:	8c b5       	in	r24, 0x2c	; 44
- dca:	9d b5       	in	r25, 0x2d	; 45
- dcc:	91 83       	std	Z+1, r25	; 0x01
- dce:	80 83       	st	Z, r24
+ da0:	8c b5       	in	r24, 0x2c	; 44
+ da2:	9d b5       	in	r25, 0x2d	; 45
+ da4:	91 83       	std	Z+1, r25	; 0x01
+ da6:	80 83       	st	Z, r24
 			Ret= E_OK;
- dd0:	80 e0       	ldi	r24, 0x00	; 0
+ da8:	80 e0       	ldi	r24, 0x00	; 0
 			break;
- dd2:	08 95       	ret
+ daa:	08 95       	ret
 		}
 		case TIMER_CH2:
 		{
 			*Data =TCNT2;
- dd4:	84 b5       	in	r24, 0x24	; 36
- dd6:	80 83       	st	Z, r24
- dd8:	11 82       	std	Z+1, r1	; 0x01
+ dac:	84 b5       	in	r24, 0x24	; 36
+ dae:	80 83       	st	Z, r24
+ db0:	11 82       	std	Z+1, r1	; 0x01
 			Ret = E_OK;
- dda:	80 e0       	ldi	r24, 0x00	; 0
+ db2:	80 e0       	ldi	r24, 0x00	; 0
 			break;
- ddc:	08 95       	ret
+ db4:	08 95       	ret
 		}
 		default :
 		Ret= E_NOK;
- dde:	81 e0       	ldi	r24, 0x01	; 1
+ db6:	81 e0       	ldi	r24, 0x01	; 1
 		break;
 	}
 return Ret;
 
 }
- de0:	08 95       	ret
+ db8:	08 95       	ret
 
-00000de2 <TMU_Init>:
+00000dba <TMU_Init>:
 uint8_t u8_FUN_index=0;
 Buffer_Request Buffer_Array[Buffer_Size];
 volatile uint8_t u8Excution_to_be_done=0;
 
 ERROR_STATUS TMU_Init (const TMU_ConfigType * ConfigPtr )
 {uint8_t u8_channel_ID=ConfigPtr->u8_Timer_channel;
- de2:	0f 93       	push	r16
- de4:	1f 93       	push	r17
- de6:	cf 93       	push	r28
- de8:	df 93       	push	r29
- dea:	ec 01       	movw	r28, r24
- dec:	19 81       	ldd	r17, Y+1	; 0x01
+ dba:	0f 93       	push	r16
+ dbc:	1f 93       	push	r17
+ dbe:	cf 93       	push	r28
+ dc0:	df 93       	push	r29
+ dc2:	ec 01       	movw	r28, r24
+ dc4:	19 81       	ldd	r17, Y+1	; 0x01
 uint8_t ret=E_OK;
 /*************************************************************************/
 /*			Intializ the required timer identified by the user			 */
 /************************************************************************/
 u8_Is_Intialized++;
- dee:	80 91 7f 00 	lds	r24, 0x007F
- df2:	8f 5f       	subi	r24, 0xFF	; 255
- df4:	80 93 7f 00 	sts	0x007F, r24
+ dc6:	80 91 7f 00 	lds	r24, 0x007F
+ dca:	8f 5f       	subi	r24, 0xFF	; 255
+ dcc:	80 93 7f 00 	sts	0x007F, r24
 switch(u8_channel_ID)
- df8:	11 23       	and	r17, r17
- dfa:	19 f0       	breq	.+6      	; 0xe02 <TMU_Init+0x20>
- dfc:	12 30       	cpi	r17, 0x02	; 2
- dfe:	89 f4       	brne	.+34     	; 0xe22 <TMU_Init+0x40>
- e00:	08 c0       	rjmp	.+16     	; 0xe12 <TMU_Init+0x30>
+ dd0:	11 23       	and	r17, r17
+ dd2:	19 f0       	breq	.+6      	; 0xdda <TMU_Init+0x20>
+ dd4:	12 30       	cpi	r17, 0x02	; 2
+ dd6:	89 f4       	brne	.+34     	; 0xdfa <TMU_Init+0x40>
+ dd8:	08 c0       	rjmp	.+16     	; 0xdea <TMU_Init+0x30>
 {
 	case TIMER_CH0:
 			G_interrupt_Enable();
- e02:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ dda:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
 			Timer_Init(&Timer_Configuration0);
- e06:	8e e6       	ldi	r24, 0x6E	; 110
- e08:	90 e0       	ldi	r25, 0x00	; 0
- e0a:	0e 94 82 04 	call	0x904	; 0x904 <Timer_Init>
+ dde:	8e e6       	ldi	r24, 0x6E	; 110
+ de0:	90 e0       	ldi	r25, 0x00	; 0
+ de2:	0e 94 6e 04 	call	0x8dc	; 0x8dc <Timer_Init>
 Buffer_Request Buffer_Array[Buffer_Size];
 volatile uint8_t u8Excution_to_be_done=0;
 
 ERROR_STATUS TMU_Init (const TMU_ConfigType * ConfigPtr )
 {uint8_t u8_channel_ID=ConfigPtr->u8_Timer_channel;
 uint8_t ret=E_OK;
- e0e:	00 e0       	ldi	r16, 0x00	; 0
+ de6:	00 e0       	ldi	r16, 0x00	; 0
 switch(u8_channel_ID)
 {
 	case TIMER_CH0:
 			G_interrupt_Enable();
 			Timer_Init(&Timer_Configuration0);
 				break;
- e10:	09 c0       	rjmp	.+18     	; 0xe24 <TMU_Init+0x42>
+ de8:	09 c0       	rjmp	.+18     	; 0xdfc <TMU_Init+0x42>
 	case TIMER_CH2:
 		G_interrupt_Enable();
- e12:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
+ dea:	0e 94 28 01 	call	0x250	; 0x250 <G_interrupt_Enable>
 		ret=Timer_Init(&Timer_Configuration2);
- e16:	84 e7       	ldi	r24, 0x74	; 116
- e18:	90 e0       	ldi	r25, 0x00	; 0
- e1a:	0e 94 82 04 	call	0x904	; 0x904 <Timer_Init>
- e1e:	08 2f       	mov	r16, r24
+ dee:	84 e7       	ldi	r24, 0x74	; 116
+ df0:	90 e0       	ldi	r25, 0x00	; 0
+ df2:	0e 94 6e 04 	call	0x8dc	; 0x8dc <Timer_Init>
+ df6:	08 2f       	mov	r16, r24
 			break;
- e20:	01 c0       	rjmp	.+2      	; 0xe24 <TMU_Init+0x42>
+ df8:	01 c0       	rjmp	.+2      	; 0xdfc <TMU_Init+0x42>
 	default:
 			ret=E_NOK;
- e22:	01 e0       	ldi	r16, 0x01	; 1
+ dfa:	01 e0       	ldi	r16, 0x01	; 1
 
 /*************************************************************************/
 /*Intializ the required timer identified by the user using required prescaler  */
 /************************************************************************/
 
 switch(ConfigPtr->u8_resolution)
- e24:	88 81       	ld	r24, Y
- e26:	81 30       	cpi	r24, 0x01	; 1
- e28:	89 f4       	brne	.+34     	; 0xe4c <TMU_Init+0x6a>
+ dfc:	88 81       	ld	r24, Y
+ dfe:	81 30       	cpi	r24, 0x01	; 1
+ e00:	89 f4       	brne	.+34     	; 0xe24 <TMU_Init+0x6a>
 {
 	case TIMER_RESOLUTION_1_MS:
 	{
 		switch(u8_channel_ID)
- e2a:	11 23       	and	r17, r17
- e2c:	19 f0       	breq	.+6      	; 0xe34 <TMU_Init+0x52>
- e2e:	12 30       	cpi	r17, 0x02	; 2
- e30:	79 f4       	brne	.+30     	; 0xe50 <TMU_Init+0x6e>
- e32:	06 c0       	rjmp	.+12     	; 0xe40 <TMU_Init+0x5e>
+ e02:	11 23       	and	r17, r17
+ e04:	19 f0       	breq	.+6      	; 0xe0c <TMU_Init+0x52>
+ e06:	12 30       	cpi	r17, 0x02	; 2
+ e08:	79 f4       	brne	.+30     	; 0xe28 <TMU_Init+0x6e>
+ e0a:	06 c0       	rjmp	.+12     	; 0xe18 <TMU_Init+0x5e>
 		{
 			case TIMER_CH0 :
 				Timer_Start(TIMER_CH0,NUM_OF_TICKS_FOR_1_MS);
- e34:	80 e0       	ldi	r24, 0x00	; 0
- e36:	6e e0       	ldi	r22, 0x0E	; 14
- e38:	70 e0       	ldi	r23, 0x00	; 0
- e3a:	0e 94 83 05 	call	0xb06	; 0xb06 <Timer_Start>
+ e0c:	80 e0       	ldi	r24, 0x00	; 0
+ e0e:	6e e0       	ldi	r22, 0x0E	; 14
+ e10:	70 e0       	ldi	r23, 0x00	; 0
+ e12:	0e 94 6f 05 	call	0xade	; 0xade <Timer_Start>
 					break;
- e3e:	09 c0       	rjmp	.+18     	; 0xe52 <TMU_Init+0x70>
+ e16:	09 c0       	rjmp	.+18     	; 0xe2a <TMU_Init+0x70>
 			case TIMER_CH2 :
 				Timer_Start(TIMER_CH2,NUM_OF_TICKS_FOR_1_MS);
- e40:	82 e0       	ldi	r24, 0x02	; 2
- e42:	6e e0       	ldi	r22, 0x0E	; 14
- e44:	70 e0       	ldi	r23, 0x00	; 0
- e46:	0e 94 83 05 	call	0xb06	; 0xb06 <Timer_Start>
+ e18:	82 e0       	ldi	r24, 0x02	; 2
+ e1a:	6e e0       	ldi	r22, 0x0E	; 14
+ e1c:	70 e0       	ldi	r23, 0x00	; 0
+ e1e:	0e 94 6f 05 	call	0xade	; 0xade <Timer_Start>
 					break;
- e4a:	03 c0       	rjmp	.+6      	; 0xe52 <TMU_Init+0x70>
+ e22:	03 c0       	rjmp	.+6      	; 0xe2a <TMU_Init+0x70>
 	}	
 	
 	
 	
 	default:
 	ret=E_NOK;
- e4c:	01 e0       	ldi	r16, 0x01	; 1
- e4e:	01 c0       	rjmp	.+2      	; 0xe52 <TMU_Init+0x70>
+ e24:	01 e0       	ldi	r16, 0x01	; 1
+ e26:	01 c0       	rjmp	.+2      	; 0xe2a <TMU_Init+0x70>
 					break;
 			case TIMER_CH2 :
 				Timer_Start(TIMER_CH2,NUM_OF_TICKS_FOR_1_MS);
 					break;
 			default:
 				ret=E_NOK;
- e50:	01 e0       	ldi	r16, 0x01	; 1
+ e28:	01 e0       	ldi	r16, 0x01	; 1
 
 /****************************************************************************/
 /*      Deal with Errors  to be returned									*/
 /***************************************************************************/
 return ret;
 }
- e52:	80 2f       	mov	r24, r16
- e54:	df 91       	pop	r29
- e56:	cf 91       	pop	r28
- e58:	1f 91       	pop	r17
- e5a:	0f 91       	pop	r16
- e5c:	08 95       	ret
+ e2a:	80 2f       	mov	r24, r16
+ e2c:	df 91       	pop	r29
+ e2e:	cf 91       	pop	r28
+ e30:	1f 91       	pop	r17
+ e32:	0f 91       	pop	r16
+ e34:	08 95       	ret
 
-00000e5e <TMU_DeInit>:
+00000e36 <TMU_DeInit>:
 /************************************************************************************************/
 	
 	
 	
 return ret;	
 }
- e5e:	80 e0       	ldi	r24, 0x00	; 0
- e60:	08 95       	ret
+ e36:	80 e0       	ldi	r24, 0x00	; 0
+ e38:	08 95       	ret
 
-00000e62 <TMU_Start_Timer>:
+00000e3a <TMU_Start_Timer>:
 
 	and provide the request to request buffer (ptr_to_func,delay) Dispatcher with the call back function needed(consumer)
 
 	and make sure this function must not be excuted unless Init happened and De_init not happened
 	*/
 	if(u8_Is_Intialized == 1)
- e62:	30 91 7f 00 	lds	r19, 0x007F
- e66:	31 30       	cpi	r19, 0x01	; 1
- e68:	89 f4       	brne	.+34     	; 0xe8c <TMU_Start_Timer+0x2a>
+ e3a:	30 91 7f 00 	lds	r19, 0x007F
+ e3e:	31 30       	cpi	r19, 0x01	; 1
+ e40:	89 f4       	brne	.+34     	; 0xe64 <TMU_Start_Timer+0x2a>
 	{
 		
 		(Buffer_Array[u8_function_index]).Fuction_consumer=Function_Consumer;
- e6a:	50 e0       	ldi	r21, 0x00	; 0
- e6c:	fa 01       	movw	r30, r20
- e6e:	ee 0f       	add	r30, r30
- e70:	ff 1f       	adc	r31, r31
- e72:	ee 0f       	add	r30, r30
- e74:	ff 1f       	adc	r31, r31
- e76:	e4 0f       	add	r30, r20
- e78:	f5 1f       	adc	r31, r21
- e7a:	ea 55       	subi	r30, 0x5A	; 90
- e7c:	ff 4f       	sbci	r31, 0xFF	; 255
- e7e:	91 83       	std	Z+1, r25	; 0x01
- e80:	80 83       	st	Z, r24
+ e42:	50 e0       	ldi	r21, 0x00	; 0
+ e44:	fa 01       	movw	r30, r20
+ e46:	ee 0f       	add	r30, r30
+ e48:	ff 1f       	adc	r31, r31
+ e4a:	ee 0f       	add	r30, r30
+ e4c:	ff 1f       	adc	r31, r31
+ e4e:	e4 0f       	add	r30, r20
+ e50:	f5 1f       	adc	r31, r21
+ e52:	ea 55       	subi	r30, 0x5A	; 90
+ e54:	ff 4f       	sbci	r31, 0xFF	; 255
+ e56:	91 83       	std	Z+1, r25	; 0x01
+ e58:	80 83       	st	Z, r24
 		(Buffer_Array[u8_function_index]).preodic=u8_Preodicity;
- e82:	64 83       	std	Z+4, r22	; 0x04
+ e5a:	64 83       	std	Z+4, r22	; 0x04
 		(Buffer_Array[u8_function_index]).u8_time_delay=u8_Time_delay;
- e84:	23 83       	std	Z+3, r18	; 0x03
+ e5c:	23 83       	std	Z+3, r18	; 0x03
 		(Buffer_Array[u8_function_index]).u8_flag_is_stopped=0;
- e86:	12 82       	std	Z+2, r1	; 0x02
+ e5e:	12 82       	std	Z+2, r1	; 0x02
 	
 return ret;	
 }
 
 ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity,uint8_t u8_function_index,uint8_t u8_Time_delay)
 {uint8_t ret=E_OK;
- e88:	80 e0       	ldi	r24, 0x00	; 0
- e8a:	08 95       	ret
+ e60:	80 e0       	ldi	r24, 0x00	; 0
+ e62:	08 95       	ret
 		(Buffer_Array[u8_function_index]).u8_flag_is_stopped=0;
 		
 		
 	}
 	else{
 		ret=E_NOK;
- e8c:	81 e0       	ldi	r24, 0x01	; 1
+ e64:	81 e0       	ldi	r24, 0x01	; 1
 	}
 
 	return ret;
 }
- e8e:	08 95       	ret
+ e66:	08 95       	ret
 
-00000e90 <TMU_Main_Function>:
+00000e68 <TMU_Main_Function>:
 
 ERROR_STATUS TMU_Main_Function(void)
 {	uint8_t ret=E_OK;
- e90:	cf 93       	push	r28
+ e68:	cf 93       	push	r28
 	uint8_t status_flag=0;
 	uint8_t preodic_status_flag=0;
 	uint8_t u8_Time_needed=0;
 	ptr_to_Fun Excuted=((Buffer_Array[u8_FUN_index]).Fuction_consumer);
- e92:	80 91 7e 00 	lds	r24, 0x007E
- e96:	90 e0       	ldi	r25, 0x00	; 0
- e98:	fc 01       	movw	r30, r24
- e9a:	ee 0f       	add	r30, r30
- e9c:	ff 1f       	adc	r31, r31
- e9e:	ee 0f       	add	r30, r30
- ea0:	ff 1f       	adc	r31, r31
- ea2:	e8 0f       	add	r30, r24
- ea4:	f9 1f       	adc	r31, r25
- ea6:	ea 55       	subi	r30, 0x5A	; 90
- ea8:	ff 4f       	sbci	r31, 0xFF	; 255
- eaa:	80 81       	ld	r24, Z
- eac:	91 81       	ldd	r25, Z+1	; 0x01
+ e6a:	80 91 7e 00 	lds	r24, 0x007E
+ e6e:	90 e0       	ldi	r25, 0x00	; 0
+ e70:	fc 01       	movw	r30, r24
+ e72:	ee 0f       	add	r30, r30
+ e74:	ff 1f       	adc	r31, r31
+ e76:	ee 0f       	add	r30, r30
+ e78:	ff 1f       	adc	r31, r31
+ e7a:	e8 0f       	add	r30, r24
+ e7c:	f9 1f       	adc	r31, r25
+ e7e:	ea 55       	subi	r30, 0x5A	; 90
+ e80:	ff 4f       	sbci	r31, 0xFF	; 255
+ e82:	80 81       	ld	r24, Z
+ e84:	91 81       	ldd	r25, Z+1	; 0x01
 	
 	u8_Time_needed =(Buffer_Array[u8_FUN_index]).u8_time_delay;
- eae:	33 81       	ldd	r19, Z+3	; 0x03
+ e86:	33 81       	ldd	r19, Z+3	; 0x03
 	status_flag =(Buffer_Array[u8_FUN_index]).u8_flag_is_stopped;
 	preodic_status_flag=(Buffer_Array[u8_FUN_index]).preodic;
- eb0:	c4 81       	ldd	r28, Z+4	; 0x04
+ e88:	c4 81       	ldd	r28, Z+4	; 0x04
 if(status_flag==1){ret=E_OK;}
- eb2:	22 81       	ldd	r18, Z+2	; 0x02
- eb4:	21 30       	cpi	r18, 0x01	; 1
- eb6:	69 f0       	breq	.+26     	; 0xed2 <TMU_Main_Function+0x42>
+ e8a:	22 81       	ldd	r18, Z+2	; 0x02
+ e8c:	21 30       	cpi	r18, 0x01	; 1
+ e8e:	69 f0       	breq	.+26     	; 0xeaa <TMU_Main_Function+0x42>
 else{
 /*	u16Excution_to_be_done=100;  ISR*/
 	if(u8Excution_to_be_done == u8_Time_needed)
- eb8:	20 91 7d 00 	lds	r18, 0x007D
- ebc:	23 17       	cp	r18, r19
- ebe:	11 f4       	brne	.+4      	; 0xec4 <TMU_Main_Function+0x34>
+ e90:	20 91 7d 00 	lds	r18, 0x007D
+ e94:	23 17       	cp	r18, r19
+ e96:	11 f4       	brne	.+4      	; 0xe9c <TMU_Main_Function+0x34>
 	{
 		Excuted();
- ec0:	fc 01       	movw	r30, r24
- ec2:	09 95       	icall
+ e98:	fc 01       	movw	r30, r24
+ e9a:	09 95       	icall
 	}
 	if(preodic_status_flag==0){
- ec4:	cc 23       	and	r28, r28
- ec6:	29 f4       	brne	.+10     	; 0xed2 <TMU_Main_Function+0x42>
+ e9c:	cc 23       	and	r28, r28
+ e9e:	29 f4       	brne	.+10     	; 0xeaa <TMU_Main_Function+0x42>
 		u8_FUN_index++;
- ec8:	80 91 7e 00 	lds	r24, 0x007E
- ecc:	8f 5f       	subi	r24, 0xFF	; 255
- ece:	80 93 7e 00 	sts	0x007E, r24
+ ea0:	80 91 7e 00 	lds	r24, 0x007E
+ ea4:	8f 5f       	subi	r24, 0xFF	; 255
+ ea6:	80 93 7e 00 	sts	0x007E, r24
 	}
 }
 return ret;
 
 
 }
- ed2:	80 e0       	ldi	r24, 0x00	; 0
- ed4:	cf 91       	pop	r28
- ed6:	08 95       	ret
+ eaa:	80 e0       	ldi	r24, 0x00	; 0
+ eac:	cf 91       	pop	r28
+ eae:	08 95       	ret
 
-00000ed8 <TMU_Stop_Timer>:
+00000eb0 <TMU_Stop_Timer>:
 
 
 ERROR_STATUS TMU_Stop_Timer(uint8_t u8_function_index)
 {
 	(Buffer_Array[u8_function_index]).u8_flag_is_stopped=1;
- ed8:	90 e0       	ldi	r25, 0x00	; 0
- eda:	fc 01       	movw	r30, r24
- edc:	ee 0f       	add	r30, r30
- ede:	ff 1f       	adc	r31, r31
- ee0:	ee 0f       	add	r30, r30
- ee2:	ff 1f       	adc	r31, r31
- ee4:	8e 0f       	add	r24, r30
- ee6:	9f 1f       	adc	r25, r31
- ee8:	fc 01       	movw	r30, r24
- eea:	ea 55       	subi	r30, 0x5A	; 90
- eec:	ff 4f       	sbci	r31, 0xFF	; 255
- eee:	81 e0       	ldi	r24, 0x01	; 1
- ef0:	82 83       	std	Z+2, r24	; 0x02
+ eb0:	90 e0       	ldi	r25, 0x00	; 0
+ eb2:	fc 01       	movw	r30, r24
+ eb4:	ee 0f       	add	r30, r30
+ eb6:	ff 1f       	adc	r31, r31
+ eb8:	ee 0f       	add	r30, r30
+ eba:	ff 1f       	adc	r31, r31
+ ebc:	8e 0f       	add	r24, r30
+ ebe:	9f 1f       	adc	r25, r31
+ ec0:	fc 01       	movw	r30, r24
+ ec2:	ea 55       	subi	r30, 0x5A	; 90
+ ec4:	ff 4f       	sbci	r31, 0xFF	; 255
+ ec6:	81 e0       	ldi	r24, 0x01	; 1
+ ec8:	82 83       	std	Z+2, r24	; 0x02
 }
- ef2:	08 95       	ret
+ eca:	08 95       	ret
 
-00000ef4 <Tmu_Fun>:
+00000ecc <Tmu_Fun>:
 
 void Tmu_Fun(void){DIO_Toggle(GPIOC,BIT4);}
- ef4:	82 e0       	ldi	r24, 0x02	; 2
- ef6:	60 e1       	ldi	r22, 0x10	; 16
- ef8:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
- efc:	08 95       	ret
+ ecc:	82 e0       	ldi	r24, 0x02	; 2
+ ece:	60 e1       	ldi	r22, 0x10	; 16
+ ed0:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
+ ed4:	08 95       	ret
 
-00000efe <Tmu_For>:
+00000ed6 <Tmu_For>:
 void Tmu_For(void){DIO_Toggle(GPIOB,BIT4);}
- efe:	81 e0       	ldi	r24, 0x01	; 1
- f00:	60 e1       	ldi	r22, 0x10	; 16
- f02:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
- f06:	08 95       	ret
+ ed6:	81 e0       	ldi	r24, 0x01	; 1
+ ed8:	60 e1       	ldi	r22, 0x10	; 16
+ eda:	0e 94 09 01 	call	0x212	; 0x212 <DIO_Toggle>
+ ede:	08 95       	ret
 
-00000f08 <Tmu_excute>:
+00000ee0 <Tmu_excute>:
 void Tmu_excute(void){PORTA_DATA ^=0xff;}
- f08:	8b b3       	in	r24, 0x1b	; 27
- f0a:	80 95       	com	r24
- f0c:	8b bb       	out	0x1b, r24	; 27
- f0e:	08 95       	ret
+ ee0:	8b b3       	in	r24, 0x1b	; 27
+ ee2:	80 95       	com	r24
+ ee4:	8b bb       	out	0x1b, r24	; 27
+ ee6:	08 95       	ret
 
-00000f10 <timer_interrupt>:
+00000ee8 <timer_interrupt>:
 
 
 void timer_interrupt(void){
 	u8Excution_to_be_done++;
- f10:	80 91 7d 00 	lds	r24, 0x007D
- f14:	8f 5f       	subi	r24, 0xFF	; 255
- f16:	80 93 7d 00 	sts	0x007D, r24
+ ee8:	80 91 7d 00 	lds	r24, 0x007D
+ eec:	8f 5f       	subi	r24, 0xFF	; 255
+ eee:	80 93 7d 00 	sts	0x007D, r24
 	UDR+=1;
- f1a:	8c b1       	in	r24, 0x0c	; 12
- f1c:	8f 5f       	subi	r24, 0xFF	; 255
- f1e:	8c b9       	out	0x0c, r24	; 12
+ ef2:	8c b1       	in	r24, 0x0c	; 12
+ ef4:	8f 5f       	subi	r24, 0xFF	; 255
+ ef6:	8c b9       	out	0x0c, r24	; 12
 	Timer_Start(TIMER_CH0,14);
- f20:	80 e0       	ldi	r24, 0x00	; 0
- f22:	6e e0       	ldi	r22, 0x0E	; 14
- f24:	70 e0       	ldi	r23, 0x00	; 0
- f26:	0e 94 83 05 	call	0xb06	; 0xb06 <Timer_Start>
- f2a:	08 95       	ret
+ ef8:	80 e0       	ldi	r24, 0x00	; 0
+ efa:	6e e0       	ldi	r22, 0x0E	; 14
+ efc:	70 e0       	ldi	r23, 0x00	; 0
+ efe:	0e 94 6f 05 	call	0xade	; 0xade <Timer_Start>
+ f02:	08 95       	ret
 
-00000f2c <_exit>:
- f2c:	f8 94       	cli
+00000f04 <_exit>:
+ f04:	f8 94       	cli
 
-00000f2e <__stop_program>:
- f2e:	ff cf       	rjmp	.-2      	; 0xf2e <__stop_program>
+00000f06 <__stop_program>:
+ f06:	ff cf       	rjmp	.-2      	; 0xf06 <__stop_program>
