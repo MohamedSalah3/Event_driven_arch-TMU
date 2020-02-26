@@ -11,8 +11,10 @@
 int main(void)
 {	
 	DIO_init(&Dio_configurationB);
+	DIO_init(&Dio_configurationC);
 	TMU_Init(&TMU_Configuration);
-	TMU_Start_Timer(Tmu_excute,1,0,1);
+	TMU_Start_Timer(Tmu_excute,1,0,2);
+	TMU_Start_Timer(Tmu_Fun,1,1,1);
 	
 	while(1)
     {

@@ -7,16 +7,18 @@
 
 #include "TMU.h"
 #include "Interrupts.h"
-#define Buffer_Size 3
+
+#define Buffer_Size 2
 
 
 void Tmu_excute(void);
 uint8_t u8_Is_Intialized=0;
-
+start_status start[Buffer_Size];
 uint8_t u8_FUN_index=0;
 Buffer_Request Buffer_Array[Buffer_Size];
-volatile uint16_t u16Excution_to_be_done=0;
-
+volatile uint8_t u8Excution_to_be_done=0;
+//static uint8_t u8_is_Started=0;
+uint8_t Start_status[Buffer_Size];
 ERROR_STATUS TMU_Init (const TMU_ConfigType * ConfigPtr )
 {uint8_t u8_channel_ID=ConfigPtr->u8_Timer_channel;
 uint8_t ret=E_OK;
@@ -24,6 +26,8 @@ uint8_t ret=E_OK;
 /*			Intializ the required timer identified by the user			 */
 /************************************************************************/
 u8_Is_Intialized++;
+
+if(ConfigPtr==NULL){ret=TMU_MODULE+NULL_PTR;}
 switch(u8_channel_ID)
 {
 	case TIMER_CH0:
@@ -32,10 +36,10 @@ switch(u8_channel_ID)
 				break;
 	case TIMER_CH2:
 		G_interrupt_Enable();
-		ret=Timer_Init(&Timer_Configuration2);
+		Timer_Init(&Timer_Configuration2);
 			break;
 	default:
-			ret=E_NOK;
+			ret+=E_NOK;
 			break;
 }	
 
@@ -56,7 +60,7 @@ switch(ConfigPtr->u8_resolution)
 				Timer_Start(TIMER_CH2,NUM_OF_TICKS_FOR_1_MS);
 					break;
 			default:
-				ret=E_NOK;
+				ret+=E_NOK;
 					break;
 		}					
 	break;
@@ -65,7 +69,7 @@ switch(ConfigPtr->u8_resolution)
 	
 	
 	default:
-	ret=E_NOK;
+	ret+=E_NOK;
 	break;
 
 }
@@ -92,7 +96,8 @@ if (u8_Is_Intialized==1)
 
 	u8_Is_Intialized=0;
 	
-}else{
+}else if(u8_Is_Intialized>1){ret+=MULTIPLE_INIT;}
+	else{
 	ret=E_NOK;
 	}
 
@@ -117,40 +122,58 @@ ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity
 		
 		
 	}
-	else{
-		ret=E_NOK;
+	else if(u8_Is_Intialized>1){ret+=MULTIPLE_INIT;}else{
+		ret+=NOT_INIT;
 	}
 
 	return ret;
 }
 
 ERROR_STATUS TMU_Main_Function(void)
-{	uint8_t ret=E_OK;
+
+{
+	uint8_t ret=E_OK;
 	uint8_t status_flag=0;
 	uint8_t preodic_status_flag=0;
 	uint16_t u16_Time_needed=0;
-	ptr_to_Fun Excuted=((Buffer_Array[u8_FUN_index]).Fuction_consumer);
-	
+	ptr_to_Fun Excuted;
+	/***********************************************************************/
+	/*					LOOP upon Buffer Request						*/
+	/*********************************************************************/
+for (u8_FUN_index=0;u8_FUN_index<Buffer_Size;u8_FUN_index++)
+{
+	Excuted=((Buffer_Array[u8_FUN_index]).Fuction_consumer);
 	u16_Time_needed =(Buffer_Array[u8_FUN_index]).u16_time_delay;
 	status_flag =(Buffer_Array[u8_FUN_index]).u8_flag_is_stopped;
 	preodic_status_flag=(Buffer_Array[u8_FUN_index]).preodic;
 
-
 /****************************************************************/
 /* check if the event is stopped ... do nothing*/
-if(status_flag==1){ret=E_OK;}
-else{
+		if(status_flag==1){ret=E_OK;}
+		
+	else{
 	/***************************************************************/
 	/*if the timer started .. and condition met excute the consumer*/
 	/***************************************************************/
+		if (u8Excution_to_be_done==1)
+			{
+	/********************************************/
+	/*Count up when flag is set**/
+	((Buffer_Array[u8_FUN_index]).u16_Counter)++;
+	/*make the flag down*/
+	u8Excution_to_be_done=0;
+			}
+
 /*	u16Excution_to_be_done=100;  ISR*/
-	if(u16_Time_needed == u16Excution_to_be_done )
+	if(((Buffer_Array[u8_FUN_index]).u16_time_delay) == ((Buffer_Array[u8_FUN_index]).u16_Counter) )
 	{
 		Excuted();
 	/******************************************/
 	/*Make it zero so that it will work the next time at the required time (to stop it of ovf)*/
-		u16Excution_to_be_done=0;
-	}
+		(Buffer_Array[u8_FUN_index]).u16_Counter=0;
+		
+	}		
+		
 	/*********************************************************/
 	/* if not preodic increment the index after excuteing	*/
 	/*********************************************************/
@@ -161,10 +184,12 @@ else{
 		*/
 		status_flag=1;	
 		u8_FUN_index++;
-	}
-}
-return ret;
+			}
 
+		}		
+	}
+	
+return ret;
 
 }
 
@@ -184,7 +209,7 @@ void Tmu_excute(void){DIO_Toggle(GPIOB,BIT4);}
 
 
 void timer_interrupt(void){
-	u16Excution_to_be_done+=1;
-	
-	Timer_Start(TIMER_CH0,14);
+	u8Excution_to_be_done=1;
+	/*As Timer Start will is ovf based implemented we need t restarted it at interrupt*/
+	Timer_Start(TIMER_CH0,NUM_OF_TICKS_FOR_1_MS);
 }

@@ -4,7 +4,7 @@
  * Created: 17/02/2020 02:20:28 م
  *  Author: mo
  */
-
+#include "Error_Report.h"
 #include "DIO.h"
 #include "DIO_config.h"
 /*
@@ -16,14 +16,20 @@
 */
 
 ERROR_STATUS DIO_init (DIO_Cfg_s *DIO_info)
-{	uint8_t RET=0;
+{	
+	uint8_t RET=0;
+	if (DIO_info== NULL)
+	{
+		RET=NULL_PTR+DIO_MODULE;
+		
+	}else{
 		switch(DIO_info->dir)
 			{	
 		case INPUT:
 		     	switch(DIO_info ->GPIO)
 		 		{
 					case GPIOA:
-						PORTA_DIR &=(~(DIO_info->pins))	;
+					PORTA_DIR &=(~(DIO_info->pins))	;
 					break;
 					case GPIOB:
 					PORTB_DIR &=(~(DIO_info->pins))	;
@@ -62,6 +68,8 @@ ERROR_STATUS DIO_init (DIO_Cfg_s *DIO_info)
 			default:
 			RET=E_NOK;
 	}
+	
+}	
 return RET;
 }
 

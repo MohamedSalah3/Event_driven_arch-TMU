@@ -8,7 +8,7 @@
  /*INCLUDES*/
 #include "Timer.h"
 #include "Timer_Config.h"
-
+#include "Error_Report.h"
 /************************************************************************/
 /*		         TIMER FUNCTIONS' IMPLEMENTATION		        */
 /************************************************************************/
@@ -23,8 +23,12 @@
  static uint8_t prescaler_value=0;
  
 ERROR_STATUS Timer_Init(Timer_cfg_s* Timer_cfg)
-{
+{uint8_t Ret=E_OK;
 prescaler_value=Timer_cfg->Timer_Prescaler;
+if (Timer_cfg==NULL)
+{
+	Ret=TIMER_MODULE+NULL_PTR;
+}
 switch (Timer_cfg->Timer_CH_NO) {
 /*************************************************************************/
 /*                             TIMER 0                                   */
@@ -53,7 +57,8 @@ switch (Timer_cfg->Timer_CH_NO) {
                                     break;
                                   }
                                   default :
-                                  return E_NOK;
+                                  Ret+=E_NOK;
+								  break;
                           }
 
                           break;
@@ -82,7 +87,7 @@ switch (Timer_cfg->Timer_CH_NO) {
                                               break;
 
                                           default :
-                                          return E_NOK;
+                                          Ret+=E_NOK;
 										  break;
 										}
                                     break;
@@ -115,14 +120,17 @@ switch (Timer_cfg->Timer_CH_NO) {
                                                     break;
                                                   }
                                                   default:
-                                                  return E_NOK;
+                                                  Ret+=E_NOK;
+												  break;
                                                 }
                                       break;
                                       }
                                       default:
-                                      return E_NOK;
+                                      Ret+=E_NOK;
+									  break;
                                     }
-                                    return E_OK;
+                                    Ret+=E_OK;
+									break;
                                   }
                                 }
 /*************************************************************************/
@@ -156,7 +164,8 @@ switch (Timer_cfg->Timer_CH_NO) {
                 break;
               }
               default :
-              return E_NOK;
+              Ret+=E_NOK;
+			  break;
             }
         break;
       }
@@ -183,7 +192,8 @@ switch (Timer_cfg->Timer_CH_NO) {
                 break;
               }
               default:
-              return E_NOK;
+              Ret+=E_NOK;
+			  break;
             }
         break;
       }
@@ -209,15 +219,18 @@ switch (Timer_cfg->Timer_CH_NO) {
                 break;
               }
               default :
-              return E_NOK;
+              Ret+=E_NOK;
+			  break;
             }
       break;
       }
       default :
-      return E_NOK;
-    }
+      Ret+=E_NOK;
+    break;
+	}
 
-  return E_OK;
+  Ret+=E_OK;
+  break;
   }
   /*************************************************************************/
   /*                             TIMER 2                                   */
@@ -243,7 +256,8 @@ TCCR2 |=T2_NORMAL_MODE_CONFIG;
                 break;
               }
               default :
-              return E_NOK;
+              Ret+=E_NOK;
+			  break;
             }
         break;
       }
@@ -283,13 +297,15 @@ TCCR2 |=T2_NORMAL_MODE_CONFIG;
                       }
 
               default :
-              return E_NOK;
+              Ret+=E_NOK;
+			  break;
             }
         break;
             }
             }
   default:
-  return E_NOK;
+  Ret+=E_NOK;
+  break;
 }
 
 
@@ -298,6 +314,7 @@ TCCR2 |=T2_NORMAL_MODE_CONFIG;
  }
 
 }
+return Ret;
 }
 /*
  * Input:

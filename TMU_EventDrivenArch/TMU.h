@@ -11,6 +11,7 @@
 #include "TMU_Config.h"
 #include "Timer.h"
 #include "DIO.h"
+#include "Error_Report.h"
 typedef void (*ptr_to_Fun) (void);
 
 
@@ -59,6 +60,11 @@ void Tmu_Fun(void);
 void Tmu_For(void);
 void Tmu_excute(void);
 
+typedef struct start_status
+{	uint8_t u8Started;
+	uint8_t function_Index;
+}start_status;
+
 typedef struct Buffer_Request
 {	/*function that the main function should excute*/
 	ptr_to_Fun Fuction_consumer;
@@ -68,7 +74,9 @@ typedef struct Buffer_Request
 	uint16_t u16_time_delay;
 	/*if one shot ==0 if preodic ==1 */
 	uint8_t preodic;
-	
+	/*Counter to make the prober condition for every delay*/
+	uint16_t u16_Counter;
 }Buffer_Request;
+
 
 #endif /* TMU_H_ */
