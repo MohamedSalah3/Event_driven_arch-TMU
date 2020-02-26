@@ -56,9 +56,9 @@ typedef struct DIO_Cfg_s
 	uint8_t dir;
 }DIO_Cfg_s;
 
-
+extern DIO_Cfg_s Dio_configurationA;
 extern DIO_Cfg_s Dio_configurationB;
-
+extern DIO_Cfg_s Dio_configurationC;
 #define E_OK 0
 #define E_NOK 1
 typedef uint8_t ERROR_STATUS;
