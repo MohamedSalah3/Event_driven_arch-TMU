@@ -80,9 +80,9 @@ typedef struct Timer_cfg_s
 #define		TIMER_PRESCALER_256				6
 #define		TIMER_PRESCALER_1024			7
 /***********************************************/
-#define TIMER0_PRESCALER_1024_CONFIG		0x05
-#define	TIMER0_PRESCALER_256_CONFIG		0x04
-#define TIMER0_PRESCALER_64_CONFIG   0x03
+#define TIMER0_PRESCALER_1024_CONFIG		5
+#define	TIMER0_PRESCALER_256_CONFIG		4
+#define TIMER0_PRESCALER_64_CONFIG   3
 #define TIMER0_PRESCALER_8_CONFIG   0x02
 
 /***********************************************/

@@ -54,10 +54,11 @@ switch(ConfigPtr->u8_resolution)
 		switch(u8_channel_ID)
 		{
 			case TIMER_CH0 :
-				Timer_Start(TIMER_CH0,NUM_OF_TICKS_FOR_1_MS);
+		Timer_Start(TIMER_CH0,250);
+					//TCNT0=5;
 					break;
 			case TIMER_CH2 :
-				Timer_Start(TIMER_CH2,NUM_OF_TICKS_FOR_1_MS);
+				Timer_Start(TIMER_CH2,14);
 					break;
 			default:
 				ret+=E_NOK;
@@ -113,7 +114,7 @@ ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity
 	and make sure this function must not be excuted unless Init happened and De_init not happened
 	*/
 	if(u8_Is_Intialized == 1)
-	{
+	{u16_Time_delay*=4;
 		
 		(Buffer_Array[u8_function_index]).Fuction_consumer=Function_Consumer;
 		(Buffer_Array[u8_function_index]).preodic=u8_Preodicity;
@@ -130,8 +131,9 @@ ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity
 }
 
 ERROR_STATUS TMU_Main_Function(void)
-
 {
+	
+	
 	uint8_t ret=E_OK;
 	uint8_t status_flag=0;
 	uint8_t preodic_status_flag=0;
@@ -190,7 +192,9 @@ for (u8_FUN_index=0;u8_FUN_index<Buffer_Size;u8_FUN_index++)
 	}
 	
 return ret;
-
+	
+	
+return ret;
 }
 
 
@@ -210,6 +214,5 @@ void Tmu_excute(void){DIO_Toggle(GPIOB,BIT4);}
 
 void timer_interrupt(void){
 	u8Excution_to_be_done=1;
-	/*As Timer Start will is ovf based implemented we need t restarted it at interrupt*/
-	Timer_Start(TIMER_CH0,NUM_OF_TICKS_FOR_1_MS);
+	DIO_Toggle(GPIOA,BIT4);
 }

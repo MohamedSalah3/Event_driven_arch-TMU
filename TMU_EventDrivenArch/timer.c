@@ -329,7 +329,8 @@ return Ret;
 ERROR_STATUS Timer_Start(uint8_t Timer_CH_NO, uint16_t Timer_Count){
 uint8_t Ret;
 switch (Timer_CH_NO) {
-case TIMER_CH0:{/***********************************************************************************************************************/
+case TIMER_CH0:{
+/***********************************************************************************************************************/
 switch(prescaler_value){
 case TIMER_PRESCALER_NO :{
 if(Timer_Count < MAX0){
