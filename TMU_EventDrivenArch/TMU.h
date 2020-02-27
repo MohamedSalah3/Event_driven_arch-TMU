@@ -68,7 +68,7 @@ typedef struct start_status
 typedef struct Buffer_Request
 {	/*function that the main function should excute*/
 	ptr_to_Fun Fuction_consumer;
-	/*	when TMU_STop called this falg == 1 */
+	/*	when TMU_STop called this falg == 0 */
 	uint8_t u8_flag_is_stopped;
 	/*Time needed that the dispatcher should make a delay upon it*/
 	uint16_t u16_time_delay;

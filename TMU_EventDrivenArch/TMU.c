@@ -8,9 +8,7 @@
 #include "TMU.h"
 #include "Interrupts.h"
 
-#define Buffer_Size 2
-
-
+#define Buffer_Size 3
 void Tmu_excute(void);
 uint8_t u8_Is_Intialized=0;
 start_status start[Buffer_Size];
@@ -76,6 +74,7 @@ switch(ConfigPtr->u8_resolution)
 }
 
 
+
 /****************************************************************************/
 /*      Deal with Errors  to be returned									*/
 /***************************************************************************/
@@ -114,12 +113,13 @@ ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity
 	and make sure this function must not be excuted unless Init happened and De_init not happened
 	*/
 	if(u8_Is_Intialized == 1)
-	{u16_Time_delay*=4;
+	{
+		
 		
 		(Buffer_Array[u8_function_index]).Fuction_consumer=Function_Consumer;
 		(Buffer_Array[u8_function_index]).preodic=u8_Preodicity;
 		(Buffer_Array[u8_function_index]).u16_time_delay=u16_Time_delay;
-		(Buffer_Array[u8_function_index]).u8_flag_is_stopped=0;
+		(Buffer_Array[u8_function_index]).u8_flag_is_stopped=1;
 		
 		
 	}
@@ -131,45 +131,42 @@ ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity
 }
 
 ERROR_STATUS TMU_Main_Function(void)
-{
-	
-	
-	uint8_t ret=E_OK;
-	uint8_t status_flag=0;
+{	uint8_t ret=E_OK;
+	/*uint8_t status_flag=0;
 	uint8_t preodic_status_flag=0;
 	uint16_t u16_Time_needed=0;
 	ptr_to_Fun Excuted;
-	/***********************************************************************/
+	*//***********************************************************************/
 	/*					LOOP upon Buffer Request						*/
 	/*********************************************************************/
-for (u8_FUN_index=0;u8_FUN_index<Buffer_Size;u8_FUN_index++)
-{
+if (u8Excution_to_be_done==1)
+{	u8Excution_to_be_done=0;
+
+		for (u8_FUN_index=0;u8_FUN_index<3;u8_FUN_index++)
+			{/*
 	Excuted=((Buffer_Array[u8_FUN_index]).Fuction_consumer);
 	u16_Time_needed =(Buffer_Array[u8_FUN_index]).u16_time_delay;
 	status_flag =(Buffer_Array[u8_FUN_index]).u8_flag_is_stopped;
 	preodic_status_flag=(Buffer_Array[u8_FUN_index]).preodic;
-
+*/
 /****************************************************************/
 /* check if the event is stopped ... do nothing*/
-		if(status_flag==1){ret=E_OK;}
-		
-	else{
+		if((Buffer_Array[u8_FUN_index]).u8_flag_is_stopped==0){ret=E_OK;}
+		else{
 	/***************************************************************/
 	/*if the timer started .. and condition met excute the consumer*/
 	/***************************************************************/
-		if (u8Excution_to_be_done==1)
-			{
+		
 	/********************************************/
 	/*Count up when flag is set**/
 	((Buffer_Array[u8_FUN_index]).u16_Counter)++;
 	/*make the flag down*/
-	u8Excution_to_be_done=0;
-			}
-
+							
+			
 /*	u16Excution_to_be_done=100;  ISR*/
 	if(((Buffer_Array[u8_FUN_index]).u16_time_delay) == ((Buffer_Array[u8_FUN_index]).u16_Counter) )
 	{
-		Excuted();
+		((Buffer_Array[u8_FUN_index]).Fuction_consumer)();
 	/******************************************/
 	/*Make it zero so that it will work the next time at the required time (to stop it of ovf)*/
 		(Buffer_Array[u8_FUN_index]).u16_Counter=0;
@@ -180,20 +177,18 @@ for (u8_FUN_index=0;u8_FUN_index<Buffer_Size;u8_FUN_index++)
 	/* if not preodic increment the index after excuteing	*/
 	/*********************************************************/
 
-	if(preodic_status_flag==0){
+	if((Buffer_Array[u8_FUN_index]).preodic==0)
+	{
 		/*to make it see the next event in the next time
 		Also Status_flag =1 so that this function will be stopped
 		*/
-		status_flag=1;	
-		u8_FUN_index++;
-			}
+		(Buffer_Array[u8_FUN_index]).u8_flag_is_stopped=0;	
+	}
+			
 
 		}		
 	}
-	
-return ret;
-	
-	
+}	
 return ret;
 }
 
@@ -204,15 +199,16 @@ void TMU_Stop_Timer(uint8_t u8_function_index)
 	/***************************************************/
 	/*     Set the stop flag							*/
 	/***************************************************/
-	(Buffer_Array[u8_function_index]).u8_flag_is_stopped=1;
+	(Buffer_Array[u8_function_index]).u8_flag_is_stopped=0;
 }
 
 void Tmu_Fun(void){DIO_Toggle(GPIOC,BIT4);}
-void Tmu_For(void){DIO_Toggle(GPIOA,BIT4);}
+void Tmu_For(void){DIO_Toggle(GPIOD,BIT4);}
 void Tmu_excute(void){DIO_Toggle(GPIOB,BIT4);}
 
 
 void timer_interrupt(void){
 	u8Excution_to_be_done=1;
 	DIO_Toggle(GPIOA,BIT4);
+	
 }
