@@ -3,7 +3,7 @@
  *
  * Created: 24/02/2020 01:22:47 م
  *  Author: mo
- */ 
+ */
 
 
 #ifndef TMU_H_
@@ -35,11 +35,11 @@ ERROR_STATUS TMU_DeInit( void );
 /*2		make sure this function is not called unless timer was intialized before by  TMU_INIT	*/
 /************************************************************************************************/
 
-void TMU_Stop_Timer(uint8_t u8_function_index);
+ERROR_STATUS TMU_Stop_Timer(uint8_t u8_function_index);
 /***************************************************/
 /*     Set the stop flag							*/
 /***************************************************/
-	
+
 ERROR_STATUS TMU_Start_Timer(ptr_to_Fun Function_Consumer,uint8_t  u8_Preodicity,uint8_t u8_function_index,uint16_t u16_Time_delay);
 /*
 	this enables interrupt and start the timer with the required configurations

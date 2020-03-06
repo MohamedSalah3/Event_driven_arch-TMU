@@ -3,13 +3,16 @@
  *
  * Created: 24/02/2020 01:20:36 م
  *  Author: mo
- */ 
+ */
 
+ #include "MCAL\Timer\Timer.h"
+ #include "Service\TMU\TMU.h"
 
-#include "Timer.h"
-#include "TMU.h"
+ void Tmu_Fun(void){DIO_Toggle(GPIOC,BIT4);}
+ void Tmu_For(void){DIO_Toggle(GPIOD,BIT4);}
+ void Tmu_excute(void){DIO_Toggle(GPIOB,BIT4);}
 int main(void)
-{	
+{
 	DIO_init(&Dio_configurationB);
 	DIO_init(&Dio_configurationC);
 	DIO_init(&Dio_configurationA);
@@ -19,7 +22,7 @@ int main(void)
 	TMU_Start_Timer(Tmu_excute,1,0,3);
 	TMU_Start_Timer(Tmu_Fun,1,1,3);
 	TMU_Start_Timer(Tmu_For,1,2,3);
-	
+
 	while(1)
     {
 		TMU_Main_Function();

@@ -5,7 +5,7 @@
  *  Author: mo
  */
  /*INCLUDES**/
-#include "TMU.h"
+//#include "TMU.h"
 
 Timer_cfg_s Timer_Configuration2 =
 {
@@ -15,7 +15,7 @@ TIMER_INTERRUPT_MODE,
 TIMER_PRESCALER_1024,/*it will not start untill we call timer start function*/
 };
 Timer_cfg_s Timer_Configuration0  =
-{ 
+{
 	TIMER_CH0,
 	TIMER_MODE,
 	TIMER_INTERRUPT_MODE,

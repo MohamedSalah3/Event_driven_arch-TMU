@@ -67,60 +67,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DIO.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO_config.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Error_Report.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Interrupts.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Interrupts.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="registers.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="std_types.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Timer_Config.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Timer_Config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TMU.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TMU.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TMU_Config.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="TMU_Config.h">
-      <SubType>compile</SubType>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder1\" />
+    <Folder Include="Serviec" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

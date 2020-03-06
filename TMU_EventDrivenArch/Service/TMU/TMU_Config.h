@@ -8,8 +8,8 @@
 
 #ifndef TMU_CONFIG_H_
 #define TMU_CONFIG_H_
-#include "std_types.h"
-#include "Timer.h"
+#include "../../infrastructure/std_types.h"
+#include "../../MCAL/Timer/Timer.h"
 
 /******************************************************************************/
 typedef struct TMU_ConfigType{

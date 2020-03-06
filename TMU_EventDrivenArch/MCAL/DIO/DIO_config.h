@@ -3,7 +3,7 @@
  *
  * Created: 17/02/2020 03:55:53 م
  *  Author: mo
- */ 
+ */
 
 
 #ifndef DIO_CONFIG_H_
@@ -11,8 +11,9 @@
 
 
 
-#include "std_types.h"
-#include "registers.h"
+#include "../../infrastructure/registers.h"
+#include "../../infrastructure/std_types.h"
+
 /************************************************************************/
 /*						PINS/BITS defines                               */
 /************************************************************************/
